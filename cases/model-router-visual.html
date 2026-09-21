@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Model router with Jev — Jev UX/UI Reference</title>
+  <meta name="description" content="依頼ごとに実行モデルを選ぶルーターUI。Webデモ／モデルルーティング。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">Webデモ／モデルルーティング</p>
+    <h1>Model router with Jev</h1>
+    <p class="case-title">依頼ごとに実行モデルを選ぶルーターUI</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>モデル選択を隠れた自動処理にせず、確率分布として可視化するため、ルーター挙動を理解・監査できる。</p>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/model-router-ephraim-start.jpg"><img src="../assets/images/display/model-router-ephraim-start.webp" alt="動画の開始フレーム。左に会話欄、右に「Jev's read」として依頼の性質を示す複数の確率バーと、その下に候補モデルの一覧があり、一つが選択されている" width="1600" height="1200" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 3</span><span class="sep">・</span>動画の開始フレーム</figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/model-router-ephraim-middle.jpg"><img src="../assets/images/display/model-router-ephraim-middle.webp" alt="動画の途中フレーム。数学の証明を求める依頼に長い回答が生成され、右側の確率バーと選択モデルが先ほどとは別のものに変わっている" width="1600" height="1200" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 3</span><span class="sep">・</span>動画の途中フレーム</figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/model-router-ephraim-end.jpg"><img src="../assets/images/display/model-router-ephraim-end.webp" alt="動画の終盤フレーム。会話欄は入力待ちに戻り、右側の確率バーは薄い表示になっている。候補一覧では一つのモデルが強調されている" width="1600" height="1200" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">3 / 3</span><span class="sep">・</span>動画の終盤フレーム</figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>入力、判断結果の表現、判断後にユーザーまたはシステムが取る操作</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>ユーザーの依頼文と、利用可能なモデル候補。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>依頼に最も適したモデルをChoiceで選び、各候補の確率を返す。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>選択モデル、候補別確率、実行結果を同一画面で表示する。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">出典に明記</span></dd>
+          <dd class="primitive-reason">原文は「モデルをChoiceで選び、各候補の確率を返す」と明記している。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>適合度が高い。ただし「最適」の基準（品質、価格、速度、契約枠）が画面とプロンプトで一致している必要がある。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">公開投稿と動画を確認。実装コードは未確認。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">上記出典で見える画面、投稿・READMEに明記された用途</span></li>
+        <li><span class="term">未検証</span><span class="desc">実際の精度、速度、継続利用時の挙動、公開コードをローカル実行した結果</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">ソースで質問型やプロンプトが公開されていない箇所</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/ephraimduncan/status/2100454070536351824" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/ephraimduncan/status/2100454070536351824" rel="noopener noreferrer">Model router with Jev<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="rail-guide">
+        <h2 id="rail-guide">設計入門の関連箇所</h2>
+        <ul>
+        <li><a href="../basics.html#s3-1">Choice：有限候補から一つを選ぶ</a></li>
+        <li><a href="../basics.html#s6-4">パターンD：Probability Inspector</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="model-router-cli.html"><span class="pager-dir">前の事例</span><span class="pager-name">Agent Router</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="onchain-trading.html"><span class="pager-dir">次の事例</span><span class="pager-name">Jev Trader</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

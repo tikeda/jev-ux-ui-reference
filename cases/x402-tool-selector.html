@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>x402 endpoint/tool selector — Jev UX/UI Reference</title>
+  <meta name="description" content="コーディングエージェントの依頼に合わせて、有料のAPIの中から呼び出す先を選び、その経過を端末の下端に1行ずつ出すデモ。ツール選択／x402エンドポイント。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ツール選択／x402エンドポイント</p>
+    <h1>x402 endpoint/tool selector</h1>
+    <p class="case-title">コーディングエージェントの依頼に合わせて、有料のAPIの中から呼び出す先を選び、その経過を端末の下端に1行ずつ出すデモ</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>選択は、エージェントの作業の途中で、利用者の操作なしに行われる。利用者に見えるのは、端末の下端の経過の行である。</p>
+<ul>
+<li>経過の行が、選んでいる、呼んでいる、済んだ、の3段階を言葉で示す。どの呼び出し先が選ばれたかは、アドレスとして読める。</li>
+<li>要求の本文が同じ行に出るので、何を問い合わせたかを後から追える。</li>
+<li>画面には「auto mode on」と出ており、エージェントは確認なしで進む設定になっている。x402は呼び出しごとに支払いが生じる仕組みだが、いくらまで使ってよいか、支払いの前に承認があるか、呼び出しごとの金額がどこに出るかは、動画からは分からない。お金が動く選択を、確認なしの流れに置いている点が、この事例の主な論点である。</li>
+<li>選ばれた呼び出し先が合わなかったときの、代わりの経路や、取り消しの手段も、示されていない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/x402-tool-selector-1.jpg"><img src="../assets/images/display/x402-tool-selector-1.webp" alt="暗い端末の画面。暗号資産について調べる依頼文の下に「Calling x402 2 times…」とあり、下端に「x402 · search: selecting service」の行が2つと「auto mode on」が表示されている" width="1600" height="367" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/x402-tool-selector-2.jpg"><img src="../assets/images/display/x402-tool-selector-2.webp" alt="同じ端末の画面。下端の2行が「x402 · search: fulfilled api.exa.ai/search」に変わり、それぞれの検索の問いのJSONが続いている" width="1600" height="367" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>依頼文「can you research BTC and ETH for someone new to crypto」、「Calling x402 2 times…」、下端の「x402 · search: selecting service」（1枚目）と「x402 · search: fulfilled api.exa.ai/search · …」（2枚目）、「auto mode on」</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>エージェントがx402のツールに渡す要求。画面では、検索の問い（例：「Ethereum ETH overview 2026 price current market cap use cases」）が2件、並行して出ている。作者の説明では、あらかじめ選ばれた呼び出し先の一覧が、候補になる。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>作者の説明では、要求に合う呼び出し先をJevが選ぶ。画面の表示は「selecting service」だけで、候補、確率、Jevの表記は出ていない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>下端の行が、「selecting service」から、「calling api.exa.ai/search」、「fulfilled api.exa.ai/search」へと変わる。要求の本文（JSON）も同じ行に出る。その後、エージェントが結果を使って説明を書く。動画の後半では、別のアドレス（ページの取得）も呼び出し先として出てくる。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">作者は呼び出し先をJevが選ぶと述べるが、画面に出るのは「selecting service」の経過だけで、質問型もJevの表記も出ていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>要求を、限られた呼び出し先の1つに素早く当てはめる判断は、エージェントの作業を待たせない点でJevに合う。ただし、この動画では、Jevの出力が画面に出ておらず、どこまでがJevの判断かは作者の説明に頼っている。支払いを伴う選択では、速さより先に、範囲と承認の設計が要る。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">根拠は限定的で、調査監査の評価はB（追加の確認が要る段階）。作者による投稿動画から静止画を確認。動画は端末の録画だけで、ソースは公開されていない。画面に出るのは「selecting service」という経過の表示と、呼び出し先のアドレスで、Jevの表記、候補の一覧、確率は出ていない。選択にJevを使うというのは作者の説明である。支払いの範囲、利用者の承認、取り消し、代わりの経路は、動画では確かめられない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見える端末の表示（依頼文、「Calling x402 2 times…」、経過の行の変化、呼び出し先のアドレスと要求の本文、「auto mode on」）</span></li>
+        <li><span class="term">未検証</span><span class="desc">Jevへの入力と出力、呼び出し先の候補と確率、支払いの金額と範囲、利用者の承認、取り消しと代わりの経路、合わない呼び出し先が選ばれたときの扱い、ソースコード</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型は不明として扱う。候補から1つを選ぶ判断のように見えるが、画面に質問型もJevの表記も出ていない</span></li>
+        <li><span class="term">引用</span><span class="desc">動画から必要な範囲の静止画を切り出して引用（端末の上端の表示を除いた）。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/trytenjin/status/2101817410307137937" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/trytenjin/status/2101817410307137937" rel="noopener noreferrer">X 公開投稿：x402 endpoint/tool selector（@trytenjin）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="netflix-group-movie-picker.html"><span class="pager-dir">前の事例</span><span class="pager-name">Netflix group movie picker</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="ai-resume-evaluator.html"><span class="pager-dir">次の事例</span><span class="pager-name">AI Resume Evaluator with JEV</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

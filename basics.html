@@ -1,0 +1,962 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>アプリケーションデザイナーのためのJev UX・UI設計入門 — Jev UX/UI Reference</title>
+  <meta name="description" content="Jevをチャットの小型版ではなく、アプリケーションの途中に意味的な判断を埋め込む部品として設計するための入門。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="index.html">事例解説</a>
+    <a href="catalog.html">全候補カタログ</a>
+    <a href="basics.html" aria-current="page">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="entry entry--guide">
+  <header class="entry-head">
+    <p class="hero-eyebrow">設計入門</p>
+    <h1>アプリケーションデザイナーのためのJev UX・UI設計入門</h1>
+  </header>
+
+  <aside class="entry-toc-wrap">
+    <nav class="entry-toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">目次</h2>
+      <ul>
+        <li><a href="#s1">まず一言でいうと</a></li>
+        <li><a href="#s2">1. Jevへ渡すもの：StateとQuestion</a></li>
+        <li><a href="#s3">2. 三つの判断型をUIの部品として理解する</a></li>
+        <li><a href="#s4">3. 「速い」がUXへ与える意味</a></li>
+        <li><a href="#s5">4. 多問並列がつくる新しい画面</a></li>
+        <li><a href="#s6">5. 判断結果をどうUIへ見せるか</a></li>
+        <li><a href="#s7">6. 確率は「見せる情報」より「挙動を設計する材料」</a></li>
+        <li><a href="#s8">7. Jev、コード、LLM、人間の役割分担</a></li>
+        <li><a href="#s9">8. アプリケーションデザイナーの設計手順</a></li>
+        <li><a href="#s10">9. Decision Contract Canvas</a></li>
+        <li><a href="#s11">10. 避けるべき使い方</a></li>
+        <li><a href="#s12">11. デザインレビュー用チェックリスト</a></li>
+        <li><a href="#s13">12. 現時点での仮説</a></li>
+        <li><a href="#sources">出典</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <article>
+    <details class="toc-mobile">
+      <summary><span class="toc-mobile-label">目次</span><svg class="toc-mobile-chevron" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+      <ul>
+        <li><a href="#s1">まず一言でいうと</a></li>
+        <li><a href="#s2">1. Jevへ渡すもの：StateとQuestion</a></li>
+        <li><a href="#s3">2. 三つの判断型をUIの部品として理解する</a></li>
+        <li><a href="#s4">3. 「速い」がUXへ与える意味</a></li>
+        <li><a href="#s5">4. 多問並列がつくる新しい画面</a></li>
+        <li><a href="#s6">5. 判断結果をどうUIへ見せるか</a></li>
+        <li><a href="#s7">6. 確率は「見せる情報」より「挙動を設計する材料」</a></li>
+        <li><a href="#s8">7. Jev、コード、LLM、人間の役割分担</a></li>
+        <li><a href="#s9">8. アプリケーションデザイナーの設計手順</a></li>
+        <li><a href="#s10">9. Decision Contract Canvas</a></li>
+        <li><a href="#s11">10. 避けるべき使い方</a></li>
+        <li><a href="#s12">11. デザインレビュー用チェックリスト</a></li>
+        <li><a href="#s13">12. 現時点での仮説</a></li>
+        <li><a href="#sources">出典</a></li>
+      </ul>
+    </details>
+
+    <div class="guide-preamble">
+<aside class="callout callout--summary">
+<p class="callout-label">要約</p>
+<p>JevをチャットAIの小型版として扱わず、<strong>アプリケーションの途中に意味的な判断を埋め込むための部品</strong>として設計するための入門。公式仕様と公開事例をもとにした暫定版であり、池田自身の実制作で確定した原則ではない。</p>
+</aside>
+<p>本稿が参照する現行の事例解説は、公開事例80件を対象としている。ただし、公開リポジトリまで確認したものは15件で、65件は投稿・動画を根拠とする。Choice / Score / Noulの対応も、画面や資料で確認できたものだけでなく、挙動からの推定を含む。事例数の多さは、精度・有効性・出荷実績の証明ではない。</p>
+
+    </div>
+
+<section aria-labelledby="s1">
+<h2 id="s1">まず一言でいうと</h2>
+<p>Jevは、文章を生成するAIではない。アプリケーションの現在状態と、あらかじめ型を決めた質問を渡すと、コードがそのまま利用できる判断と確率を返す。TypeSafeはこれを <code>state + typed questions → typed answers + probabilities</code> と説明している。<sup class="cite"><a href="#src-1" aria-label="出典1">1</a></sup></p>
+<p>Xでは「AIによる作文ではなくAIによる多肢選択」「2026年レベルの知能を持つswitch文」「実行時に定義できる型付き分類プリミティブ」といった捉え方が共有され始めている。<sup class="cite"><a href="#src-11" aria-label="出典11">11</a><a href="#src-12" aria-label="出典12">12</a><a href="#src-13" aria-label="出典13">13</a></sup></p>
+<p>アプリケーションデザイナーにとって重要なのは、モデルの内部構造より次の変化である。</p>
+<ul>
+<li>プロンプト欄と回答欄を作らなくてもAIを体験に組み込める</li>
+<li>AIの出力を文章ではなく、<strong>表示・並び順・遷移・許可・保留・実行候補</strong>へ直接変換できる</li>
+<li>一つの入力に対して多数の観点を同時に判定できる</li>
+<li>判断基準と後続動作を、人間が設計した型とコードの中に残せる</li>
+</ul>
+<figure class="flow-figure">
+  <ol class="flow flow--row" aria-label="Jevを介した判断の流れ">
+    <li class="flow-inputs">
+      <span class="flow-node"><span class="flow-title">アプリケーションの状態</span><span class="flow-sub">state</span></span>
+      <span class="flow-node"><span class="flow-title">型付き質問</span><span class="flow-sub">Choice / Score / Noul</span></span>
+    </li>
+    <li><span class="flow-node flow-node--jev"><span class="flow-title">Jev</span><span class="flow-sub">意味的な判断</span></span></li>
+    <li><span class="flow-node"><span class="flow-title">判断値・確率分布</span></span></li>
+    <li><span class="flow-node"><span class="flow-title">コード上のポリシー</span></span></li>
+    <li><span class="flow-node"><span class="flow-title">表示・並び替え・遷移・実行・確認</span></span></li>
+  </ol>
+  <figcaption>状態と型付き質問がJevへ入り、返った判断値をコード上のポリシーがUIの変化へ変換する。</figcaption>
+</figure>
+<p>Jevが体験全体を作るのではない。<strong>意味的に曖昧な部分だけを判断し、体験の構造と責任はアプリケーション側に残す</strong>。</p>
+</section>
+
+<section aria-labelledby="s2">
+<h2 id="s2">1. Jevへ渡すもの：StateとQuestion</h2>
+<h3 id="s2-1">Stateは「その瞬間にアプリが知っていること」</h3>
+<p><code>state</code>は、Jevに評価させる対象である。メッセージ、文書だけでなく、現在画面、ユーザーの目的、候補操作、過去状態、ポリシーなどを、文字列または構造化JSONとして渡せる。<sup class="cite"><a href="#src-5" aria-label="出典5">5</a></sup></p>
+<p>デザイナーはstateを単なるAPI入力ではなく、<strong>判断時点の知覚範囲</strong>として考える。</p>
+<div class="table-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>設計すること</th>
+<th>デザイナーが確認する問い</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>観測対象</td>
+<td>Jevには何が見えているか</td>
+</tr>
+<tr>
+<td>欠損</td>
+<td>本来必要なのに渡されていない情報は何か</td>
+</tr>
+<tr>
+<td>鮮度</td>
+<td>その状態はいつ取得されたか</td>
+</tr>
+<tr>
+<td>由来</td>
+<td>ユーザー入力、システム記録、推定値のどれか</td>
+</tr>
+<tr>
+<td>ノイズ</td>
+<td>判断と無関係な情報が混ざっていないか</td>
+</tr>
+<tr>
+<td>敵対性</td>
+<td>入力内の文章がモデルを誤誘導しないか</td>
+</tr>
+</tbody></table></div>
+<p>Jev 1.13はテキスト入力のみで、画像・音声・動画を直接理解しない。非テキスト情報はOCR、音声認識、アクセシビリティツリー、メタデータなどへ変換する必要がある。<sup class="cite"><a href="#src-8" aria-label="出典8">8</a></sup></p>
+<h3 id="s2-2">Questionは「アプリが必要とする判断の単位」</h3>
+<p>質問は、ユーザーがJevへ話しかける文ではない。<strong>アプリケーション設計者が、状態に対してどんな判断を必要とするかを定義したもの</strong>である。</p>
+<p>良い質問は、十分な文脈を与えられた専門家が数秒で判断できる程度に原子的である。複数の独立要因を含む総合判断は、別々の質問へ分解し、重みづけや条件分岐をコードで組み立てることが推奨されている。<sup class="cite"><a href="#src-1" aria-label="出典1">1</a><a href="#src-7" aria-label="出典7">7</a></sup></p>
+<p>悪い例：</p>
+<blockquote>
+<p>この問い合わせを分析して、最善の対応を決めてください。</p>
+</blockquote>
+<p>分解例：</p>
+<ul>
+<li>人間対応を明示的に求めているか</li>
+<li>以前にも問い合わせたと述べているか</li>
+<li>どの担当領域に該当するか</li>
+<li>問題の深刻度はどの段階か</li>
+</ul>
+<p>この分解は実装都合だけではない。<strong>どの観点を採用し、どの観点を採用しないかというプロダクト判断そのもの</strong>である。</p>
+</section>
+
+<section aria-labelledby="s3">
+<h2 id="s3">2. 三つの判断型をUIの部品として理解する</h2>
+<h3 id="s3-1">Choice：有限候補から一つを選ぶ</h3>
+<p>Choiceは、定義済みの候補から一つを選び、選択結果、全候補の確率分布、confidenceを返す。候補はA/Bだけではなく、最大255個まで定義できる。<sup class="cite"><a href="#src-2" aria-label="出典2">2</a></sup></p>
+<pre><code class="language-text">入力: 「PDF出力でクラッシュする」
+候補: billing / account / product_bug / other
+出力:
+  choice: product_bug
+  probabilities:
+    product_bug: 0.88
+    account: 0.07
+    billing: 0.03
+    other: 0.02
+  confidence: 0.84
+</code></pre>
+<p><strong>向いているUI</strong></p>
+<ul>
+<li>次の画面・担当・ツール・モデルのルーティング</li>
+<li>有限カテゴリのラベル付け</li>
+<li>候補アクションから次の操作を選ぶ</li>
+<li>既存コンテンツから表示対象を選ぶ</li>
+<li>複数案のうち、現在状態に最も合う案を選ぶ</li>
+</ul>
+<p><strong>UIへの写像</strong></p>
+<div class="table-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>出力の使い方</th>
+<th>UI例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1位だけ使う</td>
+<td>遷移先、担当、デフォルト選択</td>
+</tr>
+<tr>
+<td>上位候補を使う</td>
+<td>推奨候補、代替候補、コマンドパレット</td>
+</tr>
+<tr>
+<td>分布を見せる</td>
+<td>比較バー、判断インスペクター</td>
+</tr>
+<tr>
+<td>confidenceで分岐</td>
+<td>自動実行、確認付き実行、選択要求</td>
+</tr>
+</tbody></table></div>
+<aside class="callout callout--warning">
+<p class="callout-label">注意</p>
+<p><code>choice</code>は「正解」ではなく、定義した候補内で最も確率が高いもの。候補に正解がなければ、間違った候補でも型としては正しく返る。候補が網羅的でない場合は<code>other</code>や<code>none of the above</code>を用意する。<sup class="cite"><a href="#src-2" aria-label="出典2">2</a></sup></p>
+</aside>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/jev-mail-classifier.html"><img src="assets/images/thumbs/jev-mail-classifier-3.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Jev Mail Classifier</span><span class="ref-desc">メール分類ルールを設定するTUI</span></a></li>
+    <li><a href="cases/model-router-visual.html"><img src="assets/images/thumbs/model-router-ephraim-middle.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Model router with Jev</span><span class="ref-desc">依頼ごとに実行モデルを選ぶルーターUI</span></a></li>
+    <li><a href="cases/mac-app-support-routing.html"><img src="assets/images/thumbs/mac-app-malekoo-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Mac app support routing with Jev</span><span class="ref-desc">内蔵ドキュメントへ案内するMacアプリのサポートUI</span></a></li>
+  </ul>
+</aside>
+<h3 id="s3-2">Score：意味を定義した順序尺度上で評価する</h3>
+<p>Scoreは、低い方から高い方へ並ぶ2〜10段階の意味的なレベルを定義し、段階間を含むscore、各段階の確率、confidenceを返す。<sup class="cite"><a href="#src-3" aria-label="出典3">3</a></sup></p>
+<pre><code class="language-text">質問: この不具合はどの程度深刻か
+レベル:
+  0: 見た目だけの問題
+  1: 機能は壊れるが回避策がある
+  2: 回避策のない阻害要因
+出力:
+  score: 1.43
+  probabilities: {0: 0.00, 1: 0.57, 2: 0.43}
+  confidence: 0.35
+</code></pre>
+<p><strong>向いているUI</strong></p>
+<ul>
+<li>深刻度、関連性、明瞭さなどのルーブリック評価</li>
+<li>閾値による警告・優先順位・レビュー対象の選別</li>
+<li>複数観点の比較レーダーや監査画面</li>
+<li>同じ基準で多数の対象を評価するバッチUI</li>
+</ul>
+<p><strong>重要な注意</strong></p>
+<ul>
+<li>Scoreは、対象に内在する客観的な数値を測定するものではない</li>
+<li><code>1.43</code>を精密な実測値として見せない</li>
+<li>数学、カウント、日付比較など、コードで正確に計算できるものへ使わない</li>
+<li>総合点をJevに直接尋ねず、複数の独立尺度をコードで合成する</li>
+</ul>
+<p>Jev 1.13は数値精度や算術を苦手とし、Scoreを段階間の正確な量の復元に使わないよう公式にも注意がある。<sup class="cite"><a href="#src-9" aria-label="出典9">9</a></sup></p>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/jevmeter.html"><img src="assets/images/thumbs/jevmeter-2.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Jevmeter</span><span class="ref-desc">動画内発言をリアルタイム評価するメーターUI</span></a></li>
+  </ul>
+</aside>
+<h3 id="s3-3">Noul：命題がYesである確率を返す</h3>
+<p>NoulはYes/Noの命題を評価し、Yesである確率を0〜1で返す。0.99なら強いYes、0.02なら強いNo、0.5付近なら判断が割れている。ChoiceやScoreと異なり、別のconfidence値はない。<sup class="cite"><a href="#src-4" aria-label="出典4">4</a></sup></p>
+<pre><code class="language-text">質問: 顧客は人間の担当者を求めているか
+出力:
+  noul: 0.93
+</code></pre>
+<p><strong>向いているUI</strong></p>
+<ul>
+<li>フィルタ条件の該当度</li>
+<li>警告や要確認フラグ</li>
+<li>各要素の表示・非表示</li>
+<li>ポリシー条件のチェックリスト</li>
+<li>複数オブジェクトへの同一判定</li>
+</ul>
+<p><strong>Noulは強度スライダーではない</strong></p>
+<p>「この人はPythonにどれくらい詳しいか」をNoulで聞いた場合、中間値が中程度の経験を意味するとは限らない。単に「強い」という命題に対して情報が曖昧なだけかもしれない。程度を扱うなら、意味のある段階を定義したScoreを使う。<sup class="cite"><a href="#src-4" aria-label="出典4">4</a></sup></p>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/support-escalation-japanese.html"><img src="assets/images/thumbs/support-japanese-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Japanese customer support Jev test</span><span class="ref-desc">問い合わせ文からエスカレーション条件を判定する画面</span></a></li>
+  </ul>
+</aside>
+<h3 id="s3-4">選び方</h3>
+<div class="table-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>必要な判断</th>
+<th>型</th>
+<th>デザイナーの問い</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>どれか一つ</td>
+<td>Choice</td>
+<td>候補は有限か、相互に区別できるか</td>
+</tr>
+<tr>
+<td>どの程度</td>
+<td>Score</td>
+<td>各段階を言葉で定義できるか</td>
+</tr>
+<tr>
+<td>当てはまるか</td>
+<td>Noul</td>
+<td>Yesの境界を定義できるか</td>
+</tr>
+<tr>
+<td>正確な計算</td>
+<td>コード</td>
+<td>AIを使う必要があるか</td>
+</tr>
+<tr>
+<td>新しい文章・画像・コード</td>
+<td>LLM／生成モデル</td>
+<td>候補が事前定義できないのではないか</td>
+</tr>
+</tbody></table></div>
+</section>
+
+<section aria-labelledby="s4">
+<h2 id="s4">3. 「速い」がUXへ与える意味</h2>
+<p>TypeSafeはJevを、System One型の課題で同等クラスのLLMより40〜200倍高速になり得ると説明し、特定ベンチマークでは193.6倍という値を示している。ただしこれは課題、比較モデル、ネットワーク、候補数などに依存するベンダー測定値であり、製品の実測値ではない。<sup class="cite"><a href="#src-10" aria-label="出典10">10</a></sup></p>
+<p>デザイナーにとって重要なのは倍率ではなく、<strong>判断を配置できる時間スケールが変わること</strong>である。</p>
+<div class="table-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>従来の生成AI</th>
+<th>Jevで試せる時間スケール</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>送信して回答を待つ</td>
+<td>入力途中で表示が変わる</td>
+</tr>
+<tr>
+<td>一回の大きな分析</td>
+<td>多数の小さな判断が同時に付く</td>
+</tr>
+<tr>
+<td>完成した文章を読む</td>
+<td>並び順、強調、ラベルが即時更新される</td>
+</tr>
+<tr>
+<td>AI専用画面を開く</td>
+<td>既存操作の途中へ判断が溶け込む</td>
+</tr>
+<tr>
+<td>数秒〜数十秒のジョブ</td>
+<td>ブラウズ、ゲーム、音声、監視ループへ入る</td>
+</tr>
+</tbody></table></div>
+<p>公開事例では、ブラウザ操作、ラベル付け、絞り込みに加え、大量項目のバッチ監査、表やSQLへの意味的な条件の追加、実行前の確認ゲート、ライブコメントやゲーム状態の連続判定まで試されている。ただし、表示された遅延や費用の多くは作者のデモ値であり、製品環境での再現値ではない。<sup class="cite"><a href="#src-14" aria-label="出典14">14</a></sup> <a href="index.html#cases">事例解説</a></p>
+<h3 id="s4-1">速いUIで新たに必要になる設計</h3>
+<ul>
+<li><strong>デバウンス</strong>：入力途中の未完成な語で毎回画面を変えない</li>
+<li><strong>ヒステリシス</strong>：閾値付近で表示が点滅しないよう、入る閾値と戻る閾値を分ける</li>
+<li><strong>更新の連続性</strong>：並び替え時に対象を見失わせない</li>
+<li><strong>判断時点の表示</strong>：どの入力・状態に対する結果かを追えるようにする</li>
+<li><strong>中断可能性</strong>：連続自動実行をいつでも止められる</li>
+<li><strong>レートと費用の制御</strong>：高速だからといって全イベントで呼び出さない</li>
+</ul>
+<p>速度は、待ち時間を短くするだけではない。<strong>AIを「回答者」から、インタラクション中に連続して働く判断レイヤーへ変える</strong>。</p>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/icon-filter-designer.html"><img src="assets/images/thumbs/icon-filter-designer-start.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">When a designer gets access to Jev</span><span class="ref-desc">自然言語でアイコン集合を絞り込むUI</span></a></li>
+    <li><a href="cases/cubox-archive-validation.html"><img src="assets/images/thumbs/cubox-archive-validation-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Cubox archive validation</span><span class="ref-desc">「あとで読む」に溜めた約3万件の分類を一括で点検し、そのまま・移す・置く・見直す、の4つに振り分けた処理の再生表示</span></a></li>
+    <li><a href="cases/semantic-jev.html"><img src="assets/images/thumbs/semantic-jev-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Semantic-Jev</span><span class="ref-desc">自然文の質問をクエリ案に変え、実行の前に確認を挟み、対応できない質問は断るCLI</span></a></li>
+  </ul>
+</aside>
+</section>
+
+<section aria-labelledby="s5">
+<h2 id="s5">4. 多問並列がつくる新しい画面</h2>
+<p>同じstateに対して、Choice、Score、Noulを混ぜた複数質問を一度に送り、それぞれを独立・並列に評価できる。公式ドキュメントでは、質問を追加しても応答時間はほとんど変わらないとしている。<sup class="cite"><a href="#src-1" aria-label="出典1">1</a><a href="#src-2" aria-label="出典2">2</a><a href="#src-4" aria-label="出典4">4</a></sup></p>
+<p>これは、一つの総合評価を受け取るUIではなく、<strong>複数の観点が同時に立ち上がるUI</strong>を可能にする。</p>
+<p>例：問い合わせ一件に対して</p>
+<ul>
+<li><code>department</code>: Choice</li>
+<li><code>severity</code>: Score</li>
+<li><code>wants_human</code>: Noul</li>
+<li><code>contains_personal_data</code>: Noul</li>
+<li><code>needs_immediate_action</code>: Noul</li>
+</ul>
+<p>このときUIは、単に「AI判定：要対応」と表示するより、以下のように構成できる。</p>
+<ul>
+<li>担当キューへ自動配置する</li>
+<li>深刻度で並び順を変える</li>
+<li>人間希望ラベルを表示する</li>
+<li>個人情報をマスクする</li>
+<li>即時対応条件だけ別ポリシーで判定する</li>
+</ul>
+<p>各回答は同じ入力を見ているが、互いに独立した判断である。別質問間の確率が算術的に整合するとは限らないため、「Aではない」と「not A」が必ず補数になると想定してはいけない。<sup class="cite"><a href="#src-9" aria-label="出典9">9</a></sup></p>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/support-escalation-japanese.html"><img src="assets/images/thumbs/support-japanese-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Japanese customer support Jev test</span><span class="ref-desc">問い合わせ文からエスカレーション条件を判定する画面</span></a></li>
+    <li><a href="cases/tab-bouncer.html"><img src="assets/images/thumbs/tab-bouncer-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Tab Bouncer</span><span class="ref-desc">作業目的に合わないタブを選別する拡張UI</span></a></li>
+    <li><a href="cases/mac-app-support-routing.html"><img src="assets/images/thumbs/mac-app-malekoo-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Mac app support routing with Jev</span><span class="ref-desc">内蔵ドキュメントへ案内するMacアプリのサポートUI</span></a></li>
+  </ul>
+</aside>
+</section>
+
+<section aria-labelledby="s6">
+<h2 id="s6">5. 判断結果をどうUIへ見せるか</h2>
+<h3 id="s6-1">パターンA：Invisible Switch</h3>
+<p>結果を直接見せず、画面、担当、モデル、ツールを切り替える。</p>
+<ul>
+<li>例：問い合わせを適切な担当へ送る</li>
+<li>向く場面：低リスク、誤りがすぐ戻せる、結果説明が不要</li>
+<li>必須条件：履歴、Undo、ユーザーの明示選択を優先するルール</li>
+</ul>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/model-router-cli.html"><img src="assets/images/thumbs/model-router-nidhi-start.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Agent Router</span><span class="ref-desc">契約中サービスを踏まえてモデルを選ぶCLI</span></a></li>
+    <li><a href="cases/mac-app-support-routing.html"><img src="assets/images/thumbs/mac-app-malekoo-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Mac app support routing with Jev</span><span class="ref-desc">内蔵ドキュメントへ案内するMacアプリのサポートUI</span></a></li>
+  </ul>
+</aside>
+<h3 id="s6-2">パターンB：Label / Annotation</h3>
+<p>既存オブジェクトへ短いラベルや状態を加える。</p>
+<ul>
+<li>例：投稿を「substance / promo / junk」に分類する</li>
+<li>向く場面：判断を見ながらユーザー自身が行動する</li>
+<li>注意：人物や意図を断定せず、対象テキストへの判定として表現する</li>
+</ul>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/sift-x-timeline.html"><img src="assets/images/thumbs/sift-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Sift</span><span class="ref-desc">Xタイムラインを意図別に分類するUI</span></a></li>
+    <li><a href="cases/xtags-x-labels.html"><img src="assets/images/thumbs/xtags-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Xtags</span><span class="ref-desc">X投稿へ意図・リスクラベルを付けるUI</span></a></li>
+  </ul>
+</aside>
+<h3 id="s6-3">パターンC：Filter / Reorder</h3>
+<p>判断値を、表示・非表示、上位表示、グルーピングへ変換する。</p>
+<ul>
+<li>例：自然言語に合うアイコンだけを残す</li>
+<li>向く場面：候補が多く、判断が可逆で、ユーザーが結果を目視できる</li>
+<li>注意：除外された候補へ戻る経路を残す</li>
+</ul>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/icon-filter-designer.html"><img src="assets/images/thumbs/icon-filter-designer-start.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">When a designer gets access to Jev</span><span class="ref-desc">自然言語でアイコン集合を絞り込むUI</span></a></li>
+    <li><a href="cases/tab-bouncer.html"><img src="assets/images/thumbs/tab-bouncer-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Tab Bouncer</span><span class="ref-desc">作業目的に合わないタブを選別する拡張UI</span></a></li>
+    <li><a href="cases/jevx.html"><img src="assets/images/thumbs/jevx-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">jevx</span><span class="ref-desc">X投稿の探索と下書き評価を行う拡張UI</span></a></li>
+  </ul>
+</aside>
+<h3 id="s6-4">パターンD：Probability Inspector</h3>
+<p>選択結果だけでなく、確率分布を比較可能にする。</p>
+<ul>
+<li>例：モデルルーターで各候補モデルの確率を表示する</li>
+<li>向く場面：デバッグ、専門家向けツール、判断基準の調整</li>
+<li>注意：一般ユーザーへ常時表示すると、理解負荷と疑似精密さが増える</li>
+</ul>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/model-router-visual.html"><img src="assets/images/thumbs/model-router-ephraim-middle.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Model router with Jev</span><span class="ref-desc">依頼ごとに実行モデルを選ぶルーターUI</span></a></li>
+    <li><a href="cases/onchain-trading.html"><img src="assets/images/thumbs/onchain-trading-start.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Jev Trader</span><span class="ref-desc">価格フィードから売買を選ぶリアルタイムUI</span></a></li>
+    <li><a href="cases/jev-demos.html"><img src="assets/images/thumbs/jev-demos-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Jev demos</span><span class="ref-desc">複数モデルの判断を比較するデモUI</span></a></li>
+  </ul>
+</aside>
+<h3 id="s6-5">パターンE：Confidence-Gated Action</h3>
+<p>同じ判断でも、確信度とリスクに応じて後続動作を変える。</p>
+<pre><code class="language-text">高確信 × 低リスク  → 自動実行
+中確信             → 候補として提示／軽い確認
+低確信             → 入力追加／人間選択
+高リスク           → 確信度に関係なく明示確認
+</code></pre>
+<p>ChoiceとScoreのconfidenceは確率分布の集中度を要約した値で、正答率そのものではない。Noulには別のconfidenceがなく、0.5からの距離を含む単一確率で判断する。<sup class="cite"><a href="#src-6" aria-label="出典6">6</a></sup></p>
+<p>確信度による自動分岐とは別に、利用者が関与度を選べるようにする。たとえば、<strong>案内だけ／操作候補をその場に出す／1手ずつ確認／自動実行</strong>を切り替えられる構成である。高確信度でも、費用や不可逆性がある操作を自動モードへ移してよいとは限らない。</p>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/semantic-jev.html"><img src="assets/images/thumbs/semantic-jev-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Semantic-Jev</span><span class="ref-desc">自然文の質問をクエリ案に変え、実行の前に確認を挟み、対応できない質問は断るCLI</span></a></li>
+    <li><a href="cases/approval-grant-routing.html"><img src="assets/images/thumbs/approval-grant-routing-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Approval/Grant Routing</span><span class="ref-desc">「承認しようかなー」のような曖昧な返事を編集の許可として扱わず、読み取り専用のまま利用者に聞き返す判定の試み</span></a></li>
+    <li><a href="cases/postmark-prepublish-check.html"><img src="assets/images/thumbs/postmark-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Postmark</span><span class="ref-desc">投稿前の下書きを、トーン・広がりやすさ・痛々しさの3つの分布で返すチェッカー</span></a></li>
+  </ul>
+</aside>
+<h3 id="s6-6">パターンF：Batch Review</h3>
+<p>多数対象へ同じ判断を付け、例外だけをレビューする。</p>
+<ul>
+<li>例：文書分類、メール振り分け、モデレーション</li>
+<li>UI要素：全体分布、低確信度キュー、一括操作、原文比較、Undo、再実行</li>
+<li>運用表示：処理件数と進捗、スループット、遅延、費用、キャッシュ利用、記録済み実行か再実行か</li>
+<li>例外の行き先：低確信度だけでなく、<code>REVIEW</code>、未処理、失敗、停止後の残件を区別する</li>
+<li>注意：処理速度や失敗0件という表示は、判断の正しさを示す品質指標ではない</li>
+<li>価値：一件ごとのAI回答ではなく、人間が判断群を管理できる</li>
+</ul>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/cubox-archive-validation.html"><img src="assets/images/thumbs/cubox-archive-validation-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Cubox archive validation</span><span class="ref-desc">「あとで読む」に溜めた約3万件の分類を一括で点検し、そのまま・移す・置く・見直す、の4つに振り分けた処理の再生表示</span></a></li>
+    <li><a href="cases/jev-inbox-triage.html"><img src="assets/images/thumbs/jev-inbox-triage-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">JEV Inbox Triage</span><span class="ref-desc">150通のメールを9フォルダに分け、受信箱へは書き戻さない結果画面</span></a></li>
+    <li><a href="cases/jev-document-classification.html"><img src="assets/images/thumbs/jev-document-classification-3.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">JEV Document Classification</span><span class="ref-desc">フォルダ内文書の分類・監査UI</span></a></li>
+  </ul>
+</aside>
+<h3 id="s6-7">パターンG：Observe → Choose → Act → Verify</h3>
+<p>ブラウザやデスクトップ操作で、現在状態から候補アクションを選び、実行後に別の観測で結果を検証する。</p>
+<ul>
+<li>Jev：次の候補を選ぶ</li>
+<li>コード：実行可能候補を列挙し、操作を実行する</li>
+<li>検証：画面状態が期待通り変わったか確認する</li>
+<li>人間：送信、購入、削除など不可逆操作を承認する</li>
+</ul>
+<p>このループが続く場合、最終結果だけでは判断過程を追えない。現在のstate、選ばれた操作、実行結果、遅延、履歴、停止・一時停止を、用途に応じて観測可能にする。高速な判断ほど、画面が変わった理由と、どの時点へ戻れるかを失わせない。</p>
+<p>また、最終操作だけでなく、Jev、コード上の安全則、人間の上書きのどれがその操作を決めたかを記録する。モデルの選択と、ポリシーによる強制操作を同じ「AIの判断」として表示しない。</p>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/odyssey-lunar-flight.html"><img src="assets/images/thumbs/odyssey-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Odyssey lunar flight simulator</span><span class="ref-desc">打ち上げから月到達まで、機体の状態に応じた操縦の選択を確率つきで見せるシミュレーター</span></a></li>
+    <li><a href="cases/flappy-jev.html"><img src="assets/images/thumbs/flappy-jev-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Flappy Jev</span><span class="ref-desc">「いま羽ばたくか」をJevに尋ね続けて鳥を飛ばし、その確率と遅延を横に出し続けるブラウザゲーム</span></a></li>
+    <li><a href="cases/cubox-archive-validation.html"><img src="assets/images/thumbs/cubox-archive-validation-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Cubox archive validation</span><span class="ref-desc">「あとで読む」に溜めた約3万件の分類を一括で点検し、そのまま・移す・置く・見直す、の4つに振り分けた処理の再生表示</span></a></li>
+  </ul>
+</aside>
+<h3 id="s6-8">パターンH：Reviewable Draft / Decision Receipt</h3>
+<p>判断をそのまま実行せず、<strong>人が読める中間状態</strong>として返す。</p>
+<ul>
+<li>実行前：クエリ案、選択された操作対象、閉じるタブの一覧などを示し、利用者が確認してから進める</li>
+<li>実行後：実際に読んだstate、質問、原文の引用・範囲、未確認事項を判断レシートとして残す</li>
+<li>向く場面：公開、送信、データ取得、採否・評価など、判断の根拠や責任範囲を確認したい場面</li>
+<li>注意：理由らしい文章を後付けするのではなく、実際に入力したstate、観点、候補、未確認事項を区別して見せる</li>
+</ul>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/semantic-jev.html"><img src="assets/images/thumbs/semantic-jev-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Semantic-Jev</span><span class="ref-desc">自然文の質問をクエリ案に変え、実行の前に確認を挟み、対応できない質問は断るCLI</span></a></li>
+    <li><a href="cases/postmark-prepublish-check.html"><img src="assets/images/thumbs/postmark-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Postmark</span><span class="ref-desc">投稿前の下書きを、トーン・広がりやすさ・痛々しさの3つの分布で返すチェッカー</span></a></li>
+    <li><a href="cases/npc-check.html"><img src="assets/images/thumbs/npc-check-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">NPC Check</span><span class="ref-desc">プロフィール文の「ありきたり度」を、内訳と読み取った箇所つきのレシートで返す診断</span></a></li>
+  </ul>
+</aside>
+<h3 id="s6-9">パターンI：Spatial / Behavioral Mapping</h3>
+<p>判断結果を文章やラベルではなく、<strong>レイアウト、視点、動き、形の配分</strong>へ変換する探索的なパターン。</p>
+<ul>
+<li>公開画面で観察できた例：判断分布を粒子の形の割合へ使う、会話状態をアバターの視線や身ぶりへ変える</li>
+<li>向く場面：変化そのものを知覚でき、誤りが可逆で、利用者の主作業を止めたくない場面</li>
+<li>注意：自動変化だけでは理由を追えない。履歴、固定、OFF、元表示へ戻す操作など、安定した観測経路を別に用意する</li>
+<li>証拠範囲：質問型や判断精度は未確認であり、現時点では確立したパターンではなく表現実験として扱う</li>
+</ul>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/particle-morph-jev.html"><img src="assets/images/thumbs/particle-morph-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Particle Morph × Jev</span><span class="ref-desc">話した言葉や入力した文の判断確率を、粒子の形の配分にそのまま使うビジュアライザー</span></a></li>
+    <li><a href="cases/jev-realtime-avatars.html"><img src="assets/images/thumbs/jev-realtime-avatars-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Jev Realtime Avatars</span><span class="ref-desc">会話の進行に合わせて、2体の3Dアバターの視線・姿勢・身ぶりが切り替わる試作</span></a></li>
+  </ul>
+</aside>
+</section>
+
+<section aria-labelledby="s7">
+<h2 id="s7">6. 確率は「見せる情報」より「挙動を設計する材料」</h2>
+<p>Jevは確率を返すが、すべての画面にパーセントを表示する必要はない。</p>
+<h3 id="s7-1">確率を直接見せるとよい場面</h3>
+<ul>
+<li>専門家が複数候補を比較する</li>
+<li>判断モデルを調整・監査する</li>
+<li>複数解釈があること自体が価値になる</li>
+<li>ユーザーが閾値やルールを設定する</li>
+</ul>
+<h3 id="s7-2">数値の意味をラベルで分ける</h3>
+<p>同じパーセントや棒でも、候補確率、Choice / Scoreのconfidence、Score、類似度、アプリ側で計算した適合度・件数・費用は別の量である。<code>Prob</code>、<code>Conf</code>、<code>Score</code>、<code>Similarity</code>、<code>Application check</code>など、値の由来をUI上で区別し、異なる尺度を横並びの大小だけで比較させない。</p>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/xkcd-reverse-lookup.html"><img src="assets/images/thumbs/xkcd-reverse-lookup-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">XKCD Reverse Lookup</span><span class="ref-desc">説明文からXKCDの回を探し、Jevと埋め込み検索の結果を切り替えて比べる画面</span></a></li>
+    <li><a href="cases/livesignal.html"><img src="assets/images/thumbs/livesignal-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">LiveSignal</span><span class="ref-desc">ライブ配信のコメントを型付きの信号に分け、次に答える質問を出す画面</span></a></li>
+    <li><a href="cases/my-university-ranking.html"><img src="assets/images/thumbs/my-university-live-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">私だけの大学ランキング</span><span class="ref-desc">自分の言葉で書いた条件を並べ替えながら、大学の適合度ランキングを作り直す画面</span></a></li>
+  </ul>
+</aside>
+<h3 id="s7-3">UI状態へ変換した方がよい場面</h3>
+<ul>
+<li>一般ユーザーが次の行動だけ知ればよい</li>
+<li>0.82と0.87の違いに意味を与えられない</li>
+<li>誤差を精密な測定値と誤解しやすい</li>
+<li>確率を見ることで責任がユーザーへ押し戻される</li>
+</ul>
+<p><strong>悪い設計</strong></p>
+<blockquote>
+<p>危険度 83.7%</p>
+</blockquote>
+<p><strong>よりよい可能性</strong></p>
+<blockquote>
+<p>要確認 — 外部送信と認証情報の両方に関係する可能性があります</p>
+</blockquote>
+<p>後者では、モデルの確率を、プロダクト側が定義したreason codeと行動へ変換している。</p>
+<h3 id="s7-4">棄権を低確信度と別に設計する</h3>
+<p>「自信が低い」と「そもそも答えるべきでない」は同じではない。</p>
+<ul>
+<li>候補の確率が拮抗している → 候補を並べて人へ選択を戻す</li>
+<li>必要なstateが欠けている → 追加情報を求める</li>
+<li>質問が適用範囲外である → 対応できないと明示する</li>
+<li>質問型が意味に合っていない → 実行前に定義を修正させる</li>
+<li>許可が曖昧である → 許可されたと解釈せず、既定状態を保って聞き返す</li>
+</ul>
+<p>棄権は失敗表示ではなく、誤った自動実行を避けるための通常状態として設計する。特に権限変更、公開、送信、削除では、曖昧さをYesへ倒さない。</p>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/semantic-jev.html"><img src="assets/images/thumbs/semantic-jev-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Semantic-Jev</span><span class="ref-desc">自然文の質問をクエリ案に変え、実行の前に確認を挟み、対応できない質問は断るCLI</span></a></li>
+    <li><a href="cases/approval-grant-routing.html"><img src="assets/images/thumbs/approval-grant-routing-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Approval/Grant Routing</span><span class="ref-desc">「承認しようかなー」のような曖昧な返事を編集の許可として扱わず、読み取り専用のまま利用者に聞き返す判定の試み</span></a></li>
+    <li><a href="cases/typesafe-semantic-lints.html"><img src="assets/images/thumbs/typesafe-semantic-lints-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">TypeSafe semantic lints</span><span class="ref-desc">はい・いいえで答えられない問いをNoulとして書くと、実行の前にエディタが波線と警告で知らせる、開発中の機能の先行画像</span></a></li>
+  </ul>
+</aside>
+</section>
+
+<section aria-labelledby="s8">
+<h2 id="s8">7. Jev、コード、LLM、人間の役割分担</h2>
+<div class="table-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>担当</th>
+<th>向いていること</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>コード</td>
+<td>計算、条件、権限、閾値、状態遷移、実行、ログ</td>
+</tr>
+<tr>
+<td>Jev</td>
+<td>非構造テキストに対する狭い意味判断、候補選択、意味尺度評価</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td>新しい文章・画像・コードの生成、説明、長い推論、探索</td>
+</tr>
+<tr>
+<td>人間</td>
+<td>基準の決定、例外判断、不可逆な承認、公開・責任</td>
+</tr>
+</tbody></table></div>
+<p>TypeSafe自身も、通常のソフトウェアワークフローをコードが所有し、System Oneは狭い型付き判断に限定する設計を推奨している。<sup class="cite"><a href="#src-7" aria-label="出典7">7</a></sup></p>
+<p>公開事例では、意味判断と客観条件を画面上でも分ける構成が現れている。自然文による曖昧な適合判断はJev、評価点の足切り、人数、権限、費用、件数はコードが担当する。判断値と、その値からアプリが導いたガイダンスも、同じ欄へ混ぜずに分ける。</p>
+<p>よくある構成は次の通り。</p>
+<figure class="flow-figure">
+  <ol class="flow flow--column" aria-label="Jev、コード、LLM、人間の役割分担">
+    <li><span class="flow-node"><span class="flow-title">ユーザーの目的</span></span></li>
+    <li><span class="flow-node"><span class="flow-actor">コード</span><span class="flow-title">候補と状態を準備</span></span></li>
+    <li><span class="flow-node flow-node--jev"><span class="flow-actor">Jev</span><span class="flow-title">選択・評価</span></span></li>
+    <li class="flow-decision">
+      <span class="flow-node flow-node--question"><span class="flow-title">生成が必要か</span></span>
+      <ul class="flow-branches">
+        <li>
+          <span class="flow-branch-label">いいえ</span>
+          <span class="flow-node"><span class="flow-actor">コード</span><span class="flow-title">表示・実行</span></span>
+        </li>
+        <li>
+          <span class="flow-branch-label">はい</span>
+          <ol class="flow flow--column">
+            <li><span class="flow-node"><span class="flow-actor">LLM</span><span class="flow-title">文章・コードを生成</span></span></li>
+            <li><span class="flow-node"><span class="flow-actor">Jev / コード</span><span class="flow-title">明示基準を検証</span></span></li>
+            <li class="flow-decision">
+              <span class="flow-node flow-node--question"><span class="flow-title">高リスクか</span></span>
+              <ul class="flow-branches">
+                <li>
+                  <span class="flow-branch-label">いいえ</span>
+                  <span class="flow-node"><span class="flow-actor">コード</span><span class="flow-title">表示・実行</span></span>
+                </li>
+                <li>
+                  <span class="flow-branch-label">はい</span>
+                  <span class="flow-node flow-node--human"><span class="flow-actor">人間</span><span class="flow-title">確認</span></span>
+                </li>
+              </ul>
+            </li>
+          </ol>
+        </li>
+      </ul>
+    </li>
+  </ol>
+  <figcaption>生成が要らなければコードがそのまま表示・実行する。生成した場合は明示基準で検証し、高リスクなら人間が確認する。</figcaption>
+</figure>
+<aside class="case-refs" aria-label="関連する事例">
+  <p class="case-refs-label">事例で見る</p>
+  <ul>
+    <li><a href="cases/netflix-group-movie-picker.html"><img src="assets/images/thumbs/netflix-group-movie-picker-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Netflix group movie picker</span><span class="ref-desc">好みの違う3人で観る映画を選び、好みの判断はJevに、評価点の足切りと人数の数え上げはアプリに分けた実験</span></a></li>
+    <li><a href="cases/docket.html"><img src="assets/images/thumbs/docket-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">Docket</span><span class="ref-desc">PDFや写真の文書を読ませ、分類・機密度・緊急度を付けて、原本に触れずに写しを整理する端末アプリ</span></a></li>
+    <li><a href="cases/my-university-ranking.html"><img src="assets/images/thumbs/my-university-live-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async"><span class="ref-name">私だけの大学ランキング</span><span class="ref-desc">自分の言葉で書いた条件を並べ替えながら、大学の適合度ランキングを作り直す画面</span></a></li>
+  </ul>
+</aside>
+</section>
+
+<section aria-labelledby="s9">
+<h2 id="s9">8. アプリケーションデザイナーの設計手順</h2>
+<h3 id="s9-1">Step 1：AIではなく「判断が必要な瞬間」を探す</h3>
+<ul>
+<li>毎回人が少し迷う</li>
+<li>ルールだけでは表現しにくい</li>
+<li>しかし答えの形は有限にできる</li>
+<li>判断後にアプリが具体的な動作を取れる</li>
+</ul>
+<h3 id="s9-2">Step 2：出力を先に型として書く</h3>
+<pre><code class="language-text">route: support | sales | billing | unknown
+severity: cosmetic | degraded | blocking
+contains_secret: 0..1
+</code></pre>
+<p>型にできなければ、Jevの問題ではない可能性が高い。</p>
+<h3 id="s9-3">Step 3：判断に必要なstateを列挙する</h3>
+<ul>
+<li>画面に見えている情報</li>
+<li>システムだけが持つ情報</li>
+<li>ユーザーが訂正できる情報</li>
+<li>渡してはいけない情報</li>
+<li>欠けた場合に判断不能とすべき情報</li>
+</ul>
+<h3 id="s9-4">Step 4：Choice / Score / Noulを選ぶ</h3>
+<p>型の選択はAPI仕様ではなく、ユーザーへどう返すかを決めるIAである。</p>
+<h3 id="s9-5">Step 5：判断とアクションを分離する</h3>
+<pre><code class="language-text">model judgment: risk = high
+policy action: review
+UI treatment: warning panel + confirm button
+</code></pre>
+<p>同じ判断でも、ユーザー属性、地域、権限、操作の不可逆性によってアクションは変わる。</p>
+<h3 id="s9-6">Step 6：成功画面ではなく全状態を描く</h3>
+<ul>
+<li>判定中</li>
+<li>明確な結果</li>
+<li>複数候補が近い</li>
+<li>候補外</li>
+<li>入力不足</li>
+<li>適用範囲外として棄権</li>
+<li>許可や意図が曖昧で、既定状態を保つ</li>
+<li>実行前の確認待ち</li>
+<li>API失敗</li>
+<li>ユーザーが訂正した後</li>
+<li>モデル更新後に結果が変わった場合</li>
+</ul>
+<h3 id="s9-7">Step 7：訂正単位を設計する</h3>
+<ul>
+<li>一件だけ上書き</li>
+<li>同じ送信者／同じカテゴリへ今後適用</li>
+<li>判断基準そのものを変更</li>
+<li>AI機能をOFF</li>
+<li>元状態へUndo</li>
+</ul>
+<h3 id="s9-8">Step 8：実データで閾値を決める</h3>
+<p>公式ドキュメントも、閾値は領域と誤りのコストに依存し、保守的な値から自分のデータで調整するよう推奨している。<sup class="cite"><a href="#src-6" aria-label="出典6">6</a></sup></p>
+</section>
+
+<section aria-labelledby="s10">
+<h2 id="s10">9. Decision Contract Canvas</h2>
+<p>プロトタイプ前に以下を一枚で埋める。</p>
+<div class="table-wrap"><table class="data-table">
+<thead>
+<tr>
+<th>項目</th>
+<th>記入内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ユーザーの目的</td>
+<td>この判断によって何を進めたいか</td>
+</tr>
+<tr>
+<td>判断対象</td>
+<td>何について判断するか</td>
+</tr>
+<tr>
+<td>State</td>
+<td>Jevが見られる情報</td>
+</tr>
+<tr>
+<td>欠損条件</td>
+<td>何がなければ判断しないか</td>
+</tr>
+<tr>
+<td>Question</td>
+<td>一つの原子的な問い</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Choice / Score / Noul</td>
+</tr>
+<tr>
+<td>Criteria</td>
+<td>候補、段階、Yes/No境界。利用者が有効・無効、優先順、カテゴリ、閾値を変更できるか</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>返される値と確率</td>
+</tr>
+<tr>
+<td>Policy</td>
+<td>値・確信度をどう動作へ変えるか</td>
+</tr>
+<tr>
+<td>UI</td>
+<td>表示、並び、遷移、確認</td>
+</tr>
+<tr>
+<td>Override</td>
+<td>誰が何を訂正できるか</td>
+</tr>
+<tr>
+<td>Reversibility</td>
+<td>誤りをどこまで戻せるか</td>
+</tr>
+<tr>
+<td>Risk</td>
+<td>誤判定した場合の損失</td>
+</tr>
+<tr>
+<td>Logging</td>
+<td>state、質問版、モデル版、結果、訂正をどう残すか</td>
+</tr>
+<tr>
+<td>Fallback</td>
+<td>入力不足、低確信度、API失敗時の動作</td>
+</tr>
+<tr>
+<td>Abstain</td>
+<td>候補外、適用範囲外、曖昧な許可で判断・実行しない条件</td>
+</tr>
+<tr>
+<td>Observability</td>
+<td>履歴、進捗、遅延、費用、実行結果をどこまで見せるか</td>
+</tr>
+</tbody></table></div>
+</section>
+
+<section aria-labelledby="s11">
+<h2 id="s11">10. 避けるべき使い方</h2>
+<h3 id="s11-1">1. 総合的で曖昧な問いを一つ投げる</h3>
+<p>「このユーザーに最善の体験を提供すべきか」のような問いは、基準も後続動作も監査できない。観点を分解する。</p>
+<h3 id="s11-2">2. Scoreを客観的な測定値として見せる</h3>
+<p>意味尺度上の判断を、IQ、能力、危険度などの精密値に見せない。</p>
+<h3 id="s11-3">3. Noulを程度として読む</h3>
+<p>0.6は「60%の強さ」ではなく、命題がYesである確率。</p>
+<h3 id="s11-4">4. 型が正しいから安全だと思う</h3>
+<p>Jevは無効なJSONを返しにくくても、<strong>型として正しく意味として誤った値</strong>は返し得る。X上でもこの点は強く指摘されている。<sup class="cite"><a href="#src-13" aria-label="出典13">13</a></sup></p>
+<h3 id="s11-5">5. 正確な計算をJevへ任せる</h3>
+<p>数、日付、金額、閾値比較はコードへ置く。Jev 1.13は算術、カウント、日付比較、複雑な間接推論を苦手とする。<sup class="cite"><a href="#src-9" aria-label="出典9">9</a></sup></p>
+<h3 id="s11-6">6. 不要なstateを大量に渡す</h3>
+<p>無関係な情報は精度を下げ、何が誤判定原因か分からなくする。<sup class="cite"><a href="#src-9" aria-label="出典9">9</a></sup></p>
+<h3 id="s11-7">7. 生成が必要な問題を無理にChoiceへする</h3>
+<p>未知の文章、画像、コード、計画を作ることが中心なら生成モデルを使う。Jevは候補抽出後の選択や、生成物の明示基準チェックに置く。</p>
+<h3 id="s11-8">8. 高速だから自動実行する</h3>
+<p>速度と安全性は別である。金融取引、削除、送信、購入、公開、権限変更は独立した確認・制限・監査を持たせる。</p>
+<h3 id="s11-9">9. 低確信度だけを例外設計の中心にする</h3>
+<p>高確信度でも誤る。候補漏れ、入力欠損、古い状態、判断基準の誤り、モデル更新による変化も扱う。</p>
+<h3 id="s11-10">10. 候補外・適用範囲外を無理に既存候補へ入れる</h3>
+<p>型どおりの値が返ることと、その問いに答える資格があることは別である。候補に正解がない、必要なstateがない、許可が曖昧、質問型が不適切な場合は、最も近い値へ丸めず棄権・確認・再定義へ分岐する。</p>
+</section>
+
+<section aria-labelledby="s12">
+<h2 id="s12">11. デザインレビュー用チェックリスト</h2>
+<h3 id="s12-1">問題設定</h3>
+<ul class="review-list">
+<li>答えの形を事前に定義できる</li>
+<li>意味判断であり、コードだけでは決めにくい</li>
+<li>自由生成や長い推論が中心ではない</li>
+</ul>
+<h3 id="s12-2">入力</h3>
+<ul class="review-list">
+<li>Jevに見えるstateを説明できる</li>
+<li>欠損、鮮度、出典が分かる</li>
+<li>不要・機密・敵対的な内容を扱っている</li>
+</ul>
+<h3 id="s12-3">判断</h3>
+<ul class="review-list">
+<li>一問一判断になっている</li>
+<li>Choice候補が重複せず、必要ならOtherがある</li>
+<li>Score段階が観測可能な言葉で定義されている</li>
+<li>NoulのYes/No境界が明瞭である</li>
+<li>候補外・適用範囲外・入力不足で棄権できる</li>
+</ul>
+<h3 id="s12-4">UI</h3>
+<ul class="review-list">
+<li>確率を見せる理由がある</li>
+<li>確率、confidence、Score、類似度、アプリ計算値を区別して表示している</li>
+<li>結果更新で画面が不安定にならない</li>
+<li>除外された候補や元状態へ戻れる</li>
+<li>AIの判断と確定事実を区別できる</li>
+<li>判断値と、アプリ側のルール・ガイダンスを区別できる</li>
+<li>継続判断では履歴・進捗・停止・元へ戻す経路がある</li>
+</ul>
+<h3 id="s12-5">制御</h3>
+<ul class="review-list">
+<li>モデル判断と後続アクションを分離している</li>
+<li>高リスク操作をAI判断だけで確定しない</li>
+<li>ユーザーの明示的な上書きを優先する</li>
+<li>モデル版、質問版、結果、訂正を追跡できる</li>
+</ul>
+</section>
+
+<section aria-labelledby="s13">
+<h2 id="s13">12. 現時点での仮説</h2>
+<p>公開事例を横断すると、JevらしいUXは「確率を見せる画面」だけではなく、次の五つに現れやすい。</p>
+<ol>
+<li><p><strong>既存オブジェクトの状態を即時に変える</strong>
+表示、並び、ラベル、候補、操作可能性が変わる。</p>
+</li>
+<li><p><strong>多数の小さな判断を一つの知覚へまとめる</strong>
+一件の回答を読むのではなく、画面全体が意味的に整理される。</p>
+</li>
+<li><p><strong>実行の前に、確認できる中間状態を置く</strong>
+クエリ案、投稿前チェック、フォーム、判断レシートとして返し、人が次の行動を選べる。</p>
+</li>
+<li><p><strong>判断を、動きや形へ変換する表現実験が始まっている</strong>
+粒子の配分やアバターの身ぶりへ変換する例があるが、現時点では質問型や判断精度が未確認の探索的パターンである。</p>
+</li>
+<li><p><strong>AIの判断を、コードと人間が所有するワークフローへ埋め込む</strong>
+Jevは主役として話さず、体験の中で意味判断を担当する。</p>
+</li>
+</ol>
+<p>ただし、公開事例には投稿・動画だけを根拠とするものや、Choice / Score / Noulの型を画面から推定しているものも含まれる。この整理は外部事例からの暫定仮説であり、本人の設計原則として確定するには、異なる題材でのプロトタイプとユーザー観察が必要である。</p>
+</section>
+
+    <section class="guide-sources" id="sources" aria-labelledby="sources-title">
+      <h2 id="sources-title">出典</h2>
+      <div class="source-group">
+        <h3 class="group-label">TypeSafe 公式ドキュメント</h3>
+        <ol class="source-list">
+          <li id="src-1" value="1"><a class="ext" href="https://docs.typesafe.ai/introduction" rel="noopener noreferrer">TypeSafe AI — Introduction<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-2" value="2"><a class="ext" href="https://docs.typesafe.ai/primitives/choice" rel="noopener noreferrer">TypeSafe AI — Choice<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-3" value="3"><a class="ext" href="https://docs.typesafe.ai/primitives/score" rel="noopener noreferrer">TypeSafe AI — Score<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-4" value="4"><a class="ext" href="https://docs.typesafe.ai/primitives/noul" rel="noopener noreferrer">TypeSafe AI — Noul<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-5" value="5"><a class="ext" href="https://docs.typesafe.ai/concepts/state" rel="noopener noreferrer">TypeSafe AI — State<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-6" value="6"><a class="ext" href="https://docs.typesafe.ai/confidence" rel="noopener noreferrer">TypeSafe AI — Confidence<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-7" value="7"><a class="ext" href="https://docs.typesafe.ai/concepts/how-to-build-with-system-one" rel="noopener noreferrer">TypeSafe AI — How to build with TypeSafe<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-8" value="8"><a class="ext" href="https://docs.typesafe.ai/models" rel="noopener noreferrer">TypeSafe AI — Models<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-9" value="9"><a class="ext" href="https://docs.typesafe.ai/model-jaggedness/jev-1.13" rel="noopener noreferrer">TypeSafe AI — Jev 1.13 jaggedness<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-10" value="10"><a class="ext" href="https://typesafe.ai/blog/introducing-system-one-models-and-jev" rel="noopener noreferrer">TypeSafe AI — Introducing System One Models &amp; Jev<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+        </ol>
+      </div>
+      <div class="source-group">
+        <h3 class="group-label">X上の公開投稿</h3>
+        <ol class="source-list">
+          <li id="src-11" value="11"><a class="ext" href="https://x.com/NathanFlurry/status/2100036101809619314" rel="noopener noreferrer">Nathan Flurry — Jev as a smart switch statement<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-12" value="12"><a class="ext" href="https://x.com/cocktailpeanut/status/2100277062309179521" rel="noopener noreferrer">cocktailpeanut — arbitrary classification as a type-safe primitive<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-13" value="13"><a class="ext" href="https://x.com/mvanhorn/status/2100788572316139655" rel="noopener noreferrer">Matt Van Horn — Jev patterns and projects<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+          <li id="src-14" value="14"><a class="ext" href="https://x.com/heystefan_/status/2101369117496521042" rel="noopener noreferrer">Stefan — when a designer gets access to Jev<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+        </ol>
+      </div>
+
+    </section>
+  </article>
+
+  <aside class="entry-related">
+    <section aria-labelledby="related-title">
+      <h2 id="related-title">事例で確かめる</h2>
+      <ul>
+        <li><a href="index.html#cases">事例解説（80件）</a></li>
+        <li><a href="cases/icon-filter-designer.html">判断が画面の変化になる</a></li>
+        <li><a href="cases/model-router-visual.html">確率分布を見せる</a></li>
+        <li><a href="cases/support-escalation-japanese.html">複数の問いへ分解する</a></li>
+        <li><a href="cases/stagehand-browser-use.html">観測して選び、実行する</a></li>
+      </ul>
+    </section>
+    <section aria-labelledby="status-title">
+      <h2 id="status-title">この文書の位置づけ</h2>
+      <p>外部事例と公式仕様からの暫定整理。実制作とユーザー観察で確定した原則ではない。</p>
+    </section>
+  </aside>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+<script src="guide.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>ことばクエスト（Word-controlled RPG） — Jev UX/UI Reference</title>
+  <meta name="description" content="勇者への命令を言葉で書き、少ない文字数で進むほど評価されるRPG。ゲーム／言葉から行動への変換。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ゲーム／言葉から行動への変換</p>
+    <h1>ことばクエスト（Word-controlled RPG）</h1>
+    <p class="case-title">勇者への命令を言葉で書き、少ない文字数で進むほど評価されるRPG</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>操作はキーではなく、文で行う。目的（キングスライムを倒す）は長老のせりふで示され、どう命令するかはプレイヤーに任される。</p>
+<ul>
+<li>使った文字数が、ステータスの1項目として常に見える。短く伝えることが、遊びの目標になっている。</li>
+<li>例文が入力欄と案内文の両方にあり、最初の1手に迷いにくい。</li>
+<li>命令が意図と違う行動になったときに、どう知らされ、どう直せるかは、確認できていない。ゲームなので、もう一度命令すればよい、という形にはなる。</li>
+<li>言葉で操作するゲームは、既存の事例にも複数ある。この事例は、日本語の命令と、文字数という制約を組み合わせている点が違う。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/word-rpg-live.png"><img src="../assets/images/display/word-rpg-live.webp" alt="ことばクエストの公開画面。見下ろし型のマップに勇者、長老、家、スライム、王冠をかぶったスライムがいる。長老の吹き出しがキングスライムを倒すよう頼み、下端に言葉で命令するよう促す案内文と入力欄と「送信」、右上にレベル・HP・経験値・使った文字数のステータスがある" width="1600" height="1000" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>下端の案内文と入力欄、「送信」、長老のせりふ、右上のステータスにある「ことば 0文字」</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>勇者への命令を、言葉で書いて送る。案内文は「ゆうしゃに ことばで命令しよう（例：「赤いスライムを倒して」）。使った文字数が少ないほど高評価！」。調査記録によれば、日本語と英語の両方を受け付ける。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>調査記録によれば、書かれた言葉を、限られた移動や行動へ対応づける。候補や確率は、画面にも調査記録にも出ていない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>調査記録によれば、勇者がすぐに動き、ゲームの状態が変わる。右上のステータスに、レベル、HP、経験値、やくそう、所持金と並んで、使った文字数が出る。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">言葉を限られた行動へ対応づけるという調査記録からの見立て。質問型は画面にも投稿にも出ていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>短い命令文を、限られた行動へ対応づけるのは、Jevに向く。反応が速ければ、文で操作しても遊びのテンポが保てる。ただし、対応づけの正確さや、曖昧な命令の扱いは、確認できていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者による投稿と公開サイトを確認。掲載した画面は公開サイトを開いた直後の状態で、命令を送る前のもの。取得した画面にJevの表記はなく、Jevの利用は作者の投稿による。判断の確率や、やり直しの手段は、調査でも確認できていない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">公開サイトの初期画面（マップ、長老のせりふ、案内文、入力欄と送信、ステータスの文字数）、作者の投稿。言葉が行動へ対応づけられてすぐに動くという点は、2026-09-21の調査記録による</span></li>
+        <li><span class="term">未検証</span><span class="desc">行動の候補、確率の表示の有無、曖昧な命令や対応できない命令の扱い、やり直しの手段、文字数の評価の計算、ソースコード</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型（Choiceと見立て）。画面にも調査記録にも、質問型は出ていない</span></li>
+        <li><span class="term">引用</span><span class="desc">公開サイト画面を2026-09-21に必要範囲で取得。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/ytiskw/status/2100785155191550016" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/ytiskw/status/2100785155191550016" rel="noopener noreferrer">X 公開投稿：Word-controlled RPG（@ytiskw）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://jev-rpg.tenma.workers.dev" rel="noopener noreferrer">Web：ことばクエスト<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="little-orbit.html"><span class="pager-dir">前の事例</span><span class="pager-name">Little Orbit</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="particle-morph-jev.html"><span class="pager-dir">次の事例</span><span class="pager-name">Particle Morph × Jev</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

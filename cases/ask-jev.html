@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Ask Jev — Jev UX/UI Reference</title>
+  <meta name="description" content="短い質問を送ると、文章の返事ではなく判断のカードが返り、全員に見える「壁」に積まれていく公開サイト。公開質問／型付き判断ウォール。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">公開質問／型付き判断ウォール</p>
+    <h1>Ask Jev</h1>
+    <p class="case-title">短い質問を送ると、文章の返事ではなく判断のカードが返り、全員に見える「壁」に積まれていく公開サイト</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>複合<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>「Not a chatbot」と最初に断り、返ってくるのが文章ではなく判断であることを、送る前に伝えている。判断は、質問ごとのカードと、全員で共有する壁の両方に現れる。</p>
+<ul>
+<li>語数の制限と単語のチップが、送れる形を入力の途中で示す。安全な語の一覧にない単語は、送る前に指摘される。</li>
+<li>yesかnoで答えられない質問には、「not a yes or no question」と返す。無理にどちらかへ寄せない。</li>
+<li>「Fits the wall?」の判断と、「held back by Jev」の件数が、公開する前のふるいがあることを示す。何が保留されたかの中身は見えない。</li>
+<li>カウンターと費用（1件あたり、100万件まで）が常に出ている。判断が安く速いことを、説明ではなく数字で見せている。</li>
+<li>壁は追記されるだけである。載った後に直す・消す・異議を申し立てる手段は確認されていない。公開の場に判断つきで残ることを、送る人がどこまで理解できるかが論点になる。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/ask-jev-1.jpg"><img src="../assets/images/display/ask-jev-1.webp" alt="Ask Jevの画面。大きな見出し「Ask Jev anything.」の下に、「Not a chatbot」の説明、「what is j」と入力中の欄と単語のチップ、「One word is not on the safe list」の表示、「who built jev」のカードに4つの答えと割合、右に橙色のカウンター「0,000,003」と費用の一覧がある" width="1600" height="897" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/ask-jev-2.jpg"><img src="../assets/images/display/ask-jev-2.webp" alt="Ask Jevの「The wall.」の部分。「Mood of the wall right now: flat, from the last 3.」の1行の下に、「Who built jev」「How does this work really」「What is this about really」の3枚のカードが並び、それぞれに雰囲気、話題、費用、所要時間が小さく書かれている" width="1600" height="897" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>1枚目の「Not a chatbot」の説明、「3 to 15 words」の入力欄と単語のチップ、「One word is not on the safe list」、「Yours」のカード、右のカウンターと費用。2枚目の「The wall.」と、壁全体の雰囲気を示す1行、並んだカード</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>3語から15語の質問。入力中の単語がチップで並び、「Ready · 3 of 15」のように語数が出る。1枚目では、入力の途中で「One word is not on the safe list」と表示されている。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>サイトの説明では、yes・no・it depends、雰囲気、話題、壁に載せてよいか、を判断する。1枚目のカードには「Jev says: not a yes or no question」「How does it feel? flat · 100% sure」「What is it about? tech · 33% sure」「Fits the wall? yes · 96% sure」と出ている。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>質問は「Yours」のカードになり、答えを開閉できる。右のカウンター（0,000,003）、費用、トークン数が増える。壁には新しい順にカードが並び、「Mood of the wall right now: flat, from the last 3.」と全体の雰囲気が1行で出る。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">複合</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">1つの質問のカードに、yes/noの可否、雰囲気、話題、壁に載せてよいか、の答えと割合が並ぶことからの見立て。画面には質問型の名前が出ていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>1つの短い文に対して、複数の決まった問いに同時に答える使い方で、文章の生成を必要としない。サイトは「about 100 milliseconds」と説明し、壁のカードにも1件ごとの所要時間（例：300ms）が出ている。公開の前のふるいにも同じ判断を使っており、速さが体験の前提になっている。ただし、判断の妥当性は示されていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">作者による投稿動画から静止画を確認。公開サイトがあり、調査時に無害な質問を送って、カードとカウンターの変化を確かめた記録がある。壁に載った項目を、編集・削除・異議申し立てする手段は確認されていない。「% sure」の値が何を意味するか、どう計算されるかは示されていない。費用や速度の表示は、サイト自身の表示であり、こちらでは測っていない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見える画面（説明文、入力欄とチップ、安全な語の指摘、「Yours」のカードと4つの答え、カウンターと費用、壁とカード）。調査時に無害な質問を送り、カードが返ってカウンターが増えたという操作記録</span></li>
+        <li><span class="term">未検証</span><span class="desc">「% sure」の意味と計算、6つとされる問いの全体、保留された質問の扱い、壁の項目の編集・削除・異議申し立て、費用と速度の実測、判断の妥当性</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型（複数の問いの組み合わせと見立て）。カードに複数の答えと割合が並ぶことからの見立てで、画面には質問型の名前が出ていない</span></li>
+        <li><span class="term">引用</span><span class="desc">動画から必要な範囲の静止画を切り出して引用（ブラウザの枠を除いた）。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/waynesutton/status/2100487878992388279" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/waynesutton/status/2100487878992388279" rel="noopener noreferrer">X 公開投稿：Ask Jev（@waynesutton）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://askjev.ai" rel="noopener noreferrer">Ask Jev 公開サイト<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="generative-dashboard.html"><span class="pager-dir">前の事例</span><span class="pager-name">Generative Dashboard</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="postgres-jev-row-search.html"><span class="pager-dir">次の事例</span><span class="pager-name">PostgreSQL jev() semantic row search</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

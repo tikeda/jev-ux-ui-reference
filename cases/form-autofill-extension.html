@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Jev フォーム自動入力（Chrome拡張） — Jev UX/UI Reference</title>
+  <meta name="description" content="プロフィールの値をフォームの各欄に割り当て、根拠つきで入力する拡張機能。ブラウザ拡張／フォーム入力の下書き。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ブラウザ拡張／フォーム入力の下書き</p>
+    <h1>Jev フォーム自動入力（Chrome拡張）</h1>
+    <p class="case-title">プロフィールの値をフォームの各欄に割り当て、根拠つきで入力する拡張機能</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>一括の入力を速く行いつつ、どの欄に何を入れたかを、根拠つきで並べて見せている。フォームの送信は別の操作で、動画のフレームでは送信ボタンは押されていない。</p>
+<ul>
+<li>確信度を「自動入力」「要確認」「入力せず」の3段階に分けて、自動と手動の境界を明示している。</li>
+<li>サイドパネルが、モデルの所要時間（0.9秒）と全体の時間（1.2秒）を分けて表示する。</li>
+<li>2枚目では、最後の確認の質問（「ご登録内容に誤りや変更がないことをご確認いただけましたか？」）が未選択のまま残り、送信ボタンもまだ押されていない。14 / 15欄との対応は、画面からは確認できない。</li>
+<li>「このサイトで常に有効です」の表示は、拡張機能の対象サイトの扱いを示す。個人情報を扱う拡張では、有効にする範囲の見せ方が重要になる。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/form-autofill-extension-1.jpg"><img src="../assets/images/display/form-autofill-extension-1.webp" alt="Googleフォームの入力サンプルと右のサイドパネル「Jev フォーム自動入力」。氏名、フリガナ、メール、電話、生年月日の欄が入力済みで緑の枠。パネルに、準備OK（typesafe-ai/jev）、1.2 s、14 / 15 欄を入力、確信度の凡例、項目ごとの値と確信度100%" width="1600" height="900" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/form-autofill-extension-2.jpg"><img src="../assets/images/display/form-autofill-extension-2.webp" alt="同じフォームの下部。職種「UXデザイナー」と性別の選択が入力済みで緑の枠。確認の質問は未選択で、送信ボタンが見える。右のパネルは同じく14 / 15 欄と項目ごとのカード" width="1600" height="900" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>右のサイドパネル（進捗、確信度の凡例、項目ごとのカード）と、左のフォームの緑の枠、最下部の未選択の確認質問と送信ボタン</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>開いているフォームの項目（氏名、フリガナ、メール、電話、生年月日、職種、性別など）と、選択したプロフィール（「個人用」）。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>各フォーム項目に、どのプロフィールの値を入れるかを割り当て、項目ごとに確信度を付ける。作者は「文章生成を飛ばし、構造化データだけを返す点が、ブラウザ自動化と相性がよい」と説明する。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>サイドパネルに「14 / 15 欄を入力」、Jev 0.9秒 / 全体 1.2秒、確信度の凡例（高 ≥80%は自動入力、中は要確認、低は入力せず）、項目ごとのカード（例: 氏名 → 山田 太郎、高 100%）を出す。フォーム側の入力済みの欄は緑の枠で示される。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">フォームの各欄にプロフィールのどの値を入れるかを割り当てる構成からの見立て。質問型は画面に明記されていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>フォームの項目とプロフィールの値の対応付けという有限の選択を、多数、素早く行うのは、Jevの用途に合う。ただし、間違った値を入れたときの訂正、機微な項目の扱い、複雑なフォームでの精度は、確認できない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者による投稿動画から静止画を確認。サンプルのGoogleフォームとダミーのプロフィール（山田 太郎）での動作で、実データでの利用は確認できない。「15項目が1.2秒」は画面の表示と一致するが、作者の環境での1回分。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見えるサイドパネル、進捗（14 / 15欄）、所要時間、確信度の凡例と項目ごとの値、入力済みの欄の表示</span></li>
+        <li><span class="term">未検証</span><span class="desc">実データでの動作、他のフォームでの精度、誤入力の訂正、送信までの流れ、拡張機能の権限の範囲</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型はChoiceと見立て。「確信度」の算出方法</span></li>
+        <li><span class="term">引用</span><span class="desc">X投稿は2026-09-20（UTC）。動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/motomiki_lab/status/2101813335910146532" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/motomiki_lab/status/2101813335910146532" rel="noopener noreferrer">X 公開投稿：Jev フォーム自動入力（@motomiki_lab）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="kyoto-dialect-game.html"><span class="pager-dir">前の事例</span><span class="pager-name">京言葉ゲーム</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="waymode.html"><span class="pager-dir">次の事例</span><span class="pager-name">Waymode</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

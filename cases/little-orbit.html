@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Little Orbit — Jev UX/UI Reference</title>
+  <meta name="description" content="決まったコマンドの横に自由記述の行動を置き、その結果を戦闘の状態に反映する3Dゲーム。ゲーム／交渉と行動の判定。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ゲーム／交渉と行動の判定</p>
+    <h1>Little Orbit</h1>
+    <p class="case-title">決まったコマンドの横に自由記述の行動を置き、その結果を戦闘の状態に反映する3Dゲーム</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>攻撃、防御、回復薬、逃走という決まったコマンドと、自由記述の行動が、同じパネルに並ぶ。自由記述は、いつでも選べる別の手として置かれている。</p>
+<ul>
+<li>状況の説明が、自由記述の手がかりになっている。岩、旋回の遅さ、食べ物への関心が書かれており、何を書けば効きそうかを想像できる。</li>
+<li>自由記述には費用がある（気力2、1ターン）。「選んだ干し肉は失敗しても消費します」とあり、失敗がありうることを先に伝えている。</li>
+<li>判定の結果は、点数ではなく、HPやターンという世界の状態の変化として返る。「行動の記録」の欄もあるが、開いた中身は確認していない。</li>
+<li>なぜその結果になったかの説明は、掲載した画面には出ていない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/little-orbit-1.jpg"><img src="../assets/images/display/little-orbit-1.webp" alt="3Dゲームの戦闘画面。敵「キノコ猪」のHP表示の下にパネルがあり、TURN 2、自分のHP 34/40と気力 6/6、攻撃・防御・回復薬・逃走の4つのコマンド、状況説明つきの「自由アクション」の入力欄に「近くの岩を投げて攻撃！」と書かれ、「この行動を試す」ボタンがある" width="1120" height="660" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/little-orbit-2.jpg"><img src="../assets/images/display/little-orbit-2.webp" alt="3Dゲームの画面。敵のHPが0/28になり、「勝利！ 強化をひとつ選ぼう」の見出しの下に3つの強化の選択肢が並ぶ。パネルの下部に「処理中…」の表示がある" width="1120" height="660" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>1枚目のターン表示、HPと気力、4つのコマンド、「自由アクション」の状況説明と入力欄、「この行動を試す」。2枚目の「処理中…」と、勝利後の強化の選択</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>戦闘の状態（ターン、HP、気力、敵の構え）と、状況の説明（「大きな岩が進路の脇にある。敵は突進が得意だが旋回が遅く、食べ物に関心がある。」）。プレイヤーは「自由アクション」に行動を書く。例は「近くの岩を投げて攻撃！」。気力2と1ターンを使う。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>作者の投稿はJevを使ったゲームだと述べている。自由記述の行動が何として判定されたかは、画面に出ていない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>送信すると「処理中…」が出て、コマンドが押せなくなる。その後、敵と自分のHP、気力、ターンが更新される。動画では敵のHPが20から0まで減り、「勝利！ 強化をひとつ選ぼう」の画面を経て、移動に戻る。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">投稿はJevを使ったゲームと述べるが、自由記述の行動を何として判定しているか（質問型）は動画の画面から確認できない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>自由記述の行動を、その場の状況に照らして、成功や効果の区分へ落とす判断は、Jevに向く。ターン制のため、待ち時間は「処理中…」で吸収できる。判定が一貫しているか、状況の説明を正しく使っているかは、この動画からは評価できない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者による投稿動画から静止画を確認。遊べる公開版は確認していない。自由記述の行動をJevがどう判定したか、その確率や内訳は、動画の画面には出ていない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見えるターン、HPと気力、4つのコマンド、自由アクションの説明と入力欄、費用の表記、「処理中…」、強化の選択画面。動画の中で敵のHPが減り、移動に戻る流れ</span></li>
+        <li><span class="term">未検証</span><span class="desc">Jevへの入力と出力、判定の区分と確率、判定の一貫性、交渉の場面、遊べる公開版の有無。動画の文字は小さく、確率の表示があったとしても読み取れない</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">自由記述の行動の判定にJevを使っているという読み方。投稿の説明と、送信後に「処理中…」を挟む流れからの見立て</span></li>
+        <li><span class="term">引用</span><span class="desc">動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/balaena01/status/2101504117172502839" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/balaena01/status/2101504117172502839" rel="noopener noreferrer">X 公開投稿：Little Orbit（@balaena01）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="studio-drop.html"><span class="pager-dir">前の事例</span><span class="pager-name">Studio.Drop</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="kotoba-quest-rpg.html"><span class="pager-dir">次の事例</span><span class="pager-name">ことばクエスト（Word-controlled RPG）</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

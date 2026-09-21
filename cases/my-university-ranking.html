@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>私だけの大学ランキング — Jev UX/UI Reference</title>
+  <meta name="description" content="自分の言葉で書いた条件を並べ替えながら、大学の適合度ランキングを作り直す画面。比較検討／自由条件によるランキング。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">比較検討／自由条件によるランキング</p>
+    <h1>私だけの大学ランキング</h1>
+    <p class="case-title">自分の言葉で書いた条件を並べ替えながら、大学の適合度ランキングを作り直す画面</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Score<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>絞り込みが2つに分かれている。設置区分や地域は「客観条件で絞り込み」、自由に書く条件は「曖昧絞り込み」と、ラベルで区別されている。どこからが推定なのかが、画面の構造で分かる。</p>
+<ul>
+<li>条件は、消さずにチェックを外して一時的に除ける。1つの条件が順位にどう効いているかを、試して確かめられる。</li>
+<li>並べ替えで優先順を変えられる、と画面は説明している。優先順が適合度にどう反映されるかは、確認していない。</li>
+<li>注記が、結果の上と、ページの下の両方にある。「合格率・偏差値・大学の客観的評価を示すものではありません」「AIは誤った判断を行う場合があります」と、数値の意味を限定している。</li>
+<li>未実装の項目を隠さず、「未実装」と表示している。</li>
+<li>大学ごとに、どの条件がどれだけ合ったかの内訳は、掲載した画面には出ていない。81.6%の理由は、画面からはたどれない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/my-university-live-1.png"><img src="../assets/images/display/my-university-live-1.webp" alt="私だけの大学ランキングの公開画面。上に適合度は合格可能性や大学の優劣ではないという注記、その下に設置区分・地域・都道府県のフィルターと「未実装」の学びたい分野、左にチェックと並べ替えと削除ができる4つのこだわり条件、右に825大学を対象としたTOP 10と適合度の割合が並ぶ" width="1600" height="1000" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/my-university-live-2.png"><img src="../assets/images/display/my-university-live-2.webp" alt="同じページの下部。ランキングの7位から10位の下に「ご利用前に」の欄があり、AIによる推定であること、大学基礎データの出所、データ基準日、自由入力の条件の評価にTypeSafe社のJEV技術を利用することが書かれている" width="1600" height="667" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>1枚目の「AIランキングについて」の注記、基礎フィルター、こだわり条件のチェック・並べ替え・削除、TOP 10と適合度、更新時刻。2枚目の「ご利用前に」と「AI判定技術」</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>設置区分、地域、都道府県による絞り込みと、自由に書いた「こだわり条件」。掲載した画面の条件は「偏差値50以上」「都心部にアクセスしやすい」「大きいライブ会場に行きやすい」「海に近い」。条件は追加、削除、オンとオフ、並べ替えができる。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>サイトの説明は「自由入力された条件の意味的な評価・適合度判定には、TypeSafe社のJEV技術を利用します」。作者の投稿は、不適切な条件を弾く判断にもJevを使うと述べている。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>「825大学から、現在の4条件に対するTOP 10」と、大学ごとの適合度（掲載した画面の1位は81.6%）、更新時刻。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Score</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">サイトは自由入力の条件の意味的な評価と適合度判定にJEV技術を使うと明記するが、条件ごとの質問型と適合度への集約方法は公開されていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>多数の候補を、利用者が書いた複数の条件に照らして評価し、並べる用途は、Jevの低遅延と並列性に合う。条件を変えるたびにランキングを作り直す操作は、判断が速いことを前提にしている。一方で、進学先の検討という重い判断に関わるため、適合度を事実として読ませない注記が欠かせない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者による投稿と公開サイトを確認。サイトは、適合度がAIによる推定であり、合格可能性や大学の客観的な評価ではないと明記している。ソースコードと、質問の設計は公開されていない。「学びたい分野」は未実装と表示されている。不適切な条件を弾く判断は、投稿で述べられているが、確かめていない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">公開サイトの画面（注記、基礎フィルター、条件の追加・削除・オンとオフ・並べ替えの説明、825大学を対象としたTOP 10と適合度、更新時刻、JEV技術の利用の明記、未実装の表示）、作者の投稿</span></li>
+        <li><span class="term">未検証</span><span class="desc">適合度の計算と、条件の優先順の反映、適合度の再現性と妥当性、不適切な条件を弾く判断の動作、質問の設計、ソースコード</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型（Scoreと見立て）。条件ごとの判断をアプリ側で適合度へ集約しているという読み方</span></li>
+        <li><span class="term">引用</span><span class="desc">公開サイト画面を2026-09-21に必要範囲で取得。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/naoki_openx/status/2101933575348293934" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/naoki_openx/status/2101933575348293934" rel="noopener noreferrer">X 公開投稿：私だけの大学ランキング（@naoki_openx）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://www.magic-culture.com/wp-content/uploads/contents/my_university/my_university.html" rel="noopener noreferrer">Web：私だけの大学ランキング<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="rail-guide">
+        <h2 id="rail-guide">設計入門の関連箇所</h2>
+        <ul>
+        <li><a href="../basics.html#s7-2">数値の意味をラベルで分ける</a></li>
+        <li><a href="../basics.html#s8">7. Jev、コード、LLM、人間の役割分担</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="particle-morph-jev.html"><span class="pager-dir">前の事例</span><span class="pager-name">Particle Morph × Jev</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="jev-decision-lab.html"><span class="pager-dir">次の事例</span><span class="pager-name">JEV / DECISION LAB</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

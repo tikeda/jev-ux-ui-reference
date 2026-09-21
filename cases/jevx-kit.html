@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>JevX-Kit — Jev UX/UI Reference</title>
+  <meta name="description" content="Xの投稿ごとに「AIが書いた割合」のバッジとタグを付け、広告を隠すブラウザ拡張。ブラウザ拡張／X投稿ラベル。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ブラウザ拡張／X投稿ラベル</p>
+    <h1>JevX-Kit</h1>
+    <p class="case-title">Xの投稿ごとに「AIが書いた割合」のバッジとタグを付け、広告を隠すブラウザ拡張</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>判断は、投稿を隠すのではなく、投稿に小さな印を足す形で現れる。読むかどうかは、利用者が決める。</p>
+<ul>
+<li>バッジは、Xの既存の操作の並びに収まる大きさで置かれている。タイムラインの読み方を変えずに、情報を足している。</li>
+<li>詳しい内容は、カーソルを合わせたときだけ開く。常に見えるのは割合だけで、タグは求めたときに読む。</li>
+<li>パネルにモデルの名前が出る。この数値が何によるものかを、その場で示している。</li>
+<li>「50% AI」のような値は、もっともらしい事実のように読まれやすい。作者は、値は判断であって判定ではない、と断っているが、その断りがバッジの上でどう伝わるかは、画像からは分からない。他人の投稿に、書き手の確認なしに印を付ける道具である点に、注意が要る。</li>
+<li>値が違うと思ったときに、利用者が指摘したり、印を消したりする手段は、確かめていない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jevx-kit-1.jpg"><img src="../assets/images/display/jevx-kit-1.webp" alt="Xの投稿の右上を拡大した画面。橙色の「50% AI」のバッジにカーソルが合い、その下に「Jev tags」のパネルが開いて、右上に「typesafe/jev-1.13」、タグとしてResource 67、Engagement 58、Promo 46が並んでいる" width="515" height="170" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>投稿の右上の「50% AI」のバッジ、その下に開いた「Jev tags」のパネル、右上のモデルの表記「typesafe/jev-1.13」、タグと数値（Resource 67、Engagement 58、Promo 46）</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>Xのタイムラインに出ている投稿の文章。画像など、文章以外を渡しているかどうかは分からない。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>投稿ごとの「AIが書いた割合」と、投稿の種類を表すタグごとの数値。パネルには「typesafe/jev-1.13」と出ている。数値の意味（確率か、点数か）は、画面に説明がない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>投稿の右上、メニューの横に、割合のバッジが出る。バッジにカーソルを合わせると、「Jev tags」のパネルが開き、タグと数値が並ぶ。投稿のほかの画像では、割合によってバッジの色が変わる（低い値は緑、50%前後は橙）。調査の記録では、設定の画面と、広告や有償の提携の投稿を隠す機能がある。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">割合とタグの数値が、確率なのか段階の評価なのかは、画面から分からない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>流れてくる投稿の1つ1つに、決まった観点の値を素早く付ける使い方は、Jevの速さと費用に合う。ただし、「AIが書いたか」は、文章だけから確かめることが難しい問いである。速く答えられることと、答えが当たっていることは、別である。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">調査監査の評価はC（索引向け）。実装とリポジトリは実在するが、Xの投稿に判断のラベルを重ねる型は、既存のSift、Xtags、jevxの事例と重なる。この事例は、その比較対象として置く。根拠は作者の投稿の画像で、掲載したのはそのうち、他人の投稿や写真を含まない1枚だけである。割合やタグの数値が何を意味するか、どれくらい当たるかは示されていない。作者自身が、値は判断であって判定ではない、と断っている。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">投稿の画像のうち、掲載した1枚に見える内容（「50% AI」のバッジ、「Jev tags」のパネル、モデルの表記、3つのタグと数値）。投稿のほかの画像に、投稿ごとのバッジが並ぶこと</span></li>
+        <li><span class="term">未検証</span><span class="desc">数値の意味と計算、割合とタグの精度、設定の画面、広告を隠す機能の動作、値を指摘する・印を消す手段、リポジトリのコード（監査は実在を確認したと記録しているが、このサイトの作業では開いていない）</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型は不明として扱う。割合とタグの数値が、確率なのか、段階の評価なのかは、画面から分からない</span></li>
+        <li><span class="term">引用</span><span class="desc">投稿の画像のうち1枚を引用（他人の投稿、アカウントの画像、人物の写真を含む画像は使っていない）。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/sudoPhoeniX/status/2101815688105209860" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/sudoPhoeniX/status/2101815688105209860" rel="noopener noreferrer">X 公開投稿：JevX-Kit（@sudoPhoeniX）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://github.com/PhoeniXAbhisheK/jevx-kit" rel="noopener noreferrer">GitHub：PhoeniXAbhisheK/jevx-kit<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="cubox-archive-validation.html"><span class="pager-dir">前の事例</span><span class="pager-name">Cubox archive validation</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="typesafe-semantic-lints.html"><span class="pager-dir">次の事例</span><span class="pager-name">TypeSafe semantic lints</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

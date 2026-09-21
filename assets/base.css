@@ -1,0 +1,627 @@
+/* ============================================================
+   ui-knowledge — base styles
+   DESIGN.md と同期した最小限のグローバル定義。
+   各エントリのHTML生成時は、これを継承した上で
+   レイアウトやセクションの組み立てだけを AI が行う想定。
+   ============================================================ */
+
+:root {
+  /* Color tokens (DESIGN.md §3) */
+  --color-primary: #2B799B;
+  --color-accent: #DDD73F;
+  --color-danger: #B04545;
+  --color-accent2: #6E4495; /* 第2アクセント（対比図・役割色に横断使用） */
+  --color-bg: #E8EFF2;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #43474A;
+  --color-text-secondary: #737678;
+  --color-border: #CDD5D8;
+
+  /* Spacing (4の倍数、DESIGN.md §6) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Radius */
+  --radius: 8px;
+
+  /* Type scale (DESIGN.md §5) */
+  --font-h1: 28px;
+  --font-h2: 23px;
+  --font-h3: 21px;
+  --font-body: 19px;
+  --font-meta: 14px;
+
+  /* Line heights */
+  --leading-tight: 1.45;
+  --leading-normal: 1.8;
+
+  /* Max width (本文の measure) */
+  --measure: 820px;
+  --sidebar-width: 240px;
+
+  /* Fonts */
+  --font-sans: "Noto Sans JP", "Noto Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-numeric: "Helvetica Neue", "SF Pro Text", Helvetica, Arial, sans-serif;
+}
+
+/* ---------- Reset / base ---------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--font-body);
+  line-height: var(--leading-normal);
+  font-feature-settings: "palt";
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+a:hover { border-bottom-color: var(--color-primary); }
+
+/* ---------- Layout ---------- */
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.site-title {
+  font-weight: 700;
+  color: var(--color-text-primary);
+  border-bottom: none;
+}
+
+.site-header nav {
+  display: flex;
+  gap: var(--space-4);
+  font-size: var(--font-meta);
+  color: var(--color-text-secondary);
+}
+
+main.entry {
+  display: grid;
+  grid-template-columns: 180px minmax(0, var(--measure)) 220px;
+  grid-template-areas:
+    "head head head"
+    "toc  article related";
+  column-gap: var(--space-10);
+  row-gap: 0;
+  max-width: calc(180px + var(--measure) + 220px + var(--space-10) * 2);
+  margin: 0 auto;
+  padding: var(--space-10) var(--space-6) var(--space-16);
+  align-items: start;
+}
+
+main.entry > .entry-head { grid-area: head; /* 既存の.entry-headスタイル（border-bottom等）を継承 */ }
+main.entry > article { grid-area: article; min-width: 0; max-width: var(--measure); font-size: 17px; }
+main.entry > article .summary > p:first-of-type { font-size: 18px; }
+main.entry > article h3 { font-size: 19px; }
+main.entry > article h4 { font-size: 16px; }
+main.entry > article .term-list .term { font-size: 16px; }
+main.entry > article .term-list .desc { font-size: 16px; }
+main.entry > article .term-list .subterm { font-size: 13px; }
+
+/* 3カラムの上を揃えるため、本文の最初の見出しの上余白を消す */
+main.entry > article > section:first-of-type h2 { margin-top: 0; }
+main.entry > .entry-toc-wrap { grid-area: toc; }
+main.entry > .entry-related { grid-area: related; }
+
+.entry-head {
+  margin-bottom: var(--space-10);
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.entry-head h1 {
+  font-size: var(--font-h1);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  margin: 0 0 var(--space-4);
+}
+
+.entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-size: var(--font-meta);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Typography ---------- */
+
+h2 {
+  font-size: var(--font-h2);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  margin: var(--space-10) 0 var(--space-4);
+}
+h3 {
+  font-size: var(--font-h3);
+  font-weight: 700;
+  line-height: var(--leading-normal);
+  margin: var(--space-6) 0 var(--space-3);
+}
+h4 {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: var(--leading-tight);
+  margin: var(--space-5) 0 var(--space-2);
+  color: var(--color-text-primary);
+}
+
+p { margin: 0 0 var(--space-4); }
+
+/* 「概要」最初の段落の lead 扱い（本文を上げたのでわずかな差にとどめる） */
+section.summary > p:first-of-type {
+  font-size: 20px;
+  line-height: var(--leading-normal);
+}
+
+strong {
+  /* 太字は控えめに、色で軽く強調 */
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+/* ---------- Components: tags / chips ---------- */
+
+.tag {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: var(--font-meta);
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+}
+
+/* ---------- Components: verdict label (NG/OK 対比の良否チップ) ---------- */
+/* NG/OK 対比パネルの見出しラベル。<div class="verdict ng">NG ・ …</div> の形で使う。
+   従来 .err-panel / .dp-card / .voice-panel 等でファイルごとに再実装されていたものの共通化 */
+
+.verdict {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.verdict.ng { color: var(--color-danger); }
+.verdict.ok { color: var(--color-primary); }
+
+/* bar バリアント: モック画面上部の帯型（薄い色地 + パディング）。
+   ダークパターン / 待ち時間のデザイン / 空の状態 などのスクリーンモックで使用 */
+.verdict.verdict-bar {
+  margin-bottom: 0;
+  padding: var(--space-2) var(--space-4);
+}
+.verdict.verdict-bar.ng { background: rgba(176, 69, 69, 0.06); }
+.verdict.verdict-bar.ok { background: rgba(43, 121, 155, 0.06); }
+
+/* ---------- Components: live demo marker ---------- */
+/* 実際に操作できるデモの合図。自動再生のみのアニメーションには付けない。
+   ボタンとアクション.html の .state-demo .sd-label が基準 */
+
+.live-demo-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+/* ---------- Components: lists ---------- */
+
+ul, ol { padding-left: var(--space-6); margin: 0 0 var(--space-4); }
+li { margin-bottom: var(--space-2); }
+
+/* ---------- Components: checkpoint list ---------- */
+
+.checkpoints {
+  list-style: none;
+  padding-left: 0;
+}
+.checkpoints li {
+  position: relative;
+  padding-left: var(--space-6);
+}
+.checkpoints li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+/* ---------- Components: code & pre ---------- */
+
+code {
+  font-family: "SF Mono", "Menlo", "Consolas", monospace;
+  font-size: 0.88em;
+  background: var(--color-bg);
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: var(--color-text-primary);
+}
+
+pre {
+  margin: var(--space-4) 0;
+  padding: var(--space-4) var(--space-5);
+  background: #1f2530;
+  color: #e8eff2;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+}
+pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+/* ---------- Components: term list (ラベル + 説明) ---------- */
+/* 「<strong>X</strong>：説明」の文字密度を下げ、ラベルを小見出し風に独立させる */
+
+.term-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0 0 var(--space-4);
+}
+.term-list > li {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+  margin: 0;
+}
+.term-list > li:first-child { padding-top: 0; }
+.term-list > li:last-child { border-bottom: none; padding-bottom: 0; }
+.term-list .term {
+  display: block;
+  font-weight: 700;
+  font-size: 17px;
+  color: var(--color-text-primary);
+  line-height: var(--leading-tight);
+  margin-bottom: 4px;
+}
+.term-list .subterm {
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--color-primary);
+  line-height: var(--leading-tight);
+  margin-bottom: 6px;
+  letter-spacing: 0.01em;
+}
+.term-list .desc {
+  display: block;
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+.term-list .desc a { color: var(--color-primary); }
+
+/* failures + term-list の組み合わせ: ✕ マーカーをラベルの行頭に */
+.failures .term-list > li {
+  position: relative;
+  padding-left: var(--space-6);
+}
+.failures .term-list > li::before {
+  content: "✕";
+  position: absolute;
+  left: 0;
+  top: calc(var(--space-3) + 2px);
+  color: var(--color-danger);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+}
+.failures .term-list > li:first-child::before { top: 2px; }
+
+/* ---------- Components: failures list ---------- */
+
+.failures {
+  margin: 0 0 var(--space-4);
+}
+.failures ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.failures li {
+  position: relative;
+  padding-left: var(--space-6);
+}
+.failures li::before {
+  content: "✕";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  color: var(--color-danger);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+}
+
+/* ---------- Components: symptom approach (Q&A) ---------- */
+
+/* (旧) <div class="symptom-approach"> 形式 — 展開済み表示 */
+div.symptom-approach { margin: 0 0 var(--space-6); }
+div.symptom-approach > .symptom {
+  font-weight: 700;
+  font-size: var(--font-h3);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-2);
+  padding-left: var(--space-3);
+  border-left: 3px solid var(--color-primary);
+}
+div.symptom-approach > .answer {
+  margin: 0 0 var(--space-6);
+  padding-left: var(--space-4);
+  color: var(--color-text-primary);
+}
+
+/* (新) <details class="symptom-approach"> 形式 — アコーディオン */
+details.symptom-approach {
+  border-bottom: 1px solid var(--color-border);
+  margin: 0;
+}
+details.symptom-approach:first-of-type {
+  border-top: 1px solid var(--color-border);
+}
+details.symptom-approach summary {
+  cursor: pointer;
+  list-style: none;
+  padding: var(--space-4) var(--space-2);
+  font-weight: 700;
+  font-size: var(--font-h3);
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  transition: color 0.12s ease;
+}
+details.symptom-approach summary::-webkit-details-marker { display: none; }
+details.symptom-approach summary::before {
+  content: "+";
+  flex-shrink: 0;
+  color: var(--color-primary);
+  width: 18px;
+  font-size: 22px;
+  line-height: 1;
+  font-weight: 400;
+  margin-top: 2px;
+  text-align: center;
+}
+details.symptom-approach[open] summary::before { content: "−"; }
+details.symptom-approach summary:hover { color: var(--color-primary); }
+details.symptom-approach .answer {
+  padding: 0 var(--space-2) var(--space-5) calc(var(--space-2) + 18px + var(--space-3));
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
+/* ---------- Components: examples ---------- */
+
+/* ---------- Components: examples table ---------- */
+
+.examples-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 var(--space-4);
+}
+.examples-table th,
+.examples-table td {
+  vertical-align: top;
+  text-align: left;
+  padding: var(--space-4) var(--space-4) var(--space-4) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.examples-table tr:first-child th,
+.examples-table tr:first-child td {
+  padding-top: 0;
+}
+.examples-table tr:last-child th,
+.examples-table tr:last-child td {
+  border-bottom: none;
+}
+.examples-table th {
+  font-weight: 700;
+  width: 28%;
+  padding-right: var(--space-5);
+  /* キーワードにプライマリカラーの下線 */
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .examples-table,
+  .examples-table tbody,
+  .examples-table tr,
+  .examples-table th,
+  .examples-table td {
+    display: block;
+    width: auto;
+  }
+  .examples-table th { padding-bottom: var(--space-2); border-bottom: none; }
+  .examples-table td { padding-top: 0; padding-bottom: var(--space-5); }
+  .examples-table tr:not(:last-child) td { border-bottom: 1px solid var(--color-border); }
+}
+
+/* ---------- Sidebars (left TOC / right related & sources) ---------- */
+
+.entry-toc-wrap,
+.entry-related {
+  position: sticky;
+  top: var(--space-6);
+  font-size: var(--font-meta);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-normal);
+}
+
+.entry-toc-wrap h2,
+.entry-related h2 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-3);
+}
+
+.entry-toc-wrap > nav,
+.entry-toc-wrap > section,
+.entry-related > nav,
+.entry-related > section {
+  margin-bottom: var(--space-8);
+}
+
+.entry-toc-wrap ul,
+.entry-related ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.entry-toc-wrap li,
+.entry-related li {
+  margin-bottom: var(--space-2);
+  line-height: var(--leading-tight);
+  position: relative;
+  padding-left: 12px;
+}
+.entry-toc-wrap li::before,
+.entry-related li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-text-secondary);
+  font-size: 11px;
+  line-height: var(--leading-normal);
+}
+/* リンクが含まれる項目（関連概念や出典のリンクなど）は矢印にして
+   ナビゲートできることを示す */
+.entry-related li:has(> a)::before {
+  content: "→";
+  color: var(--color-primary);
+  font-size: 12px;
+}
+
+.entry-toc-wrap a,
+.entry-related a {
+  color: var(--color-text-primary);
+  border-bottom: none;
+}
+.entry-toc-wrap a:hover,
+.entry-related a:hover {
+  color: var(--color-primary);
+}
+.entry-toc-wrap .entry-toc a {
+  display: inline-block;
+  padding: 2px 0;
+}
+
+/* ---------- Sources grouped by category ---------- */
+
+.source-group {
+  margin-bottom: var(--space-5);
+}
+.source-group:last-child { margin-bottom: 0; }
+.source-group .group-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+}
+.source-group ul { margin-bottom: 0; }
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  margin-top: var(--space-16);
+  padding: var(--space-10) var(--space-6);
+  background: var(--color-border);
+  font-size: var(--font-meta);
+  color: var(--color-text-secondary);
+}
+.site-footer .footer-inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.site-footer .footer-process {
+  font-size: 14px;
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+}
+.site-footer .footer-process strong {
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+.site-footer .footer-credit {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  border-top: 1px dashed rgba(67, 71, 74, 0.2);
+  padding-top: var(--space-3);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1100px) {
+  main.entry {
+    grid-template-columns: minmax(0, var(--measure));
+    grid-template-areas:
+      "head"
+      "article"
+      "related";
+    max-width: var(--measure);
+  }
+  main.entry > .entry-toc-wrap { display: none; }
+  main.entry > .entry-related {
+    position: static;
+    width: 100%;
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+@media (max-width: 640px) {
+  main.entry { padding: var(--space-6) var(--space-4) var(--space-12); }
+  .entry-head h1 { font-size: 25px; }
+  h2 { font-size: 21px; }
+}
+
+/* ---------- 数字専用 ---------- */
+
+.num, time {
+  font-family: var(--font-numeric);
+  font-feature-settings: "tnum";
+}

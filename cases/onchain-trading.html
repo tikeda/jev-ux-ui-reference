@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Jev Trader — Jev UX/UI Reference</title>
+  <meta name="description" content="価格フィードから売買を選ぶリアルタイムUI。Webデモ／自動売買。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">Webデモ／自動売買</p>
+    <h1>Jev Trader</h1>
+    <p class="case-title">価格フィードから売買を選ぶリアルタイムUI</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>高頻度の判断を時系列の変化として表示するため、Jevの低遅延性が直接見える。</p>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/onchain-trading-start.jpg"><img src="../assets/images/display/onchain-trading-start.webp" alt="動画の開始フレーム。左に価格チャートと「Selling」の状態表示、右にSELL 87%を示す買い・売りの確率バーと取引履歴の一覧がある" width="1600" height="954" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 3</span><span class="sep">・</span>動画の開始フレーム</figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/onchain-trading-middle.jpg"><img src="../assets/images/display/onchain-trading-middle.webp" alt="動画の途中フレーム。状態表示が「Missed the block」に変わり、確率バーは空で「LATE」と表示されている" width="1600" height="954" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 3</span><span class="sep">・</span>動画の途中フレーム</figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/onchain-trading-end.jpg"><img src="../assets/images/display/onchain-trading-end.webp" alt="動画の終盤フレーム。状態表示が「Buying」に変わり、確率バーはBUY 80%、SELL 20%を示している" width="1600" height="954" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">3 / 3</span><span class="sep">・</span>動画の終盤フレーム</figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>入力、判断結果の表現、判断後にユーザーまたはシステムが取る操作</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>資産ペアの価格フィードと市場状態。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>BUY / SELL等の有限アクションを確率付きで選ぶ。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>チャート、現在の判断、確率バー、取引履歴をリアルタイム表示する。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">「BUY / SELL等の有限アクションを確率付きで選ぶ」という記述からの見立て。質問型は原文で確認されていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>形式上は適合するが、実利用には高リスク。誤判定が不可逆な資金損失へ直結し、確信度表示だけでは安全にならない。制限、停止、上限、監査が主役になるべき。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">公開投稿と動画を確認。実取引とする主張は投稿者情報で、収益性・安全性は未検証。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">上記出典で見える画面、投稿・READMEに明記された用途</span></li>
+        <li><span class="term">未検証</span><span class="desc">実際の精度、速度、継続利用時の挙動、公開コードをローカル実行した結果</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">ソースで質問型やプロンプトが公開されていない箇所</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/jarrodwatts/status/2100356151468585346" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/jarrodwatts/status/2100356151468585346" rel="noopener noreferrer">Jev Trader<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="rail-guide">
+        <h2 id="rail-guide">設計入門の関連箇所</h2>
+        <ul>
+        <li><a href="../basics.html#s6-4">パターンD：Probability Inspector</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="model-router-visual.html"><span class="pager-dir">前の事例</span><span class="pager-name">Model router with Jev</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="sift-x-timeline.html"><span class="pager-dir">次の事例</span><span class="pager-name">Sift</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

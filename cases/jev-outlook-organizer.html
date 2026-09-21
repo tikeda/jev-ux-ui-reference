@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Jev Outlook Organizer — Jev UX/UI Reference</title>
+  <meta name="description" content="メール1通を注意度・次の行動・フォルダに分け、適用前に検査する流れ。メール整理／適用前に検査する流れ。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">メール整理／適用前に検査する流れ</p>
+    <h1>Jev Outlook Organizer</h1>
+    <p class="case-title">メール1通を注意度・次の行動・フォルダに分け、適用前に検査する流れ</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice / Noul<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>「Jevは解釈し、アプリのルールが更新を制御する」という二段の構造を、画面の見出しそのもので説明している。判断が直接メールボックスを書き換えず、閾値ルールという検査を挟む点が最も参考になる。</p>
+<ul>
+<li>既存の状態（未読、ネイティブフラグ）を壊さないと明示している。</li>
+<li>「判断を確認し、ダッシュボードで分類を訂正する」導線が最後のスライドで案内されている。</li>
+<li>選択肢が有限で、選ばれた項目に確率とconfidenceが付く。確率とconfidenceは別の値として扱われている。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-outlook-organizer-1.jpg"><img src="../assets/images/display/jev-outlook-organizer-1.webp" alt="「How soon does it need me?」と題したスライド。架空の顧客メールの下に、Now、Soon、FYI、No Actionの選択肢が並び、Soonにチェックが付いている。下部に「Choice returns a selection, probabilities and confidence」の注記と「Fictional email · illustrative outputs」の表記" width="720" height="900" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-outlook-organizer-2.jpg"><img src="../assets/images/display/jev-outlook-organizer-2.webp" alt="「The application checks first.」と題したスライド。Attention Soon、Next action Reply、Folder Customer Sales、Needs owner 96%、Security risk 3%が並び、下に「Cloudflare Worker / application rules」と、閾値を超えると「Needs Me」が付く説明がある" width="720" height="900" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-outlook-organizer-3.jpg"><img src="../assets/images/display/jev-outlook-organizer-3.webp" alt="「Filed. Still on my radar.」と題したスライド。Outlookを模したモックアップで、Customer Salesフォルダに顧客メールが入りSoonのタグが付いている。下にSoon、Reply、Needs Meのラベルと「Unread status and native flags preserved」の文" width="720" height="900" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">3 / 3</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>選択肢からの判断、アプリのルール検査、Outlook上に反映される結果と、訂正できる場所の案内</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>架空の顧客メール1通（「Revised quote for our next order」）と、アプリ側で設定した注意度の選択肢・フォルダ。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>注意度を Now / Soon / FYI / No Action から選ぶ。次の行動、フォルダ種別、オーナー対応の要否（Needs owner 96%）、セキュリティリスク（3%）も返る。画面には「Choice returns a selection, probabilities and confidence」とある。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>判断はCloudflare Workerのアプリ側ルールを通り、オーナー対応の値が設定閾値を超えると「Needs Me」が付く。Outlook上ではフォルダ移動とSoon・Reply・Needs Meのタグとして示され、未読状態とネイティブフラグは保たれる。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice / Noul</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">1枚目に「01 / ATTENTION · CHOICE」の表記があり、Choiceで注意度を選ぶことは画面から確認できる。オーナー要否やセキュリティリスクの確率表示の質問型は、掲載した静止画からは確認できない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>Choiceで注意度を選び、複数の小さな問い（オーナー要否、リスク）を並べる構成はJevの得意な形に沿う。ただし動画は説明用で、閾値を超えない場合の表示、誤分類後の修正、複数メールを扱う一覧は確認できない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">作者の解説動画（44秒・7枚構成）から静止画を確認。動画は架空のメールと「illustrative outputs」の表記を持つ説明用の構成で、実行中の画面ではない。Outlook表示も「Illustrative mockup」と明記されている。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た3枚の静止画に見える選択肢、確率表示、ルール検査の説明、Outlookのモックアップ、投稿文の説明</span></li>
+        <li><span class="term">未検証</span><span class="desc">実メールでの動作、分類精度、ダッシュボードの訂正画面、フォルダ・タグの実際の反映、公開リポジトリの中身</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">「Needs owner」「Security risk」の質問型。Choice以外の型名はこの静止画からは確認できない</span></li>
+        <li><span class="term">引用</span><span class="desc">X投稿は2026-09-20（UTC）。動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/tonycasavan/status/2101803028315537806" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/tonycasavan/status/2101803028315537806" rel="noopener noreferrer">X 公開投稿：Jev Outlook Organizer（@tonycasavan）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://github.com/Taveren7/jev-outlook-organizer" rel="noopener noreferrer">GitHub リポジトリ：Taveren7/jev-outlook-organizer（未確認）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="jevtown.html"><span class="pager-dir">前の事例</span><span class="pager-name">Jevtown</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="web-doom-autoplay.html"><span class="pager-dir">次の事例</span><span class="pager-name">Web Doom autoplay</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

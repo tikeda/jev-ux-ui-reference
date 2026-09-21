@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Netflix group movie picker — Jev UX/UI Reference</title>
+  <meta name="description" content="好みの違う3人で観る映画を選び、好みの判断はJevに、評価点の足切りと人数の数え上げはアプリに分けた実験。グループ選択／嗜好とルールの分離。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">グループ選択／嗜好とルールの分離</p>
+    <h1>Netflix group movie picker</h1>
+    <p class="case-title">好みの違う3人で観る映画を選び、好みの判断はJevに、評価点の足切りと人数の数え上げはアプリに分けた実験</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>1枚の画面の中で、確率を伴う判断と、決まった規則の検査が、別々の欄に分けて示されている。どこまでがJevの判断で、どこからがアプリの計算かを、注記が言葉で区切っている。</p>
+<ul>
+<li>好みに合うかどうかは、あらすじの解釈を含むので、Jevに任せる。評価点の足切りと、人数の数え上げは、数字で決まるので、アプリが行う。間違え方の違う2種類の処理を混ぜていない。</li>
+<li>満たされなかった好み（宇宙のSF）が、unmetとして残る。3人中2人の妥協であることが、結果から消えない。誰が譲ったかが見える。</li>
+<li>confidence 0.65は、そのまま表示されている。この値が何を意味するか、低いときにどうするかは、画像からは分からない。</li>
+<li>作者は、1回目の失敗を投稿に書いている。ジャンルだけで選んだ結果、評価点の低い作品が選ばれた。そこで評価点の下限を規則に加え、候補を広げて、やり直した。判断の誤りではなく、条件の不足だったことを、規則の追加で直している。</li>
+<li>候補を眺めて選び直す画面や、結果に異議を出す手段は、示されていない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/netflix-group-movie-picker-1.jpg"><img src="../assets/images/display/netflix-group-movie-picker-1.webp" alt="結果をまとめた1枚の画面。左上のInputに3人の好みとグループの規則と評価点の規則のJSON、右上のOutputにchoiceとconfidence 0.65、その下のApplication checksにIMDb 6.7、Popcornmeter 73%、一致2 of 3がいずれもpass、左下に映画The Adam Projectの情報、右下のPreference checksにアクション一致、ロマンス一致、宇宙のSFはunmetと並ぶ" width="1600" height="1240" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>左上のInput（friends、group_policy、ratings_policy）、右上のOutput（type: choice、confidence 0.65）、Application checksの3行とpass、Preference checksのmatchedとunmet、右下の注記「Category evidence from Jev. Distinct matches counted by application.」</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>3人の好み（action：アクションかスリラー、space：宇宙を舞台にしたSF、romance：ロマンスかロマンティックコメディ）、グループの規則（3人中2人の一致が必要）、評価点の規則（IMDb 6.5以上、Rotten Tomatoesの観客評価60%以上）、候補の映画の説明。モデルの表記は「jev-1.13.0」。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>出力の表示は、winnerという問いに対する <code>&quot;type&quot;: &quot;choice&quot;</code>、選ばれた作品のID、confidence 0.65。作者の説明では、Jevはジャンルとあらすじを根拠に、それぞれの好みに合うかを評価する。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>選ばれた作品（The Adam Project、2022年、106分）の情報。Application checksは、IMDb 6.7でpass、Popcornmeter 73%でpass、一致した人数が3人中2人でpass。Preference checksは、アクションに一致、ロマンスに一致、宇宙のSFはunmet。批評家の評価（Tomatometer 68%）は、規則と別に表示される。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">出典に明記</span></dd>
+          <dd class="primitive-reason">画像の出力のJSONに &quot;type&quot;: &quot;choice&quot; と書かれている。好みごとの評価をどの質問型で尋ねたかは、画像に出ていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>あらすじと好みの組に対して、合うかどうかを評価し、候補から1つを選ぶ判断は、Jevの型に収まる。数字の規則をJevに任せず、アプリの側に置いた点が、この事例の設計上の要点である。ただし、判断の妥当性は、作者の1回の結果以上には確かめられていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">根拠は限定的で、調査監査の評価はB（追加の確認が要る段階）。作者による投稿の画像1枚を確認。画像は結果をまとめた静的な1枚で、リポジトリも動くアプリも公開されていない。Netflixの画面を操作して候補を集めたという流れは、作者の説明であり、示されていない。作者自身が、小さな候補の一覧で試しただけで、評価はまだ足りないと述べている。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">投稿の画像1枚に見える内容（入力のJSON、出力のchoiceとconfidence、Application checks、Preference checks、映画の情報、注記）。作者が投稿で、1回目の失敗と、規則を足したやり直しを述べていること</span></li>
+        <li><span class="term">未検証</span><span class="desc">Netflixの画面を操作して候補を集める流れ、候補の一覧と説明、好みごとの判断の値、confidenceの意味、判断の妥当性と再現性、動くアプリとソースコードの有無</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">なし。質問型は、画像の出力に書かれた <code>&quot;type&quot;: &quot;choice&quot;</code> による。好みごとの評価をどの質問型で尋ねたかは、画像に出ていない</span></li>
+        <li><span class="term">引用</span><span class="desc">投稿の画像を縮小して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/uday_sail/status/2101818576009326794" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/uday_sail/status/2101818576009326794" rel="noopener noreferrer">X 公開投稿：Netflix group movie picker（@uday_sail）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="rail-guide">
+        <h2 id="rail-guide">設計入門の関連箇所</h2>
+        <ul>
+        <li><a href="../basics.html#s8">7. Jev、コード、LLM、人間の役割分担</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="jev-search-rerank-eval.html"><span class="pager-dir">前の事例</span><span class="pager-name">Jev search-reranking evaluation</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="x402-tool-selector.html"><span class="pager-dir">次の事例</span><span class="pager-name">x402 endpoint/tool selector</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

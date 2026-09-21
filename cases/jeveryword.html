@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>jeveryword — Jev UX/UI Reference</title>
+  <meta name="description" content="原文中の位置まで戻れる、Jevによる構造化抽出UI。テキストからの構造化抽出。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">テキストからの構造化抽出</p>
+    <h1>jeveryword</h1>
+    <p class="case-title">原文中の位置まで戻れる、Jevによる構造化抽出UI</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>リポジトリ確認</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>生成文を受け取るのではなく、入力文に存在する範囲だけをJevに選ばせる。結果から原文へ戻れるため、「何を根拠に抽出したか」を人が確認できる。見つからない項目は推測で補完せず、未提供として扱える。</p>
+<p>設計上の要点は、抽出結果と出典位置を分離しないこと、確率を正解保証として扱わないこと、個人情報を外部APIへ送る前に送信範囲を示すことにある。</p>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jeveryword-live.png"><img src="../assets/images/display/jeveryword-live.webp" alt="jeverywordの公開デモ。左に人物情報を含む入力文と抽出対象、右に構造化出力、下に番号付けされた原文が並ぶ" width="1440" height="1200" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>左の入力文と抽出項目、右の構造化出力、下部の「What Jev sees」で番号付けされた原文</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>最大4,000文字の文章と、抽出したいフィールドの選択。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>単語へ番号を付け、各フィールドに対応する番号をJevの選択問題として判断する。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>抽出値、原文オフセット、確率、入力トークン数、所要時間、API呼び出し数。値を選ぶと原文の該当箇所へ戻れる。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">undefined</span></dd>
+          <dd class="primitive-reason">公開デモとリポジトリは、番号付けした単語候補からJevが該当範囲を選ぶ構成を説明している。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>自由文を生成させず、原文中の有限な候補から位置を選ばせるため、JevのChoice型判断と相性がよい。低遅延で複数フィールドを並列に扱える一方、候補に存在しない情報を補完する用途には向かない。抽出確率は正しさではなく、確認順序を決める補助情報として扱うべきである。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">公開デモとリポジトリを確認。任意の文章から氏名・メール・所在地などを抽出し、原文中の位置と判断確率を返す。抽出結果は候補であり、個人情報の正しさや利用許可を保証しない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">公開デモの入力・項目選択・番号付けされた原文、GitHubリポジトリ</span></li>
+        <li><span class="term">未検証</span><span class="desc">実運用での精度、長文・多言語・曖昧な表現への安定性、個人情報の運用設計</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">抽出確率を確認順序に利用する運用上の提案。公開デモがこの運用を強制するわけではない</span></li>
+        <li><span class="term">引用</span><span class="desc">公開デモ画面を2026-09-21に必要範囲で取得。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://jeveryword.vercel.app/" rel="noopener noreferrer">
+          <span class="rail-source-platform">jeveryword.vercel.app</span>
+          <span>出典元を開く</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/justkrup/status/2101703011160748525" rel="noopener noreferrer">X 公開投稿：jeveryword（@justkrup）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://jeveryword.vercel.app/" rel="noopener noreferrer">Web：jeveryword live demo<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://github.com/jkrup/jeveryword" rel="noopener noreferrer">GitHub：jkrup/jeveryword<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>jeveryword.vercel.app</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>リポジトリとキャプチャを確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="typesafe-semantic-lints.html"><span class="pager-dir">前の事例</span><span class="pager-name">TypeSafe semantic lints</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="nqz-seo-health.html"><span class="pager-dir">次の事例</span><span class="pager-name">nqz.ai Website SEO Health Check</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

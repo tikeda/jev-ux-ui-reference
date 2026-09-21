@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>JEV / DECISION LAB — Jev UX/UI Reference</title>
+  <meta name="description" content="面接の文字起こしを、採用要件ごとの根拠と未確認の観点に分けて読む画面。面接分析／要件別の証拠表示。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">面接分析／要件別の証拠表示</p>
+    <h1>JEV / DECISION LAB</h1>
+    <p class="case-title">面接の文字起こしを、採用要件ごとの根拠と未確認の観点に分けて読む画面</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>複合</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>結論を出す画面ではなく、根拠を整理する画面として作られている。下端に「能力・採否の判定ではありません」とあり、出力の役割を画面の中で限定している。</p>
+<ul>
+<li>「確認できた」ことと並べて、「未確認の観点」を要件ごとに出す。足りない根拠が、次に何を聞くべきかの手がかりになる。</li>
+<li>マトリクスのセルには、「この発言が要件の裏付けに関係する確率」であり、要件全体の充足度ではない、という注記がある。数値の意味を、値のすぐ下で説明している。</li>
+<li>充足度には「Score / 期待値」とconfidence（0.88、0.66）が添えられ、0から3の段階ごとの分布も出る。確率とconfidenceが、別の値として表示されている。</li>
+<li>暫定のレビュー基準（20%以下は記述不足の候補、20%から80%未満は要確認、80%以上は記述ありの候補）が、画面に書かれている。しきい値を隠していない。</li>
+<li>引用と発言は、行のID（L04など）で結ばれ、文字起こしの側でも該当の発言が強調される。ただし作者自身が、選ばれる発言にずれがあると述べている。</li>
+<li>判断型の内訳と、失敗、未受信の件数を出している。何回、どの型で尋ねたかを、利用者が確かめられる。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/decision-lab-1.jpg"><img src="../assets/images/display/decision-lab-1.webp" alt="JEV / DECISION LABの画面。上部に判断数152 / 152、経過1.32秒、判断型の内訳が出ている。左に面接の文字起こし、中央に8つの採用要件ごとの充足度と主要な原文引用と未確認の観点、右に選んだ要件の詳細（2.88 / 3、confidence 0.88、段階ごとの分布）と質問を足す欄がある" width="1152" height="720" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/decision-lab-2.jpg"><img src="../assets/images/display/decision-lab-2.webp" alt="同じ画面の関連マトリクス表示。8つの要件と12の発言の組み合わせごとの確率が、色の濃さの違うセルで並ぶ。下に、セルは発言が要件の裏付けに関係する確率であり充足度ではないという注記と、暫定レビュー基準、能力・採否の判定ではないという表記がある" width="1152" height="720" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>上部の判断数・経過秒・判断型の内訳、左の文字起こし、1枚目の要件別評価（確認できた度合い、主要な原文引用、未確認の観点）、2枚目の関連マトリクスとセルの注記、右の詳細パネル、下端の暫定レビュー基準</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>架空の面接の文字起こし（20発言、うち候補者の12発言）と、職種ごとの8つの採用要件。利用者は「要件分析を開始」を押す。Yes / Noで答えられる質問を、自分で足す欄もある。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>要件と発言の組み合わせごとの関連の確率、要件ごとの充足度、根拠として引用する発言。画面の内訳は「Noul 136・Score 8・引用Choice 8・失敗 0・未受信 0」、合計152。モデルの表記は「jev-1.13.0」。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>判断数は「— / 152」から「152 / 152」に変わり、経過1.32秒と表示される。要件別評価は、充足度（例：2.88 / 3）、主要な原文引用、未確認の観点を並べる。関連マトリクスは、8要件と12発言の確率を色の濃さで示す。セルや要件を選ぶと、右に段階ごとの分布、confidence、観点ごとの割合が出る。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">複合</span><span class="primitive-basis">出典に明記</span></dd>
+          <dd class="primitive-reason">画面に判断型の内訳「Noul 136・Score 8・引用Choice 8」が表示されている。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>要件と発言の組み合わせという、多数の狭い判断を並列に行う使い方は、Jevに向く。152個の判断が約1.3秒で返るという作者の実測は、人が待たずに読み始められる速さである。一方、採用は人に重い影響が及ぶ領域である。1つのデモデータで動いたことは、実際の面接で使える根拠にはならない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者による投稿動画から静止画を確認。公開された成果物やコードは見つかっていない。作者は、デモデータを使っていること、根拠として選ばれる発言に多少のずれがあり検証を続けることを述べている。速度は作者の画面に出た実測で、こちらでは測っていない。精度、公平性、再現性、採用の判断に使えるかどうかは、確かめられていない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見える判断数と経過秒、判断型の内訳、モデルの表記、文字起こし、要件別評価、関連マトリクスとセルの注記、詳細パネルの分布とconfidence、質問を足す欄、暫定レビュー基準と「能力・採否の判定ではありません」の表記。投稿文の説明（デモデータの使用、発言のずれ、動画は等速）</span></li>
+        <li><span class="term">未検証</span><span class="desc">精度、公平性、再現性、根拠として選ばれる発言の正しさ、実際の面接データでの動作、速度の再測定、公開された成果物やコードの有無</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">画面の内訳の読み方。要件と発言の関連をNoul、充足度をScore、引用する発言の選択をChoiceで尋ねている、という対応づけ</span></li>
+        <li><span class="term">引用</span><span class="desc">X投稿は2026-09-21（UTC）。動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/akiy_8/status/2101933239841820956" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/akiy_8/status/2101933239841820956" rel="noopener noreferrer">X 公開投稿：JEV / DECISION LAB（@akiy_8）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="my-university-ranking.html"><span class="pager-dir">前の事例</span><span class="pager-name">私だけの大学ランキング</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="jev-quest.html"><span class="pager-dir">次の事例</span><span class="pager-name">Jev Quest</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

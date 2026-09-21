@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Japanese expense-memo categorization — Jev UX/UI Reference</title>
+  <meta name="description" content="日本語で書いた支出のメモを、その場で費目に分類するという、家計管理アプリの機能。家計管理／経費メモ分類。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">家計管理／経費メモ分類</p>
+    <h1>Japanese expense-memo categorization</h1>
+    <p class="case-title">日本語で書いた支出のメモを、その場で費目に分類するという、家計管理アプリの機能</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>確認できた範囲は、分類の機能が置かれているとされるアプリの外枠である。分類そのものの画面は、確かめられていない。</p>
+<ul>
+<li>アプリは、未ログインではデータが端末にだけ保存されると、最初に明示している。家計という私的なデータを扱う画面として、保存先を先に伝えている。</li>
+<li>表示モードを3段階で切り替えられる。機能の多い画面を、利用者が絞れる。</li>
+<li>メモの分類が意図と違ったときに、利用者が費目を直せるか、直した結果が次の判断に生かされるかは、分からない。家計の記録では、誤った分類が集計に残るため、直す手段が要になる。</li>
+<li>分類の確からしさを利用者に見せているかどうかも、分からない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/expense-memo-live.png"><img src="../assets/images/display/expense-memo-live.webp" alt="家計管理アプリの資産管理のページ。上端に「未ログイン：データはこの端末にのみ保存（他端末に出ません）」の案内、表示モードのミニマム・標準・フルの切り替え、給料サイクルの収入・支出・差額がいずれも0円の表示、「収入を記録する」のボタン、マネーカレンダーがある。経費メモの分類は写っていない" width="1600" height="1000" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>上端の「未ログイン：データはこの端末にのみ保存（他端末に出ません）」、表示モード（ミニマム・標準・フル）、収入・支出・差額、「収入を記録する」。経費メモの分類は、この画面には出ていない</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>要約によれば、日本語で書いた曖昧な支出のメモ。取得した画面には、メモの入力欄が出ていない。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>作者の投稿と要約によれば、メモを決まった費目に、ミリ秒単位で分類する。費目の候補、確率は確かめていない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>要約によれば、分類の結果が、資産管理の画面にその場で反映される。取得した画面で確認できたのは、資産管理のページの初期状態（収支が0円で、記録を促す案内）だけである。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">費目の候補から選ぶ判断のように読めるが、分類の画面も投稿の画像も確認していない。取得した画面にJevの表記はない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>短いメモを、決まった費目の1つに素早く当てはめる判断は、入力のたびに待たせない点でJevに合う。ただし、受信箱や文書の分類の事例と近く、この事例に固有の工夫は確かめられていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">根拠は限定的で、調査監査の評価はB（追加の確認が要る段階）。日本語の作者による投稿が根拠だが、投稿の画像は調査でも取得・確認されていない。公開サイトは開けるが、掲載した画面は未ログインで開いた直後の状態で、メモの入力欄も分類の結果も写っていない。取得した画面にJevの表記はない。分類の動作は、検索結果の要約と作者の投稿によるもので、確かめていない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">2026-09-21に取得した公開サイトの初期画面（未ログインの案内、表示モード、収入・支出・差額、記録を促す案内）。ページが開けること</span></li>
+        <li><span class="term">未検証</span><span class="desc">経費メモの入力と分類の画面、Jevの利用（画面に表記がなく、作者の投稿による）、費目の候補と確率、誤った分類の直し方、分類の速度と精度、投稿の画像、ソースコード</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型は不明として扱う。費目の候補から1つを選ぶ判断のように見えるが、画面でも投稿の画像でも確かめていない</span></li>
+        <li><span class="term">引用</span><span class="desc">公開サイト画面を2026-09-21に必要範囲で取得。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/umezawakanta13/status/2101674736493408289" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/umezawakanta13/status/2101674736493408289" rel="noopener noreferrer">X 公開投稿：Japanese expense-memo categorization（@umezawakanta13）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://my-web-app-b67f4.web.app/asset-management" rel="noopener noreferrer">公開サイト（資産管理のページ）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="mouse-gesture-magic.html"><span class="pager-dir">前の事例</span><span class="pager-name">Mouse-gesture magic recognition</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="jev-search-rerank-eval.html"><span class="pager-dir">次の事例</span><span class="pager-name">Jev search-reranking evaluation</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

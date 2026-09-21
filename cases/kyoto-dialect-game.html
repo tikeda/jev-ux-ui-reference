@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>京言葉ゲーム — Jev UX/UI Reference</title>
+  <meta name="description" content="お題の言葉を京言葉に言い換え、複数の観点で採点する60秒ゲーム。ゲーム／自然言語の即時採点。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ゲーム／自然言語の即時採点</p>
+    <h1>京言葉ゲーム</h1>
+    <p class="case-title">お題の言葉を京言葉に言い換え、複数の観点で採点する60秒ゲーム</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Score<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>答えて、判定を待ち、評価と内訳を見て、次のお題へ、という短いサイクルが、60秒の制限の中で回る。判定中の表示があるので、待っている間に固まったのではないと分かる。</p>
+<ul>
+<li>4つの観点の内訳が出るため、なぜこの点なのかを、遊びながら理解できる。各観点には2つ目の値も添えられているが、意味は画面から確認できない。</li>
+<li>「パス（お題を変える）」で、詰まったときに抜けられる。失敗の代償が小さい。</li>
+<li>78点と加算された+1030の関係は、掲載した画面だけでは分からない。</li>
+<li>作者は「大量データ処理ではないから、小型LLMでもよいかも」と述べている。言葉を扱い、リアルタイム性を求める用途にJevが向く可能性と、代替の余地の両方を記している。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/kyoto-dialect-game-1.jpg"><img src="../assets/images/display/kyoto-dialect-game-1.webp" alt="京言葉ゲームの画面。残り56、スコア0、コンボ0。場面「出された手料理が口に合わん」、お題「まずい」、入力欄に「特徴的な」を入力中。下に「パス（お題を変える）」と「判定: Jev jev-latest」" width="884" height="720" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/kyoto-dialect-game-2.jpg"><img src="../assets/images/display/kyoto-dialect-game-2.webp" alt="同じ画面。残り54で、同じお題の入力欄の下に「判定中…」の表示" width="884" height="720" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/kyoto-dialect-game-3.jpg"><img src="../assets/images/display/kyoto-dialect-game-3.webp" alt="同じ画面の判定後。残り52、スコア1030、コンボ1。場面「相手の意見に乗れへん」、お題「反対です」。「GREAT!」、78点、+1030 ×1.0と、京言葉度60、婉曲92、機転67、意図73の4つの観点" width="884" height="720" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">3 / 3</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>上部の残り時間・スコア・コンボ、場面とお題、入力欄、判定中の表示、判定後の点数と4つの観点、パス、下端の「判定: Jev」</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>場面（例:「出された手料理が口に合わん」）と、言い換えるお題の言葉（例:「まずい」）。プレイヤーが京言葉で答えを入力して Enter を押す。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>入力した答えを採点する。画面には4つの観点（京言葉度、婉曲、機転、意図）が出て、それぞれに数値が付く。下端に「判定: Jev jev-latest」とある。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>入力後は「判定中…」を挟み、点数と評価（3枚目は「GREAT!」、78点、+1030 ×1.0）が出る。残り時間、スコア、コンボが更新される。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Score</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">京言葉度、婉曲、機転、意図の4観点に数値が付く構成からの見立て。質問の文と型は画面に出ていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>自然言語の短い入力を、複数の観点で即時に採点するのは、Jevの低遅延に合う。ただし、京言葉としての正しさや、観点の設計は、この動画からは評価できない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者による投稿動画から静止画を確認。作者は「お題のチューニングはまだ」と述べている。採点観点の質問文と型は画面に出ていない。掲載したのは1回のプレイで、Jevの採点が京言葉として妥当かどうかは検証していない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た3枚の静止画に見える残り時間、スコア、お題、入力欄、判定中の表示、4つの観点の数値、パス、「判定: Jev jev-latest」の表記</span></li>
+        <li><span class="term">未検証</span><span class="desc">採点の妥当性、観点の質問文と型、点数からスコアへの換算、継続してプレイしたときの挙動、リポジトリやアプリの公開状況</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型（Scoreと見立て）。各観点の2つ目の値の意味</span></li>
+        <li><span class="term">引用</span><span class="desc">X投稿は2026-09-20（UTC）。動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/Null_Ref_Exp/status/2101816676744405456" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/Null_Ref_Exp/status/2101816676744405456" rel="noopener noreferrer">X 公開投稿：京言葉ゲーム（@Null_Ref_Exp）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="whose-jev-improv.html"><span class="pager-dir">前の事例</span><span class="pager-name">Whose Jev Is It Anyway?</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="form-autofill-extension.html"><span class="pager-dir">次の事例</span><span class="pager-name">Jev フォーム自動入力（Chrome拡張）</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

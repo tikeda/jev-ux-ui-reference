@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Real-time agent assist — Jev UX/UI Reference</title>
+  <meta name="description" content="会話の文字起こしを読み、次の支援情報を即時に更新するオペレーター画面。会話オペレーター支援。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">会話オペレーター支援</p>
+    <h1>Real-time agent assist</h1>
+    <p class="case-title">会話の文字起こしを読み、次の支援情報を即時に更新するオペレーター画面</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>判断結果を顧客へ直接返さず、人間のオペレーターへ補助情報として提示する。低遅延が価値になる一方、会話は刻々変わるため、古い判断が残らない状態設計が必要になる。</p>
+<p>画面では「現在の会話」「AIが推定した状態」「人が実行する応答」を分離し、推定を事実として顧客へ伝えないことが重要である。音声認識の誤りとJev判断の誤りも別々に扱う必要がある。</p>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/realtime-agent-assist-1.jpg"><img src="../assets/images/display/realtime-agent-assist-1.webp" alt="Conversation Intelligenceのオペレーター画面。会話状態、AI Assistant、レポートと意図領域が並ぶ" width="1280" height="720" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/realtime-agent-assist-2.jpg"><img src="../assets/images/display/realtime-agent-assist-2.webp" alt="Deepgramの文字起こし、Jev判断、オペレーター支援までのシステム構成図" width="1280" height="720" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>Conversation Intelligence画面の会話状態・要約／意図領域、音声認識からJev判断を経てオペレーター支援へ至る構成</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>通話音声から得たリアルタイム文字起こしと会話状態。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>会話の意図や支援に必要な狭い質問を継続的に評価する。詳細な質問型は動画から確認できない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>会話レポート、意図、次に参照すべき情報などをオペレーター画面へ表示する。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">作者はJevによる即時判断を明示するが、動画から個別の質問型は確認できない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>会話中に繰り返し発生する狭い状態判断は、低遅延なJevの用途に合う。長文の回答生成ではなく、オペレーターが次に見る情報を切り替える制御として使う点が重要である。一方、通話の意味が曖昧な場面では、人へ明示的に確認を返す設計が必要になる。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">作者のデモ動画を確認。Deepgramのリアルタイム文字起こしをJevの狭い判断へ渡し、オペレーター向け画面の意図・レポート・候補情報を更新する。公開リポジトリや実サービスは確認できない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">作者動画のオペレーターUI、DeepgramとJevを組み合わせる説明</span></li>
+        <li><span class="term">未検証</span><span class="desc">実運用、応答精度、訂正履歴、フォールバック、顧客データの取り扱い</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">意図判断が継続更新されることと、古い判断を消す必要性。動画から更新規則は確認できない</span></li>
+        <li><span class="term">引用</span><span class="desc">YouTube動画から必要な範囲の静止画を取得。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://youtu.be/9gPTHWYwuqU" rel="noopener noreferrer">
+          <span class="rail-source-platform">youtu.be</span>
+          <span>出典元を開く</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/shivaprasad_m88/status/2101798368183992565" rel="noopener noreferrer">X 公開投稿：Real-time agent assist（@shivaprasad_m88）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://youtu.be/9gPTHWYwuqU" rel="noopener noreferrer">YouTube：デモ動画<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>youtu.be</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="intent-routing-lab.html"><span class="pager-dir">前の事例</span><span class="pager-name">Intent Routing Lab</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="rubiks-cube-solver.html"><span class="pager-dir">次の事例</span><span class="pager-name">Rubik's cube solver（jevspin）</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>ことばの色（Jev/BERT比較） — Jev UX/UI Reference</title>
+  <meta name="description" content="言葉を入力して色に変える、JevとBERT系モデルの使い分けを考える比較画面。分類器の比較／入力から色への変換。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">分類器の比較／入力から色への変換</p>
+    <h1>ことばの色（Jev/BERT比較）</h1>
+    <p class="case-title">言葉を入力して色に変える、JevとBERT系モデルの使い分けを考える比較画面</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>「Jevの必要はあるのか」という問いを、同じ入力と出力の画面で比べるための材料として読める。固定の分類器は、基準を自分で作り管理する必要があるが、判断が透明で、端末内で処理できる。</p>
+<ul>
+<li>初回に約120MBのモデルを取得する注意書きがあり、待ち時間と通信量が使い勝手の代償として明示されている。</li>
+<li>「入力した言葉は、この端末内で処理します」と、データの扱いも画面で示している。</li>
+<li>作者の感想は、基準づくりと更新のコストが大きく、基準がブラックボックス化するのを避けたいシステムにはBERT系が向く、という趣旨。これは作者の見解で、画面から検証できる事実ではない。</li>
+<li>画面の見出しに「同じ言葉を、Jevならどう見る？」があるが、その内容は掲載フレームでは確認できない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/word-colors-jev-bert-1.jpg"><img src="../assets/images/display/word-colors-jev-bert-1.webp" alt="「ことばの色 — BERT Color Lab」の画面。「BERT系 比較版」のラベルと「言葉の印象を、ひとつの色に。」の見出し。入力欄に「やさし」、右の色のカードに「やさしい」と#95918F（RGB 149 / 145 / 143）、処理時間0.01秒。初回に約120MBのモデルを取得する旨の注意書き" width="1552" height="1384" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/word-colors-jev-bert-2.jpg"><img src="../assets/images/display/word-colors-jev-bert-2.webp" alt="同じ画面。入力欄に「あ」、右のカードに「あたたかい」と#92797B（RGB 146 / 121 / 123）が表示され、背景も同じ系統の色に変わっている" width="1552" height="1384" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>入力欄、色のカード（言葉、hex、RGB、処理時間）、「BERT系 比較版」のラベル、初回のモデル取得に関する注意書き</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>短い言葉（日本語・英語、120文字まで）。サンプルとして「夕焼け」「深い海」「雨上がりの静かな森」などが比較用に並ぶ。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>この画面ではJevは動いていない。言葉と8色の近さから一つの色を作る処理をBERT系（Sentence Transformers・多言語MiniLM）が行い、判定はブラウザ内で完結する。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>入力した言葉が色のカードになり、背景も同じ色に変わる（1枚目は#95918F、2枚目は#92797B）。hex、RGB、処理時間（0.01秒、読み込み・準備後）が付く。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">映っているのはBERT系の比較版で、Jevの質問型はこの動画・画像から確認できない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>Jevが向くのは、基準を文章で書き換えながら試す場面。基準が固まり、大量に回す場合は固定の分類器が向くこともある、という対比の材料になる。ただしこの事例は、Jev自身のふるまいを直接示していないため、Jev事例としては根拠が弱い。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者による投稿動画と、作者が示すBERT系の比較版アプリを確認。映っているのはBERT系（ブラウザ内で判定）の比較版であり、Jevが動いている画面ではない。元のJev版アプリはこの動画・画像では確認できない。「Jevで作ったアプリからBERT版を作った」という作者の説明が根拠。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見えるBERT系比較版の画面、処理時間、初回取得の注意書き、投稿文の作者の説明</span></li>
+        <li><span class="term">未検証</span><span class="desc">元のJev版の画面、JevとBERTの出力の比較、精度、費用の比較、作者が示すアプリの現在の動作</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">「8色との近さ」から色を作る仕組みの詳細</span></li>
+        <li><span class="term">引用</span><span class="desc">X投稿は2026-09-20（UTC）。動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/gigabit_million/status/2101813176887390398" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/gigabit_million/status/2101813176887390398" rel="noopener noreferrer">X 公開投稿：ことばの色（@gigabit_million）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://kotoba-color-bert.gigabitmillion-games.workers.dev/?lang=ja" rel="noopener noreferrer">Web：BERT系の比較版アプリ（作者が示すURL・未アクセス）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="ai-smell-checker.html"><span class="pager-dir">前の事例</span><span class="pager-name">AI臭チェッカー（JEV Copy Forensics）</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="jauvex.html"><span class="pager-dir">次の事例</span><span class="pager-name">Jauvex</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

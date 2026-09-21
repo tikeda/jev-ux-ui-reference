@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>LiveSignal — Jev UX/UI Reference</title>
+  <meta name="description" content="ライブ配信のコメントを型付きの信号に分け、次に答える質問を出す画面。ライブチャット整理／優先キュー。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ライブチャット整理／優先キュー</p>
+    <h1>LiveSignal</h1>
+    <p class="case-title">ライブ配信のコメントを型付きの信号に分け、次に答える質問を出す画面</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>複合</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>コメントの流れを、配信者が操作できる「答える順」のキューに変換している。分類しても元のコメントを消さず、「question preserved」と示して質問を保つ設計が読み取れる。</p>
+<ul>
+<li>生チャットとJevの結果が横に並び、判断の根拠に戻れる。</li>
+<li>回答価値（68%）、関連度（88%）、confidence（66%）が別の項目として並び、混ぜて一つの点数にしていない。</li>
+<li>各カードの操作ボタンで、配信者が最終判断を持つ。</li>
+<li>2枚目の下部には p50 411ms、p95 548ms、p99 953ms、そして「87% uncertain」という集計が出る。定義は画面から確認できないが、不確かさを隠さない意図が見える。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/livesignal-1.jpg"><img src="../assets/images/display/livesignal-1.webp" alt="LiveSignalのStudio画面。左に配信の枠、中央に生のチャット、右に「Answer next」のカード（質問文と回答価値・関連度・confidence）。下に12種のバケット（Genuine Questions 12、Requests 14、Sarcasm / Irony 17など）の件数が並ぶ" width="1274" height="720" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/livesignal-2.jpg"><img src="../assets/images/display/livesignal-2.webp" alt="LiveSignalの下部。質問トピックの棒グラフ、p50 411ms・p95 548ms・p99 953msなどの指標、「Chat → typed signal」のコメント別の分類結果（Sarcasm / Irony、Requestsなど）と「question preserved」の表示。最下段に受信240件、型付き判断6,240の集計" width="1274" height="720" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>生チャット、「Answer next」のカード、12種のバケットの件数、下段の「Chat → typed signal」の流れと遅延の表示</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>配信チャットのコメント（Raw chat）と、現在の配信内容（Current host context）。240件を各1回Jevに送り、26個の型付き判断を得ると表示される。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>画面の説明は「共有状態に対する独立した質問に、Choice・Noul・Scoreで答える」。各コメントを12種のバケット（Genuine Questions、Requests、Spam / Promotion など）に分け、回答価値・関連度・confidenceも返す。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>バケットごとの件数マップ、「Answer next」カード（Answering now / Answered / Pin / Variants / 非表示）、質問トピックの棒グラフ、コメントごとの分類結果と「question preserved」の表示。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">複合</span><span class="primitive-basis">出典に明記</span></dd>
+          <dd class="primitive-reason">画面の説明に「共有状態に対する独立した質問を評価し、Choice、Noul、Scoreの結果を返す」とある。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>コメントごとの独立した複数の問いという形はJevの使い方に合う。ただし実配信での応答時間、誤分類の頻度、配信者の負荷は確認できない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">作者の投稿動画からStudio画面を確認。リポジトリは作者が示すが未確認。画面には「240件の固定コーパスのコメントを流す」と表示され、実際の配信ではない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見えるバケット、Answer nextカード、遅延・件数の表示、固定コーパスの明記</span></li>
+        <li><span class="term">未検証</span><span class="desc">実配信での動作、分類精度、「87% uncertain」の定義、リポジトリの中身</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">回答価値・関連度・confidenceが各質問型のどれに当たるか</span></li>
+        <li><span class="term">引用</span><span class="desc">X投稿は2026-09-20（UTC）。動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/PanemSandeep/status/2101646619351617877" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/PanemSandeep/status/2101646619351617877" rel="noopener noreferrer">X 公開投稿：LiveSignal（@PanemSandeep）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://github.com/sandeeppanem/livesignal" rel="noopener noreferrer">GitHub リポジトリ：sandeeppanem/livesignal（未確認）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="rail-guide">
+        <h2 id="rail-guide">設計入門の関連箇所</h2>
+        <ul>
+        <li><a href="../basics.html#s7-2">数値の意味をラベルで分ける</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="jev-ultrafast-japanese.html"><span class="pager-dir">前の事例</span><span class="pager-name">Jev Ultrafast 日本語UI版</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="jevctl.html"><span class="pager-dir">次の事例</span><span class="pager-name">jevctl</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

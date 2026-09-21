@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Approval/Grant Routing — Jev UX/UI Reference</title>
+  <meta name="description" content="「承認しようかなー」のような曖昧な返事を編集の許可として扱わず、読み取り専用のまま利用者に聞き返す判定の試み。権限設計／曖昧時のREAD_ONLY。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">権限設計／曖昧時のREAD_ONLY</p>
+    <h1>Approval/Grant Routing</h1>
+    <p class="case-title">「承認しようかなー」のような曖昧な返事を編集の許可として扱わず、読み取り専用のまま利用者に聞き返す判定の試み</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>伝えられている内容が正しければ、この試みの要点は、曖昧なときの既定の動作にある。許可と読み切れない返事は、許可として扱わない。読み取り専用のまま、利用者に聞き返す。</p>
+<ul>
+<li>判定が分かれたときに倒れる先が、安全な側（READ_ONLY）に決めてある。判断の誤りが、勝手な書き換えではなく、1回余分な確認として現れる。</li>
+<li>判定の値と、選ばれた経路と、モードが並んで表示される、と伝えられている。なぜ聞き返されたのかを、利用者が読める形である。</li>
+<li>日本語の口語は、承認と独り言の境目が曖昧になりやすい。キーワードの一致では扱いにくい入力を、判断に回している。</li>
+<li>聞き返しの画面がどう見えるか、利用者が明示的に許可する手段がどうなっているかは、分からない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/approval-grant-routing-nocapture.png"><img src="../assets/images/display/approval-grant-routing-nocapture.webp" alt="「画面キャプチャ未取得」と書かれた文字だけの告知。Approval/Grant Routingの名前、画面を掲載していない理由、出典の投稿が記されている。製品の画面ではない" width="1600" height="1000" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>掲載した画像は「画面キャプチャ未取得」の告知で、製品の画面ではない。投稿の画像は、要約によれば「Jevの判定の様子」というパネルで、判定の値、経路、モードが並ぶ</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>エージェントの作業中に利用者が返す、日本語の短い返事。要約によれば、「承認しようかなー」や「じゃ～それで書き換えちゃってください」のような、承認とも取れる曖昧な文が例に挙がっている。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>要約によれば、返事が編集を許可しているか（grantsEdit 0.05）、質問にすぎないか（questionOnly 0.82）を判定する。値は要約による伝聞で、元の画像では確かめていない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>要約によれば、経路は「ask_user」、モードは「READ_ONLY」と表示される。曖昧な返事では編集に進まず、利用者に聞き返す。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">検索結果の要約が伝える値（grantsEdit、questionOnly）は確率のように見えるが、元の投稿の画像を確認していない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>短い返事が許可にあたるかどうかを、決まった問いで素早く判定する使い方は、Jevの低遅延に合う。エージェントの操作の直前に挟む判定は、遅いと作業の流れを止めるためである。ただし、この事例では、判定の精度も、実際の画面も確かめられていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">根拠は限定的で、調査監査の評価はB（追加の確認が要る段階）。日本語の作者による投稿が根拠だが、投稿の画像は調査でも取得・確認されておらず、画面の内容は検索結果の要約が伝えるものにとどまる。数値とラベルは、その要約による伝聞である。作者個人の環境に組み込んだもので、公開された成果物はない。このサイトでは画面を掲載していない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">作者の投稿が存在し、Jevを承認の判定に使う試みを述べていること（調査の検索結果による）。それ以外に、このサイトで確認できた内容はない</span></li>
+        <li><span class="term">未検証</span><span class="desc">投稿の画像そのもの、判定の値とラベル（grantsEdit、questionOnly、ask_user、READ_ONLY）、聞き返しの画面、明示的に許可する手段、判定の精度、組み込み先のツールでの実際の動作</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型は不明として扱う。伝えられた値の形からは、はい・いいえの確率のように見えるが、元の画像で確かめていない</span></li>
+        <li><span class="term">引用</span><span class="desc">投稿の画像と画面は掲載していない。掲載した画像はこのサイトで作成した告知で、製品の画面ではない</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/kishi27/status/2101686777178403281" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/kishi27/status/2101686777178403281" rel="noopener noreferrer">X 公開投稿：Approval/Grant Routing（@kishi27）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="rail-guide">
+        <h2 id="rail-guide">設計入門の関連箇所</h2>
+        <ul>
+        <li><a href="../basics.html#s6-5">パターンE：Confidence-Gated Action</a></li>
+        <li><a href="../basics.html#s7-4">棄権を低確信度と別に設計する</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="duckdb-row-classification.html"><span class="pager-dir">前の事例</span><span class="pager-name">DuckDB row-classification extension</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="mouse-gesture-magic.html"><span class="pager-dir">次の事例</span><span class="pager-name">Mouse-gesture magic recognition</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

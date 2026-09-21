@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Docket — Jev UX/UI Reference</title>
+  <meta name="description" content="PDFや写真の文書を読ませ、分類・機密度・緊急度を付けて、原本に触れずに写しを整理する端末アプリ。文書管理／分類とレビュー。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">文書管理／分類とレビュー</p>
+    <h1>Docket</h1>
+    <p class="case-title">PDFや写真の文書を読ませ、分類・機密度・緊急度を付けて、原本に触れずに写しを整理する端末アプリ</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>複合<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>判断の値と、そこから導いた扱いの案内が、別の欄に分かれている。「JEV OUTPUT」は判断そのもの、「DOCKET GUIDANCE」はアプリが決めた次の手順である。</p>
+<ul>
+<li>原本には触れず、写しを整理する。分類を誤っても、元の文書は元の場所に残る。</li>
+<li>確信度の低い分類は、見直しの対象として印が付く、と調査の記録にある。見本でも、「Review」の行が、見直しの要否を明示している。</li>
+<li>機密度と緊急度を、分類と別の軸で評価している。「どこにしまうか」と「どう扱うか」を分けている。</li>
+<li>文字を読む処理は外部のモデルに送られる。何がどこへ送られるかを、製品サイトが最初に断っている。私的な文書を扱う道具として、要になる開示である。</li>
+<li>分類を利用者が直す操作や、直した結果の扱いは、この作業では確かめていない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/docket-live.png"><img src="../assets/images/display/docket-live.webp" alt="Docketの製品サイト。左に「Docket reads it. Then files it.」の見出しと説明文、インストールのコマンド。右に端末の見本があり、4つの文書の一覧と分類、「JEV OUTPUT」にCategory HOUSING、Confidence 94%、Sensitivity 1.8 / 3、Urgency 0.3 / 3、Needs action 12%、「DOCKET GUIDANCE」に次の手順・扱い・見直しの要否、「FILED AT」に整理先のパスが表示されている" width="1600" height="1000" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>左の説明文（モデルが読み、Jevが分類し、機密度と緊急度を評価し、注意が要るものに印を付け、原本に触れずに写しを整理する）、右の見本の「JEV OUTPUT」（Category、Confidence、Sensitivity、Urgency、Needs action）、「DOCKET GUIDANCE」（Next step、Handling、Review）、「FILED AT」、下端のキー操作</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>PDF、スキャン、写真。製品サイトの説明では、利用者が用意したモデル（OpenAIまたはOpenRouterの鍵）が文書を読み、その文章がJevの判断に渡る。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>見本の「JEV OUTPUT」は、Category HOUSING、Confidence 94%、Sensitivity 1.8 / 3 · CONFIDENTIAL、Urgency 0.3 / 3 · NO DEADLINE、Needs action 12%。分類、段階の評価、はい・いいえの確率が並ぶ。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>左に文書の一覧と分類（tax、housing、medical、receipts）。注意が要る文書には「!」の印が付く。「DOCKET GUIDANCE」は、次の手順（FILE FOR REFERENCE）、扱い（LIMIT SHARING）、見直しの要否（NOT REQUIRED）を示す。「FILED AT」に、整理先のパスが出る。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">複合</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">製品サイトの見本の欄に、分類と確信度、3段階の評価、割合が並ぶことからの見立て。画面には質問型の名前が出ていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>文書の文章に対して、分類、段階の評価、はい・いいえを同時に返す使い方は、Jevの型に収まる。しきい値の判定と保存は手元で行う、と投稿は説明している。ただし、型としては既存の文書分類の事例と同じで、この事例に固有なのは、端末の画面であることと、読む処理と判断の処理を分けて開示している点である。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">調査監査の評価はC（索引向け）。実装は実在するが、文書の分類と確信度による見直しという型は、既存の「JEV Document Classification」の事例とほぼ重なる。この事例は、その比較対象として置く。掲載した画面は製品サイトを開いた直後の状態で、そこに描かれた端末の画面は製品サイト上の見本である。実際に文書を取り込む流れは確認していない。PDFや画像から文字を読む処理は、Jevではなく別のモデル（OpenAIまたはOpenRouter）が行う。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">2026-09-21に取得した製品サイトの初期画面（説明文、見本の端末画面の各欄、インストールのコマンド、「Classification by Jev」の表記）。調査監査（2026-09-21）が、投稿の4枚の画像とリポジトリで、文書の一覧と絞り込み、分類と確信度、機密度、緊急度、見直しの印、モデルの選択を確認したという記録</span></li>
+        <li><span class="term">未検証</span><span class="desc">実際に文書を取り込む流れ、分類を直す操作、確信度のしきい値、外部のモデルに送られる内容の範囲、リポジトリのコード（このサイトの作業では開いていない）、投稿の画像</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型（複数の問いの組み合わせと見立て）。見本の欄に、分類と確信度、段階の評価、割合が並ぶことからの見立てで、画面には質問型の名前が出ていない</span></li>
+        <li><span class="term">引用</span><span class="desc">製品サイト画面を2026-09-21に必要範囲で取得。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/glamboyosa/status/2101707001302516006" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/glamboyosa/status/2101707001302516006" rel="noopener noreferrer">X 公開投稿：Docket（@glamboyosa）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://docket.glamboyosa.xyz/" rel="noopener noreferrer">Docket 製品サイト<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://github.com/glamboyosa/docket" rel="noopener noreferrer">GitHub：glamboyosa/docket<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="rail-guide">
+        <h2 id="rail-guide">設計入門の関連箇所</h2>
+        <ul>
+        <li><a href="../basics.html#s8">7. Jev、コード、LLM、人間の役割分担</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="ai-resume-evaluator.html"><span class="pager-dir">前の事例</span><span class="pager-name">AI Resume Evaluator with JEV</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="flappy-jev.html"><span class="pager-dir">次の事例</span><span class="pager-name">Flappy Jev</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

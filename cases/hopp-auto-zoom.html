@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Hopp auto-zoom — Jev UX/UI Reference</title>
+  <meta name="description" content="横長の画面共有で、いま使っているアプリに合わせて、見る側の表示が自動で寄ったり引いたりする試作。画面共有／自動フレーミング。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">画面共有／自動フレーミング</p>
+    <h1>Hopp auto-zoom</h1>
+    <p class="case-title">横長の画面共有で、いま使っているアプリに合わせて、見る側の表示が自動で寄ったり引いたりする試作</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>判断が変えるのは、見る側の表示の枠だけである。共有している側のアプリやウィンドウは、動かしも書き換えもしない。横長の画面をそのまま共有すると文字が小さくなる問題に、表示の側で応じている。</p>
+<ul>
+<li>共有する人は、ふだん通りにアプリを使う。どこを見せるかを、その都度指定しなくてよい。</li>
+<li>寄りと引きの両方がある。1つのアプリに集中しているときは寄り、2つを行き来しているときは引く、という切り替えが動画に出ている。</li>
+<li>寄る先が違ったとき、見る側や共有する側がどう直すかは、動画からは分からない。通常の画面共有の操作の範囲を超える上書きの手段は、確認されていない。</li>
+<li>枠が頻繁に動くと見る側が疲れる可能性があるが、切り替えの頻度を抑える工夫があるかどうかは分からない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/hopp-auto-zoom-nocapture.png"><img src="../assets/images/display/hopp-auto-zoom-nocapture.webp" alt="「画面キャプチャ未取得」と書かれた文字だけの告知。Hopp auto-zoomの名前、画面を掲載していない理由、出典の投稿が記されている。製品の画面ではない" width="1600" height="1000" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>掲載した画像は「画面キャプチャ未取得」の告知で、製品の画面ではない。動画で見る箇所は、ブラウザとエディタを並べた広い表示から、エディタへの寄り、2つのウィンドウを収める引き、ブラウザへの寄りへと切り替わる流れ</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>作者の説明では、アプリの名前と、ウィンドウの位置や大きさ。画面の中身を渡しているかどうかは分からない。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>作者の説明では、ズームの距離をJevが選ぶ。候補の段階、確率は動画に出ていない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>監査の記録では、1つの横長の共有画面が、広い表示からコードエディタへ寄り、2つのウィンドウを収める表示に戻り、次にブラウザへ寄る。共有している側のアプリは動かず、見る側の枠だけが変わる。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">作者はズームの距離をJevが選ぶと述べるが、段階から選ぶのか値として尋ねるのかは、投稿からも動画からも分からない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>アプリ名とウィンドウの配置という小さな状態から、限られたズームの段階を選ぶ判断は、Jevの低遅延と低コストに合う。作者は、1時間の共有でのコストの見積もりを投稿で述べているが、こちらでは確かめていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">作者による投稿動画が根拠で、内容は調査監査（2026-09-21）の確認記録による。動画はこのサイトでは保存しておらず、画面は掲載していない。試作は公開されておらず、Hoppの製品サイトにも出ていない。動画にJevの判断を示すパネルはなく、ズームの距離をJevが選ぶというのは作者の説明である。Jevの出力、確からしさ、手動で上書きする手段は確かめられていない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">調査監査（2026-09-21）が動画で確認した範囲。1つの横長の共有画面が、広い表示、エディタへの寄り、2つのウィンドウの引き、ブラウザへの寄りへと切り替わる様子。このサイトの作業では動画を再確認していない</span></li>
+        <li><span class="term">未検証</span><span class="desc">Jevへの入力と出力、ズームの候補、確からしさ、手動での上書き、切り替えの頻度の制御、コストの見積もり、試作の公開の有無</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型は不明として扱う。ズームの距離を段階から選ぶのか、連続した値として尋ねるのかは、投稿と動画から分からない</span></li>
+        <li><span class="term">引用</span><span class="desc">投稿の動画と画面は掲載していない。掲載した画像はこのサイトで作成した告知で、製品の画面ではない</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/iparaskev/status/2101750053568491752" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/iparaskev/status/2101750053568491752" rel="noopener noreferrer">X 公開投稿：Hopp auto-zoom（@iparaskev）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://www.hopp.co/" rel="noopener noreferrer">Hopp 製品サイト（この試作は掲載されていない）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="jev-realtime-avatars.html"><span class="pager-dir">前の事例</span><span class="pager-name">Jev Realtime Avatars</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="generative-dashboard.html"><span class="pager-dir">次の事例</span><span class="pager-name">Generative Dashboard</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

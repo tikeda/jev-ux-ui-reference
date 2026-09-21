@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Jev Quest — Jev UX/UI Reference</title>
+  <meta name="description" content="日々のタスクを「クエスト」に変え、達成すると経験値が入るタスク管理の試作。タスク管理／クエスト化と報酬。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">タスク管理／クエスト化と報酬</p>
+    <h1>Jev Quest</h1>
+    <p class="case-title">日々のタスクを「クエスト」に変え、達成すると経験値が入るタスク管理の試作</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>作者は、「やらなきゃ」を「やってみたい」に変えるアイデアだと述べている。タスクの中身は変えずに、見せ方と、終えたあとの反応を変える。</p>
+<ul>
+<li>いま取り組む1件を、大きなカードで前に出している。一覧の中から選ぶ負担を、減らす狙いに見える。</li>
+<li>達成すると、モーダルで経験値が入る。完了の操作に、はっきりした反応が返る。</li>
+<li>どのタスクが、なぜ前に出されたかの説明は、読み取れる範囲には出ていない。利用者が選び直せるかも、確認できていない。</li>
+<li>経験値の量（+100と+65）がどう決まるかは、分からない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-quest-1.jpg"><img src="../assets/images/display/jev-quest-1.webp" alt="会場のスクリーンに映ったJev Questの画面。暗い配色で、左上に「Jev Quest」、上に「タスクを、進めたくなるクエストに。」の見出し、右に「メール返信」と大きく書かれたカード、左に状態の表示がある。投影を撮った映像のため細かい文字は読み取れない" width="812" height="380" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>左上の「Jev Quest」、見出し「タスクを、進めたくなるクエストに。」、右の大きな「メール返信」のカード、左の経験値とレベルらしい表示</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>日々のタスク。作者の投稿は「Jevを使って日々のタスクを整理し「クエスト」に変換」と述べている。入力の形式は、動画からは読み取れない。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>調査記録によれば、投稿は、Jevがタスクをクエストに変え、有力な候補を選ぶと説明している。質問文、候補、確率は、画面から確認できない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>「メール返信」というクエストのカードと、進み具合や状態の表示。動画の後半では、達成と報酬のモーダル（「+100 XP」「+65 XP」）が出る。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">投稿はJevでタスクをクエストに変換すると述べるが、何を尋ねているか（質問型）は動画の画面から確認できない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>複数のタスクから、いま前に出す1件を選ぶ判断は、有限の候補からの選択であり、Jevに向く。ただし、この事例では判断の中身が画面に出ておらず、どこまでをJevが担っているかは、作者の説明に頼っている。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者による投稿動画から静止画を確認。ハッカソンの会場で、スクリーンに映した画面を手持ちで撮った短い動画で、細かい文字は読み取れない。公開された成果物やコードは見つかっていない。Jevがタスクをクエストに変えるという点は投稿の説明によるもので、Jevの出力や確率は画面から確認できない。今回追加した事例の中で、根拠は最も弱い。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た静止画に見える「Jev Quest」の名前、見出し、「メール返信」のカード、左の状態表示。動画の後半の達成と報酬のモーダル（+100 XP、+65 XP）。投稿文の説明</span></li>
+        <li><span class="term">未検証</span><span class="desc">Jevへの入力と出力、クエストへの変換の中身、候補の選び方、経験値の計算、利用者による選び直しの可否、公開された成果物やコードの有無。動画は短く、細かい文字は読み取れない</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">いま取り組む1件をJevが選んで前に出している、という読み方。投稿の説明からの見立てで、画面では確認できない</span></li>
+        <li><span class="term">引用</span><span class="desc">X投稿は2026-09-20（UTC）。動画から、スクリーンに映った画面の範囲だけを切り出して引用（会場と参加者の写り込みを除いた）。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/wata_tsumu/status/2101687818972282889" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/wata_tsumu/status/2101687818972282889" rel="noopener noreferrer">X 公開投稿：Jev Quest（@wata_tsumu）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="jev-decision-lab.html"><span class="pager-dir">前の事例</span><span class="pager-name">JEV / DECISION LAB</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="genui-order-support.html"><span class="pager-dir">次の事例</span><span class="pager-name">Flutter/GenUI order-support prototype</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

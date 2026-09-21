@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Jev Radar — Jev UX/UI Reference</title>
+  <meta name="description" content="Jevが調査経路を選ぶリサーチUI。Webアプリ／リサーチ支援。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">Webアプリ／リサーチ支援</p>
+    <h1>Jev Radar</h1>
+    <p class="case-title">Jevが調査経路を選ぶリサーチUI</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>複合<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>リポジトリ確認</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>判断を裏で隠さず、探索の進行と証拠を可視化する。生成文より、どの証拠を採用したかが前面に出る。</p>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-radar-2.png"><img src="../assets/images/display/jev-radar-2.webp" alt="開始画面。中央に「What are you looking for?」という見出しと調査質問の入力欄、その下に質問例のチップが並ぶ" width="1600" height="1000" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-radar-3.png"><img src="../assets/images/display/jev-radar-3.webp" alt="調査結果の画面。調査質問の下に「What the evidence tells us」という見出しがあり、出典付きの証拠カードが横に四枚並んでいる" width="1600" height="1000" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>入力、判断結果の表現、判断後にユーザーまたはシステムが取る操作</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>調査したい質問、利用可能な公開情報源、途中で得た証拠。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>次に調べる情報源や、証拠の関連性を判断して調査を進める。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>探索中の情報源、判断過程、集めた証拠カードをワークスペースに表示する。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">複合</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">情報源の選択と証拠の関連性判断という二種類の判断が記述されているための見立て。質問型は原文で確認されていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>条件付きで適合。情報源選択は有限候補なら向くが、最終的な統合説明は生成モデルの役割。二者の分業がUI上で区別されているかが重要。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">公開リポジトリとREADMEキャプチャを確認。実動未検証。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">上記出典で見える画面、投稿・READMEに明記された用途</span></li>
+        <li><span class="term">未検証</span><span class="desc">実際の精度、速度、継続利用時の挙動、公開コードをローカル実行した結果</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">ソースで質問型やプロンプトが公開されていない箇所</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://github.com/Eliovp-BV/Jev-Radar" rel="noopener noreferrer">
+          <span class="rail-source-platform">GitHub</span>
+          <span>リポジトリを見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://github.com/Eliovp-BV/Jev-Radar" rel="noopener noreferrer">Jev Radar<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>GitHubリポジトリ</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>リポジトリとキャプチャを確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="jev-mail-classifier.html"><span class="pager-dir">前の事例</span><span class="pager-name">Jev Mail Classifier</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="jevmeter.html"><span class="pager-dir">次の事例</span><span class="pager-name">Jevmeter</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

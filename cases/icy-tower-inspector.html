@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Icy Tower live inspector — Jev UX/UI Reference</title>
+  <meta name="description" content="Jevが着地先を選び、ゲームがジャンプを実行する様子を検査パネルで見る画面。ゲーム操作／リアルタイム検査パネル。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ゲーム操作／リアルタイム検査パネル</p>
+    <h1>Icy Tower live inspector</h1>
+    <p class="case-title">Jevが着地先を選び、ゲームがジャンプを実行する様子を検査パネルで見る画面</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>作者の説明は「Jevが着地先を選び、ゲームがジャンプを行う」。判断（どの足場へ行くか）と、実行（ボタン操作の連続）が別の層として、パネルに分かれて並んでいる。</p>
+<ul>
+<li>選んだ足場と確率が1枚のカードにまとまり、選ばなかった候補との差が見える。</li>
+<li>各候補に、階の差、所要秒数、クリアランス、足場の種類が添えられ、選択の根拠が読める。</li>
+<li>判断の直後に「executing」、着地後に「landed」と状態が変わるので、選択と結果を照らし合わせられる。</li>
+<li>確率とconfidenceが別の枠に出る。値が近くても同じものではない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/icy-tower-inspector-1.jpg"><img src="../assets/images/display/icy-tower-inspector-1.webp" alt="Icy Towerのゲーム画面（Floor 14）と右の検査パネル。「Jev is climbing」、LEFT / JUMP / RIGHT、最新の判断 Floor 17（confidence 97%、API latency 258ms、planning 37ms）、着地先の確率（Floor 17 98%、Floor 16 0%、Floor 15 2%）、決定フィード" width="1600" height="1000" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/icy-tower-inspector-2.jpg"><img src="../assets/images/display/icy-tower-inspector-2.webp" alt="同じ画面のより高い階（Floor 43）。右の検査パネルに、次の着地先の判断と確率、決定フィードが並ぶ" width="1600" height="1000" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>右パネルの「LATEST DECISION」「LANDING PROBABILITIES」「DECISION FEED」と、左のゲーム画面の進み具合</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>ゲームの現在の状態（階、足場の位置と種類など）と、着地先の候補（画面には8 choicesと表示）。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>着地先（例: Floor 17・right）を選ぶ。3つの候補の確率は98%、0%、2%と表示され、別項目としてconfidence 97%、API latency 258ms、planning 37msが出る。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>「Controls now」に LEFT / JUMP / RIGHT の押下状態、「Latest decision」に選択、「Decision feed」に各判断の executing / landed の状態が出る。ゲーム側はキャラクターがジャンプで移動する。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">「Jevが着地先を選ぶ」という作者の説明と、着地先ごとの確率の表示からの見立て。質問型は画面に明記されていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>離散的な選択を短い間隔で繰り返す用途に向く。掲載した2枚は登る過程（Floor 14と43）で、失敗した場面や、選択が外れたときのふるまいは確認できない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">作者の投稿動画から静止画を確認。ゲームと検査パネルはlocalhost上の作者環境。「速さに驚いた」という評価は作者の印象で、速度や成功率は動画から検証していない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見える判断カード、確率、遅延、決定フィード、コントロール表示</span></li>
+        <li><span class="term">未検証</span><span class="desc">成功率、失敗時の挙動、長時間動かしたときの安定性、リポジトリの有無と中身</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型（Choiceと見立て）と、確率とconfidenceの算出方法</span></li>
+        <li><span class="term">引用</span><span class="desc">X投稿は2026-09-17（UTC）。動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/SafaElmali/status/2100709851336683730" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/SafaElmali/status/2100709851336683730" rel="noopener noreferrer">X 公開投稿：Icy Tower live inspector（@SafaElmali）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="resume-form-filler.html"><span class="pager-dir">前の事例</span><span class="pager-name">Intelligent copy/paste</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="ai-smell-checker.html"><span class="pager-dir">次の事例</span><span class="pager-name">AI臭チェッカー（JEV Copy Forensics）</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>TypeSafe semantic lints — Jev UX/UI Reference</title>
+  <meta name="description" content="はい・いいえで答えられない問いをNoulとして書くと、実行の前にエディタが波線と警告で知らせる、開発中の機能の先行画像。開発ツール／質問型の事前警告。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">開発ツール／質問型の事前警告</p>
+    <h1>TypeSafe semantic lints</h1>
+    <p class="case-title">はい・いいえで答えられない問いをNoulとして書くと、実行の前にエディタが波線と警告で知らせる、開発中の機能の先行画像</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>誤りを、実行の後ではなく、書いている最中に知らせる。型に合わない問いは、実行すれば、もっともらしい確率を返してしまう。その前に止める工夫である。</p>
+<ul>
+<li>構文の誤り（エラー）と、意味の警告が、別々に数えられている。JSONとしては正しいが、問いとしては成り立たない、という区別が、右上の2つの数で見える。</li>
+<li>警告は、何が問題かと、どう直すかの両方を、1つの文で伝える。</li>
+<li>点検を止めるチェックが、警告と同じパネルにある。意味の点検は誤ることもあるため、開発者が自分の判断で外せる。</li>
+<li>画像の問いは、英語としても崩れている。崩れた文のせいで警告が出たのか、はい・いいえの形でないせいなのかは、この1枚からは切り分けられない。直した後に警告が消える様子も、示されていない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/typesafe-semantic-lints-1.jpg"><img src="../assets/images/display/typesafe-semantic-lints-1.webp" alt="「Questions」のエディタの画面。4行目に警告の印があり、new_noul_1という名前に波線、型はnoul、指示文は「How are you from?」。右上に警告の数1が出て、開いたパネルに「1 TypeSafe semantic warning」「new_noul_1 — Not a yes/no question」と、はい・いいえで答えられる形に書き直すようにという説明、「Enable TypeSafe semantic lints」のチェックがある。画像全体に投稿者の透かしが入っている" width="1600" height="759" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>「Questions」のエディタ、4行目の警告の印と `&quot;new_noul_1&quot;` の波線、`&quot;type&quot;: &quot;noul&quot;` と `&quot;instructions&quot;: &quot;How are you from?&quot;`、右上の警告の数（1）、開いたパネルの「1 TypeSafe semantic warning」と説明文、「Enable TypeSafe semantic lints」のチェック</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>開発者がエディタに書く、問いの定義。画像では、型がnoulで、指示文が「How are you from?」という問いが1つ書かれている。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>この事例で判断されるのは、アプリの入力ではなく、問いそのものである。問いが、はい・いいえで答えられる形になっているかが点検されている。点検の仕組みは、画像からは分からない。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>問いの名前に波線、行の左に警告の印、右上に警告の数。パネルには「new_noul_1 — Not a yes/no question」と、Noulの問いは真か偽かで答えられるので、はい・いいえで答えられる形に書き直すように、という説明が出る。チェックを外せば、この点検を止められる。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">不明</span><span class="primitive-basis">出典から判断できない</span></dd>
+          <dd class="primitive-reason">画像のnoulは点検される側の問いの型であり、点検そのものがどう行われるかは分からない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>Jevを使うアプリの品質は、問いの書き方に大きく左右される。問いの型と文が合っているかを先に点検する機能は、判断の誤りを、実行の前に減らす位置にある。ただし、これは観察者による先行の画像であり、TypeSafeが実際に提供するかどうか、どう動くかは、確かめられていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">調査監査の評価はC（索引向け）。根拠は、作者本人ではなく、観察者が投稿した画像1枚である。TypeSafeが開発中の機能を先に見つけて紹介したもので、公開された成果物はなく、提供の時期も状態も分からない。問いを直して再実行する流れは示されていない。警告がどういう仕組みで出ているか、Jevの判断を使っているかどうかも、分からない。画像には投稿者の透かしが入っている。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">投稿の画像1枚に見える内容（エディタ、波線と警告の印、問いの定義、警告の数、パネルの見出しと説明文、点検を有効にするチェック）</span></li>
+        <li><span class="term">未検証</span><span class="desc">機能の提供の時期と状態、点検の仕組み（Jevの判断を使うかどうかを含む）、直した後に警告が消える流れ、ほかの型（Choice、Score）への点検の有無、誤った警告の頻度、TypeSafeによる公式の説明</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型は不明として扱う。画像に出ているnoulは、点検される側の問いの型であり、点検そのものがどの質問型で行われるかは分からない</span></li>
+        <li><span class="term">引用</span><span class="desc">投稿の画像を引用（投稿者の透かしを含む）。権利は投稿者と、画面の提供元に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/wongmjane/status/2101822614218146061" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/wongmjane/status/2101822614218146061" rel="noopener noreferrer">X 公開投稿：TypeSafe semantic lints（@wongmjane）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+      <section aria-labelledby="rail-guide">
+        <h2 id="rail-guide">設計入門の関連箇所</h2>
+        <ul>
+        <li><a href="../basics.html#s7-4">棄権を低確信度と別に設計する</a></li>
+        </ul>
+      </section>
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="jevx-kit.html"><span class="pager-dir">前の事例</span><span class="pager-name">JevX-Kit</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="jeveryword.html"><span class="pager-dir">次の事例</span><span class="pager-name">jeveryword</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

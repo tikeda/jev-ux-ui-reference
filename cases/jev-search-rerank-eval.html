@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Jev search-reranking evaluation — Jev UX/UI Reference</title>
+  <meta name="description" content="Jevで検索結果を並べ直すと良くなるかを測り、採点役を替えると結論が変わることまでをグラフで見せた評価。検索評価／裁判者バイアスの可視化。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">検索評価／裁判者バイアスの可視化</p>
+    <h1>Jev search-reranking evaluation</h1>
+    <p class="case-title">Jevで検索結果を並べ直すと良くなるかを測り、採点役を替えると結論が変わることまでをグラフで見せた評価</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Score</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">このUIがしていること</h2>
+        <p>この事例の画面は、製品の操作画面ではなく、評価の結果を読む人に向けた図である。要点は、結論と一緒に、その結論がどの前提に左右されるかを見せていることにある。</p>
+<ul>
+<li>2枚目は、同じ比較を、採点役を替えて3回並べる。Jevが採点するとJevが良く見え、別のモデルが採点すると逆転する。評価する側とされる側が同じだと結果が偏ることを、1枚で読ませる。</li>
+<li>誤差の棒（95%の信頼区間）が、差が0をまたぐかどうかを示す。Jev単独の優位は区間が0にかかり、融合は3つともかからない。</li>
+<li>見出しが、結論を文で言い切っている。グラフを読めなくても、何が分かったかは伝わる。</li>
+<li>図の下に、元のデータの場所（results/…）が書かれている。ただし、そのリポジトリは調査時に開けず、数値を元の表で確かめられていない。</li>
+<li>利用者が問いを入れて結果を見比べる画面は、示されていない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-search-rerank-eval-1.jpg"><img src="../assets/images/display/jev-search-rerank-eval-1.webp" alt="中国語の見出しの横棒グラフ。NDCG@10で、bge-m3とjevの融合（RRF）0.864、jevでbge-m3の上位30件を並べ直し0.785、bge-m3 0.774、text-embedding-3-small 0.759、jevでashの上位30件を並べ直し0.642、bm25 0.633、ash-0.4.0 0.609が並ぶ" width="1280" height="720" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-search-rerank-eval-2.jpg"><img src="../assets/images/display/jev-search-rerank-eval-2.webp" alt="中国語の見出しの縦棒グラフ。bge-m3との差を、Jevだけが採点、2つの採点を合わせる、Haikuだけが採点、の3組で示す。Jev単独の並べ直しは+0.053、+0.012、−0.028、融合は+0.116、+0.090、+0.064で、それぞれに95%信頼区間の誤差の棒が付いている" width="1280" height="720" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>1枚目の見出し（Jevの並べ直しはベクトル検索に勝てるか）、条件の行（NDCG@10、164件の中国語・英語の問い、9,831組の採点、33,047件の目録）、方式ごとの棒。2枚目の見出し（採点役を替えると、Jev単独の並べ直しの優位は消える）、95%の信頼区間、採点役ごとの3組の棒</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>検索の問いと、候補の上位30件。動画に映る説明文では、1つの問いにつき1回の呼び出しで、上位30件を並べ直す。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>説明文の表記は「jev-score」で、候補の関連の度合いをScoreで評価し、その順に並べ直す。別に、採点の一部にもJevが使われており、これが2枚目の論点になる。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>1枚目の棒は、NDCG@10で、bge-m3とJevの融合（RRF）0.864、Jevでbge-m3の上位30件を並べ直し 0.785、bge-m3のみ 0.774、など。2枚目は、bge-m3との差を採点役ごとに示す。Jev単独の並べ直しは、Jevだけが採点すると +0.053、2つの採点を合わせると +0.012、Haikuだけが採点すると −0.028。融合は +0.116、+0.090、+0.064 で、3つとも正。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Score</span><span class="primitive-basis">出典に明記</span></dd>
+          <dd class="primitive-reason">動画に映る説明文が、並べ直しを「jev-score」、Jevのscoreによる並べ直しと表記している。実装との一致は確かめていない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>問いと候補の組に対して、関連の度合いを素早く評価する使い方は、並べ直しに合う。ただし、この評価自体が、Jev単独の並べ直しの優位は採点役に左右されると示している。作者の図が支持するのは、既存の埋め込み検索と融合して、2つ目の信号として使う形である。いずれも作者の測定で、こちらでは確かめていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">根拠は限定的で、調査監査の評価はB（追加の確認が要る段階）。作者による投稿動画から静止画を確認。結果を公開したとされるリポジトリは、調査時に開けなかった。数値はすべて作者のグラフの表示であり、元の表でも再計算でも確かめていない。利用者が検索する画面や、やり直しの手段は示されていない。これは評価の設計の事例であり、Jevが検索を常に良くするという証拠ではない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見えるグラフ（見出し、条件の行、方式ごとのNDCG@10、採点役ごとの差と信頼区間）。動画に、リポジトリのREADMEとみられる説明文が映ること</span></li>
+        <li><span class="term">未検証</span><span class="desc">数値の正しさと再現性、元の表、リポジトリの公開の有無（調査時は開けなかった）、採点の手順、利用者が検索する画面、他の目録や問いでの結果</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">なし。質問型は、動画に映る説明文の表記（jev-score、Scoreで並べ直す）による。表記が実際の実装と一致するかは確かめていない</span></li>
+        <li><span class="term">引用</span><span class="desc">動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://x.com/GoSailGlobal/status/2100877682972258619" rel="noopener noreferrer">
+          <span class="rail-source-platform">X</span>
+          <span>公開投稿を見る</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://x.com/GoSailGlobal/status/2100877682972258619" rel="noopener noreferrer">X 公開投稿：Jev reranking is not a free win（@GoSailGlobal）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>X上の公開投稿</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="expense-memo-categorization.html"><span class="pager-dir">前の事例</span><span class="pager-name">Japanese expense-memo categorization</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="netflix-group-movie-picker.html"><span class="pager-dir">次の事例</span><span class="pager-name">Netflix group movie picker</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>
