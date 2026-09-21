@@ -143,14 +143,42 @@ img { max-width: 100%; height: auto; }
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
-  gap: var(--space-10);
+  gap: var(--space-4) var(--space-10);
   margin-top: 0;
   padding: var(--space-8);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
 }
-.guide-feature-copy { min-width: 0; max-width: none; }
+.guide-feature-copy { min-width: 0; max-width: none; grid-column: 1; grid-row: 1 / span 2; }
+.guide-feature-link { grid-column: 2; grid-row: 2; }
+
+/* ヒーローのマーク：限られた候補 → 選択 → 状態の変化。色はトークンのみ、動きなし */
+.guide-feature-visual {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  justify-self: end;
+  display: block;
+  width: 190px;
+  height: auto;
+}
+.guide-feature-visual * { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.hv-frame { fill: var(--color-bg); stroke: var(--color-border); }
+.hv-path { stroke: var(--color-border); stroke-width: 1.5; }
+.hv-path--on { stroke: var(--color-primary); stroke-width: 2; }
+.hv-origin { fill: var(--color-surface); stroke: var(--color-text-secondary); stroke-width: 1.5; }
+.hv-track { stroke: var(--color-border); stroke-width: 4; }
+.hv-score { stroke: var(--color-text-secondary); stroke-width: 4; }
+.hv-score--on { stroke: var(--color-primary); }
+.hv-node { fill: var(--color-surface); stroke: var(--color-text-secondary); stroke-width: 1.5; }
+.hv-node--on { fill: var(--color-primary); stroke: none; }
+.hv-surface { fill: var(--color-surface); stroke: var(--color-text-secondary); }
+.hv-row { fill: var(--jev-tint); }
+.hv-line { stroke: var(--color-border); stroke-width: 2; }
+.hv-line--on { stroke: var(--color-primary); }
+.hv-box { stroke: var(--color-border); stroke-width: 1.5; }
+.hv-box--on { fill: var(--color-primary); stroke: none; }
 .guide-feature-eyebrow,
 .section-kicker {
   margin: 0 0 var(--space-2);
@@ -1073,6 +1101,14 @@ article blockquote p:last-child { margin-bottom: 0; }
     gap: var(--space-6);
     margin-top: var(--space-8);
     padding: var(--space-5);
+  }
+  .guide-feature-copy,
+  .guide-feature-link,
+  .guide-feature-visual { grid-column: 1; grid-row: auto; }
+  .guide-feature-visual {
+    justify-self: start;
+    width: 120px;
+    margin-bottom: calc(var(--space-3) * -1);
   }
   .guide-feature h1,
   .guide-feature h2 { font-size: 23px; }
