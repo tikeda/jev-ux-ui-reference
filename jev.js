@@ -7,8 +7,6 @@
 
   var cards = Array.prototype.slice.call(grid.querySelectorAll(".case-card"));
   var buttons = Array.prototype.slice.call(filters.querySelectorAll(".filter-btn"));
-  var result = document.getElementById("filter-result");
-  var reset = document.getElementById("filter-reset");
   var empty = document.getElementById("empty-state");
   var state = { primitive: "all", evidence: "all" };
 
@@ -29,8 +27,6 @@
       var pressed = state[btn.getAttribute("data-filter")] === btn.getAttribute("data-value");
       btn.setAttribute("aria-pressed", pressed ? "true" : "false");
     });
-    var filtered = state.primitive !== "all" || state.evidence !== "all";
-    result.hidden = !filtered;
     empty.hidden = visible !== 0;
   }
 
@@ -39,13 +35,6 @@
       state[btn.getAttribute("data-filter")] = btn.getAttribute("data-value");
       render();
     });
-  });
-
-  reset.addEventListener("click", function () {
-    state.primitive = "all";
-    state.evidence = "all";
-    render();
-    buttons[0].focus();
   });
 
   filters.hidden = false;
@@ -77,7 +66,6 @@
   var detail = document.getElementById("cat-detail");
   var count = document.getElementById("catalog-count");
   var summaryCount = document.getElementById("catalog-filter-summary-count");
-  var reset = document.getElementById("catalog-reset");
   var empty = document.getElementById("catalog-empty");
   var state = { rel: "all", ev: "all" };
 
@@ -106,7 +94,6 @@
       summaryCount.innerHTML = '<span class="num">' + visible + "</span>件"
         + (filtered ? '／全<span class="num">' + rows.length + '</span>件' : "");
     }
-    reset.hidden = !filtered;
     empty.hidden = visible !== 0;
   }
 
@@ -121,14 +108,6 @@
     el.addEventListener("change", render);
   });
   form.addEventListener("submit", function (e) { e.preventDefault(); });
-  reset.addEventListener("click", function () {
-    form.reset();
-    state.rel = "all";
-    state.ev = "all";
-    render();
-    q.focus();
-  });
-
   form.hidden = false;
   render();
 })();
