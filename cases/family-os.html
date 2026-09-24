@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Family OS（家族の案内板） — Jev UX/UI Reference</title>
+  <meta name="description" content="子どもの発話を持ち物や予定に仕分け、確信度が低ければ聞き返し、登録は親の確認箱を通す家族の案内板。家庭／発話の意図分類と親の承認。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">家庭／発話の意図分類と親の承認</p>
+    <h1>Family OS（家族の案内板）</h1>
+    <p class="case-title">子どもの発話を持ち物や予定に仕分け、確信度が低ければ聞き返し、登録は親の確認箱を通す家族の案内板</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">体験</h2>
+        <p>リビングのiPadを、家族の誰かが言ったことを共有の情報へ変える案内板にしている。子どもが使う画面で、判断の結果をそのまま確定させない工夫が、入力から登録まで3段に重なっている。</p>
+<ul>
+<li>1段目は音声の確認。聞き間違いをそのまま予定にしないため、文字起こしを見せてから送る。</li>
+<li>2段目は聞き返し。作者は、確信度が低いときは聞き返し、親の確認が必要なときは確認箱へ回すと書いている。閾値や聞き返しの文面は示されていない。</li>
+<li>3段目は親の承認。作者は理由を、AIを信用していないからではなく、「明日」と「明後日」の取り違えだけでも持ち物なら実害があるからだと説明している。</li>
+<li>「このこたえ、ちがう」のボタンを用意し、間違いが起きる前提で、親があとから確認できるようにしたと書いている。ボタンを押した後に何が起きるかは記事に出ていない。</li>
+<li>画面はひらがな中心で、カードごとに話し方の例文が付く。下端の「かくにんまち」の件数が、承認待ちがあることを家族に知らせる。</li>
+<li>通知の自動送信やカレンダーへの書き込みは、まだ入れていないと作者は書いている。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/family-os-1.jpg"><img src="../assets/images/display/family-os-1.webp" alt="Family OSのホーム画面。上部に「おとうさん（いま この人）」「おかあさん」「たろう」「はなこ」「ゲスト」の切り替え、時刻と日付、「きょう・あした」と鍵の付いた「おうちの人」のボタン。見出し「よるは これをつかってね」の下に、「明日の持ち物」「明日の予定」「本を読む」「その他」の4枚のカードと、それぞれの話し方の例文。中央に「おして はなす」のボタンと「おすと はじまります。もういちど おすと おわります」。下端に「きょうの よてい　まだ ないよ」と「おうちの人の かくにんまち: 0件」" width="1600" height="857" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 1</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>上部の家族の切り替え（「いま この人」の表示）、右上の「きょう・あした」と鍵の付いた「おうちの人」、時間帯の見出し「よるは これをつかってね」、例文付きの4枚のカード、「おして はなす」のボタンと操作の説明、下端の「おうちの人の かくにんまち: 0件」</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>子どもがカードを押して入力した文字、またはマイクで話した内容の文字起こし（例:「明日、牛乳パックいる」）。音声は、文字起こしを画面に出して「これで合ってる？」と確かめてから送る。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>持ち物・予定・宿題・質問・天気などの候補から発話の意図を選ぶ。対象者が子どもか家族全体かも候補から判定する。候補を並べられない言葉（「牛乳パック」など）と日時の表現はGeminiが抽出し、日付への変換はコードが計算する。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>確信度が低いときは聞き返す。登録は子どもが直接確定できず、親の確認箱に入る。親はタイトルや日付を直してから承認でき、承認前のものは「きょう・あした」の画面に出ない。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">持ち物・予定・宿題・質問・天気などの候補から発話の意図を選び、対象者も候補から判定する、という説明からの見立て。記事はChoice・Score・Noulを一般的に説明するが、実装で使った型は明記していない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>発話を決まった種類へ仕分ける部分だけをJevに任せ、自由な語の抽出はLLM、日付の確定はコード、登録の確定は親、と役割を分けている。判断の誤りを、確認・聞き返し・承認・あとからの訂正で受け止める構成は、家庭のように誤登録の影響が読みにくい場面に合う。ただし、子どもの言い間違いや途切れた発話での挙動は、作者自身がこれからの課題としている。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者によるnote記事と、記事内の画面画像1枚を確認。作者が家庭用に作成中のアプリで、公開サイトやリポジトリは示されていない。掲載した画面はホームの1枚だけで、聞き返し、親の確認箱、「このこたえ、ちがう」のボタンは記事の本文による説明である。作者は、テストの結果は自分で用意した評価ケースに対するもので、家庭での正解率ではないと書いている。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">記事本文、記事内の画面画像1枚（ホーム画面）に見える家族の切り替え、4枚のカードと例文、音声入力のボタン、「かくにんまち」の件数表示</span></li>
+        <li><span class="term">未検証</span><span class="desc">文字起こしの確認画面、聞き返しの画面と条件、親の確認箱と編集・承認の画面、「このこたえ、ちがう」の動作、Jevへの質問文と候補、判定の正しさ、実際の家庭での利用</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型（候補から意図と対象者を選ぶという説明からChoiceと見立て）。記事はChoice・Score・Noulを一般的に説明しているが、実装でどれを使ったかは明記していない</span></li>
+        <li><span class="term">引用</span><span class="desc">記事内の画像を引用。画面の家族名は「おとうさん」「たろう」などの一般的な呼び名で、実名ではない。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://note.com/ef_english_diary/n/n73daf16c5721" rel="noopener noreferrer">
+          <span class="rail-source-platform">note</span>
+          <span>記事を読む</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://note.com/ef_english_diary/n/n73daf16c5721" rel="noopener noreferrer">note：Jev使ってファミリーOS作ってみた（Ei-chan）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>note上の公開記事</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="jev-runner.html"><span class="pager-dir">前の事例</span><span class="pager-name">Jev Runner</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="jev-requirements-reviewer.html"><span class="pager-dir">次の事例</span><span class="pager-name">Jev Requirements Reviewer</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

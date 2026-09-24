@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>MTG文字起こし 要求・要件整理 — Jev UX/UI Reference</title>
+  <meta name="description" content="打ち合わせの文字起こしから要求と要件を起こし、Jevの確率が割れた箇所を「確認が必要」として人へ回す画面。文書分類／確率の割れを人の確認へ回す。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">文書分類／確率の割れを人の確認へ回す</p>
+    <h1>MTG文字起こし 要求・要件整理</h1>
+    <p class="case-title">打ち合わせの文字起こしから要求と要件を起こし、Jevの確率が割れた箇所を「確認が必要」として人へ回す画面</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice / Score / Noul<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">体験</h2>
+        <p>判断と生成を交互に並べた工程を、画面の帯と進行表示がそのまま見せている。どの工程をどのモデルが担当しているかが、札の色で区別できる。</p>
+<ul>
+<li>確率の割れを、隠さずに作業項目へ変えている。1枚目の要求R08は、区分が非機能100%、優先度2.4/3、発言への根拠93%だが、「その場で方針まで固まったか」が9%で、「優先度が高いのに方針が固まっていない。次回までに詰める」という確認事項になっている。作者は、区分が「機能55%／非機能42%」に割れた要求も、どちらとして扱うかの確認項目になったと書いている。</li>
+<li>判定の根拠として、元の発言が番号と話者付きで引用される。判定を疑ったときに、原文へ戻れる。</li>
+<li>前段の選別は切り替えられる。作者は、同じ文字起こしを2回流して判定とコストの差を比べられるようにし、大事な発言を落とさないよう閾値を0.2と低くしたと説明している。迷ったら文章を書くモデルへ回す側に倒す設計である。</li>
+<li>作者が挙げる失敗は3つある。誰も口にしていない中心の要件（請求書の自動作成）が出てこないこと、発言の後の確認のやり取りを根拠の判定が拾えず要件の範囲がずれたこと、前提条件（制約）にまで優先度を付けてしまった軸の設計ミスである。</li>
+<li>確認事項の文面は定型文が並び、顧客に何を聞けばよいかまでは書けていない、と作者は書いている。「ここが怪しい」までがJevの仕事で、質問文は文章を書くモデルに任せるべきだった、という振り返りである。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-requirements-extractor-1.jpg"><img src="../assets/images/display/jev-requirements-extractor-1.webp" alt="解析結果の「要求と要件」のタブ。上段に発言24、要求11、要件案10、確認が必要11、コスト$0.0779・27秒。左に要求の一覧（区分の札と「要確認」の件数付き）。右に要求R08「月末に全員が一斉に使っても重くなったり固まったりしないようにしたい」の詳細。確認が必要な点「優先度が高いのに方針が固まっていない（優先度 2.4/3、合意済み 9%）。次回までに詰める」、根拠になった発言の引用、JEVの判定として区分（非機能100%・確信度100%）、優先度（2.4 / 3・確信度58%）、曖昧さ（1.4 / 2・確信度44%）、発言への根拠93%、その場で方針まで固まったか9%の棒" width="1600" height="979" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-requirements-extractor-2.jpg"><img src="../assets/images/display/jev-requirements-extractor-2.webp" alt="入力画面。「文字起こしから要求と要件を起こす」の説明、JEVとClaudeの札が付いた5つの工程の帯、「サンプルを読み込む」、架空の打ち合わせの文字起こし（24行 / 1117文字）、「JEVで前段の選別を行う」のチェックと閾値0.2、「要件案まで導出する」のチェックとモデルの選択、「前段の選別を切り替えて2回流すと、判定内容とコストの差をそのまま比べられます。」の注記、「解析する」のボタン" width="1600" height="987" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-requirements-extractor-3.jpg"><img src="../assets/images/display/jev-requirements-extractor-3.webp" alt="解析中の進行表示。「ローカル　文字起こしを発言に分割　24件の発言」と「JEV　要求の材料になる発言を選別　19/24件をClaudeへ」が完了、「Claude　発言から要求を抽出」が実行中、その下に「JEV　要求を5軸で判定」「Claude　要求から要件案を導出」「JEV　要件案を4軸で品質判定」が待機中" width="1600" height="390" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">3 / 3</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>1枚目は右の「確認が必要な点」、「根拠になった発言」、「JEVの判定」の5つの軸（区分の確率、優先度と曖昧さの段階ごとの確率、発言への根拠、その場で方針まで固まったか）。2枚目は工程の帯、「JEVで前段の選別を行う」のチェックと閾値0.2。3枚目は工程ごとの担当（ローカル、JEV、Claude）と「19/24件をClaudeへ」</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>貼り付けた打ち合わせの文字起こし。発言単位に分割される。前段の選別のオン／オフ、閾値、要件案まで導出するか、文章を書くモデルを画面で選ぶ。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>3か所で判断する。発言が要求の材料になるかの選別、抽出された要求への5軸の判定（区分、優先度、曖昧さ、発言への根拠、その場で方針まで固まったか）、要件案への4軸の品質判定。要求の抽出と要件案の文章はClaudeが書く。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>要求ごとの詳細に、軸ごとの確率と確信度が棒で並ぶ。優先度が高いのに合意が低い、区分の確率が割れている、といった箇所が「確認が必要」の項目として上がる。成果物は要求定義・要件定義・確認事項の3つのMarkdown。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice / Score / Noul</span><span class="primitive-basis">推定</span></dd>
+          <dd class="primitive-reason">画面の「JEVの判定」で、区分は選択肢ごとの確率、優先度と曖昧さは段階付きの点と段階ごとの確率、根拠と合意は単一の確率として出ることからの見立て。記事と画面は型の名前を明記していない。リポジトリは確認していない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>区分・優先度・根拠の有無のように、答えの形が決まった判定を発言ごと・要求ごとに繰り返す作業は、Jevの型付きの出力に合う。確率をそのまま条件分岐に使い、低い確信度を人へ回す構成が素直に書けた、と作者は述べている。一方で、軸の設計を誤るとJevは誤った問いにも答えを返す。作者の失敗例は、判断の質が問いの設計に依存することを示している。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者によるnote記事と、記事内の画面画像を確認。作者はリポジトリを公開しているが、この作業では開いておらず、コードは確かめていない。入力は作者が用意した架空の打ち合わせ（24発言）で、件数・所要時間・費用はすべて作者の申告による1回分の値である。作者自身が、そのまま顧客に出せる品質ではないと述べ、失敗例を挙げている。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">記事本文、記事内の画面画像（入力画面、進行表示、要求の詳細とJEVの判定、成果物、トークンとコストの5枚。うち3枚を掲載）</span></li>
+        <li><span class="term">未検証</span><span class="desc">リポジトリとコード、実際の動作、判定の正しさ、別の文字起こしでの挙動、作者が示す件数・27秒・約12円・71%削減の値</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">質問型（区分は選択肢ごとの確率からChoice、優先度と曖昧さは段階付きの点からScore、根拠と合意は単一の確率からNoulと見立て）。記事と画面は型の名前を明記していない</span></li>
+        <li><span class="term">引用</span><span class="desc">記事内の画像を引用。画面の発言は作者が用意した架空の打ち合わせで、人名は架空のもの。権利は作者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://note.com/kazumae/n/n7a90f61a64e5" rel="noopener noreferrer">
+          <span class="rail-source-platform">note</span>
+          <span>記事を読む</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://note.com/kazumae/n/n7a90f61a64e5" rel="noopener noreferrer">note：文章を書かないAI「Jev」で、打ち合わせの文字起こしから要件定義を起こすサンプルを作ってみた（前川和浩）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://github.com/techbeansjp-free/jev-requirements-extractor" rel="noopener noreferrer">GitHub：techbeansjp-free/jev-requirements-extractor（作者が示すリポジトリ・未確認）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>note上の公開記事</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="designer-bookshelf-search.html"><span class="pager-dir">前の事例</span><span class="pager-name">読み解くデザイン（意図検索とFor Youの試作）</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="lateral-thinking-quiz.html"><span class="pager-dir">次の事例</span><span class="pager-name">水平思考クイズ（ウミガメのスープ）</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

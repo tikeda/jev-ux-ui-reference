@@ -45,6 +45,7 @@
 <li>「入力した言葉は、この端末内で処理します」と、データの扱いも画面で示している。</li>
 <li>作者の感想は、基準づくりと更新のコストが大きく、基準がブラックボックス化するのを避けたいシステムにはBERT系が向く、という趣旨。これは作者の見解で、画面から検証できる事実ではない。</li>
 <li>画面の見出しに「同じ言葉を、Jevならどう見る？」があるが、その内容は掲載フレームでは確認できない。</li>
+<li>作者のnote記事によれば、元のJev版はCloudflare上で公開し、JevもCloudflareのAI Gateway経由で呼び出している。公開から6時間の利用で費用は約6円だったと作者は申告している。無料で公開しても負担にならない安さを体験として示すことが、元のサイトのねらいだったと書かれている。</li>
 </ul>
       </section>
 
@@ -93,10 +94,10 @@
 
       <section aria-labelledby="sec-evidence">
         <h2 id="sec-evidence">確認範囲と未確認事項</h2>
-        <p class="evidence-statement">日本語の作者による投稿動画と、作者が示すBERT系の比較版アプリを確認。映っているのはBERT系（ブラウザ内で判定）の比較版であり、Jevが動いている画面ではない。元のJev版アプリはこの動画・画像では確認できない。「Jevで作ったアプリからBERT版を作った」という作者の説明が根拠。</p>
+        <p class="evidence-statement">日本語の作者による投稿動画と、作者が示すBERT系の比較版アプリを確認。映っているのはBERT系（ブラウザ内で判定）の比較版であり、Jevが動いている画面ではない。元のJev版アプリはこの動画・画像では確認できない。「Jevで作ったアプリからBERT版を作った」という作者の説明が根拠。元のJev版については、作者のnote記事（2026-09-19）で説明を確認した。入力した言葉の色のイメージをJevが判断して「赤が80%」のような数値を返し、それをカラーコードにして画面の色を出す、という説明である。Jev版の画面そのものは、この作業でも確認していない。</p>
         <ul class="term-list scope-list">
-        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見えるBERT系比較版の画面、処理時間、初回取得の注意書き、投稿文の作者の説明</span></li>
-        <li><span class="term">未検証</span><span class="desc">元のJev版の画面、JevとBERTの出力の比較、精度、費用の比較、作者が示すアプリの現在の動作</span></li>
+        <li><span class="term">確認済み</span><span class="desc">動画から得た2枚の静止画に見えるBERT系比較版の画面、処理時間、初回取得の注意書き、投稿文の作者の説明、元のJev版について説明する作者のnote記事の本文</span></li>
+        <li><span class="term">未検証</span><span class="desc">元のJev版の画面、JevとBERTの出力の比較、精度、費用の比較、作者が示すアプリの現在の動作、note記事が述べる利用費用（約6円）と、色の数値をカラーコードへ直す処理の詳細</span></li>
         <li><span class="term">推定扱い</span><span class="desc">「8色との近さ」から色を作る仕組みの詳細</span></li>
         <li><span class="term">引用</span><span class="desc">X投稿は2026-09-20（UTC）。動画から必要な範囲の静止画を切り出して引用。権利は作者に帰属する</span></li>
         </ul>
@@ -113,6 +114,7 @@
         </a>
         <ul>
 <li><a class="ext" href="https://x.com/gigabit_million/status/2101813176887390398" rel="noopener noreferrer">X 公開投稿：ことばの色（@gigabit_million）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://note.com/gigabit_million/n/n1b05d878a3f3" rel="noopener noreferrer">note：話題のJevってどういうAIなの？の雰囲気がわかる「言葉の色味判定」サイト作りました（ギガビット・元のJev版の説明）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
 <li><a class="ext" href="https://kotoba-color-bert.gigabitmillion-games.workers.dev/?lang=ja" rel="noopener noreferrer">Web：BERT系の比較版アプリ（作者が示すURL・未アクセス）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
 </ul>
         <dl class="rail-meta">

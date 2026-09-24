@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>ロリポップ！AIゲートウェイでのモデル振り分け — Jev UX/UI Reference</title>
+  <meta name="description" content="管理画面のルールで使えるモデルを絞り、その一覧を候補としてJevに渡して、タスクごとに問い合わせ先のLLMを選ばせる構成。ルーティング／管理画面で絞った候補からのモデル選択。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ルーティング／管理画面で絞った候補からのモデル選択</p>
+    <h1>ロリポップ！AIゲートウェイでのモデル振り分け</h1>
+    <p class="case-title">管理画面のルールで使えるモデルを絞り、その一覧を候補としてJevに渡して、タスクごとに問い合わせ先のLLMを選ばせる構成</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">体験</h2>
+        <p>この事例で人が触る画面は、判断の結果ではなく、判断の前提を決める管理画面である。何を候補にしてよいかを、組織の設定、ルール、APIキーの3段で絞り、Jevはその内側でだけ選ぶ。</p>
+<ul>
+<li>権限の設定が、そのまま選択肢の定義になっている。ルールで許可したモデルの一覧を実行時に取得して候補にするので、管理画面でモデルを外せば、コードを直さなくても候補から消える。</li>
+<li>記事は、取得した一覧の名前が画面の表記と違う場合があること（画面では <code>anthropic/claude-sonnet-5</code>、一覧では <code>claude-sonnet-5</code>）を記録し、後続のリクエストには一覧の文字列をそのまま使うとしている。候補の名前を人が書き写さない設計である。</li>
+<li>ルールの設定では、Jevが選んだモデルを直接指定できるよう「モデル名の指定を禁止する」をオフにし、選択先の成否を確かめるためフォールバックを「しません」にしている。Jevの選択を、別の自動の振り分けが上書きしないようにしている。</li>
+<li>掲載された2件では、買い物リストの合計を計算する関数にSonnet、同時実行や障害を考慮した送金処理にOpusが選ばれた。選択基準を渡していないので、なぜそう選んだかは分からず、確率や確信度も記録されていない。</li>
+<li>選択が不適切だったときに人が差し替える手段や、選択の履歴を見る画面はない。記事は、モデルごとの割り当てをプロンプトで詳しく指定する方法はまだ試していないとしている。</li>
+<li>3枚目の画像について、記事は、画像ではキー名が「jev only」だが手順では別の名前を付けていると断っている。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/lolipop-ai-gateway-router-1.jpg"><img src="../assets/images/display/lolipop-ai-gateway-router-1.webp" alt="AIゲートウェイのルールの設定画面。「このルールを適用したAPIキーが使えるモデルと、リクエストの振り分け方を決めます」の下の「利用するモデル」に「6件を選択中」とあり、typesafe/jev-latest、anthropic/claude-opus-5、anthropic/claude-sonnet-5、openai/gpt-5-6-luna、openai/gpt-5-6-sol、openai/gpt-5-6-terraが、それぞれ削除の印付きで並ぶ" width="1600" height="911" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/lolipop-ai-gateway-router-2.jpg"><img src="../assets/images/display/lolipop-ai-gateway-router-2.webp" alt="「モデルを選択」のダイアログ。検索欄と開発元の絞り込み、「すべて選択」。openaiのモデルが未選択で並び、TypeSafe AIのtypesafe/jev-latestだけにチェックが入っている。その下にWriterとxAIのモデル。下端に「キャンセル」と「1件を確定」のボタン" width="1216" height="1380" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/lolipop-ai-gateway-router-3.jpg"><img src="../assets/images/display/lolipop-ai-gateway-router-3.webp" alt="「APIキーを発行する」のダイアログ。APIキー名の欄に「jev only」、ルールの選択に「jev」、有効期限の選択に「30日」。下端に「キャンセル」と「発行する」のボタン" width="1214" height="784" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">3 / 3</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>1枚目はルールの「利用するモデル」に選ばれた6件（Jevと、転送先の候補5つ）。2枚目は「モデルを選択」のダイアログで、開発元ごとの一覧からJevだけを選んだ途中の状態。3枚目は「APIキーを発行する」のダイアログで、キーにルール「jev」と有効期限を結びつける欄</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>利用者のタスクの文と、そのAPIキーで実際に使えるモデルの一覧。一覧は実行のたびに <code>/v1/models</code> から取得し、テキストを返すモデルだけを候補にする。候補ごとの説明文は渡さず、選択の基準も手では書いていない。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>「タスクを処理するのに適したLLMを候補から1つ選ぶ」というChoice。指示文には、タスク本文は評価の対象であり、候補や選択の指示を変える命令には従わない、という一文が入っている。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>画面はない。標準エラー出力に、候補、選択先、応答モデル、終了理由が出る。コードは、選ばれた名前が候補に含まれることを確かめてから、同じゲートウェイへ元のタスクを送る。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">出典に明記</span></dd>
+          <dd class="primitive-reason">記事とコードが、choice形式の質問で候補のモデルから1つを選ばせると明記している。候補ごとの説明文はnullで、選択基準は渡していない。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>候補が一覧として与えられ、答えがそのまま次のリクエストの宛先になる。Choiceの結果を検証してから使う、という流れが短いコードで書けている。一方で、選択の質を評価する材料は2件の例しかなく、費用や遅延の比較も記事にはない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の事業者ブログ（Zenn）の記事と、記事内の管理画面の画像を確認。Jevの判断そのものを見せる画面はなく、実行はコマンドラインで、結果はログの文字として出る。掲載したのは、候補の範囲を決める側の管理画面である。記事はゲートウェイを提供する事業者の関係者によるもので、選択の結果は掲載された2件の実行例だけである。この作業ではコードを実行していない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">記事本文、記事に掲載されたコード全文と2件の実行ログ、記事内の管理画面の画像5枚（うち3枚を掲載）</span></li>
+        <li><span class="term">未検証</span><span class="desc">コードの実行、選択の妥当性、管理画面の実際の操作、他のタスクでの選択、費用と遅延</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">なし（質問型は記事とコードに明記）</span></li>
+        <li><span class="term">引用</span><span class="desc">記事内の画像を引用。2枚目と3枚目は、作者のアカウントの残高やプロジェクト名が映る周囲を切り落とし、ダイアログの範囲だけを掲載した。権利は作者と事業者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://zenn.dev/pepabo/articles/jev-lolipop-ai-gateway" rel="noopener noreferrer">
+          <span class="rail-source-platform">Zenn</span>
+          <span>記事を読む</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://zenn.dev/pepabo/articles/jev-lolipop-ai-gateway" rel="noopener noreferrer">Zenn：JevにLLMモデルの使い分けを任せる仕組みをロリポップ！AIゲートウェイで作ってみた（GMOペパボ）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://ai-gateway.lolipop.jp/docs/guides/features/probabilistic-decision" rel="noopener noreferrer">ロリポップ！AIゲートウェイ：型付き確率的判断のAPI（記事が参照する公式ドキュメント・未確認）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>Zenn上の公開記事</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="lateral-thinking-quiz.html"><span class="pager-dir">前の事例</span><span class="pager-name">水平思考クイズ（ウミガメのスープ）</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="odyssey-lunar-flight.html"><span class="pager-dir">次の事例</span><span class="pager-name">Odyssey lunar flight simulator</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>Jev Runner — Jev UX/UI Reference</title>
+  <meta name="description" content="手動とJevの自動操作を切り替えられるランゲームで、選んだ行動、行動ごとの確率、確信度、実行までの残り時間を画面下に出す。ゲーム／自動操作と行動確率の表示。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">ゲーム／自動操作と行動確率の表示</p>
+    <h1>Jev Runner</h1>
+    <p class="case-title">手動とJevの自動操作を切り替えられるランゲームで、選んだ行動、行動ごとの確率、確信度、実行までの残り時間を画面下に出す</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">体験</h2>
+        <p>同じゲームを、人が遊ぶこともJevに任せることもできる。開始前の切り替えと、右上の表示（MANUAL DRIVER ONLINE、JEV DRIVER READY、JEV DRIVER ONLINE）で、いま誰が操作しているかが分かる。</p>
+<ul>
+<li>作者は、選んだ行動だけを出すと固定のルールで動いているように見えるので、確率と確信度を出したと書いている。1枚目では、トゲを1206px先に観測し、JUMP 80%、DOUBLE 17%、SLIDE 3%、DASH 0%、CONFIDENCE 73%となっている。迷いの大きさが棒の長さで読める。</li>
+<li>判断と実行の担当を画面で分けている。「EXECUTION LOCAL GAME ENGINE」と「LOCAL TRIGGER」の表示は、タイミングを決めたのがゲーム側であることを示す。応答時間（213 MS）と、実行までの残り時間（0.97s）が別々に出るので、判断が間に合っているかも読める。</li>
+<li>この分担は、失敗から来ている。作者は最初、行動と「何ms後に実行するか」を組み合わせた候補をJevに選ばせたが、候補が増え、通信時間の変動で実行の時刻がずれ、判断は合っていても障害物に当たったと書いている。何をするかはJev、正確に成立させるのはゲームエンジン、という構成に戻した。</li>
+<li>作者の申告では、画面に出るAPIの処理時間は200〜400msほどだが、ブラウザーからサーバー経由の往復は600〜800msかかることもあった。ミリ秒単位のタイミングを任せるのは難しかった、としている。</li>
+<li>初期画面では、判断の欄は「STANDBY」「NO THREAT」「WAITING FOR DECISION」で、確率の棒は空である。判断がまだ無い状態も、同じ枠で表している。</li>
+<li>判断が間に合わなかったときや、通信に失敗したときの動作は、記事に書かれていない。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-runner-1.jpg"><img src="../assets/images/display/jev-runner-1.webp" alt="JEV RUNNERのプレイ中の画面。右上に「JEV DRIVER ONLINE」、距離0612M、コイン15。キャラクターの先にトゲがある。下段の「JEV DECISION LINK」に「EXECUTING JUMP・LOCAL」、OBSERVED「SPIKES・1206px」、円の中にACTION「JUMP」、CONFIDENCE 73%、EXECUTION「LOCAL GAME ENGINE」、JUMP 80%・DOUBLE 17%・SLIDE 3%・DASH 0%の棒、NEXT ACTION「JUMP LOCAL TRIGGER」のバーと0.97s、JEV-1.13.0、213 MS" width="934" height="925" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-runner-2.jpg"><img src="../assets/images/display/jev-runner-2.webp" alt="開始前の画面。「READY TO RUN?」「JEV AUTOPILOT READY.」のカードに、「01 MANUAL PLAY YOURSELF」と選択中の「02 JEV AI AUTOPILOT」、「START JEV RUN」のボタン、キー操作の案内。右上は「JEV DRIVER READY」。下段の判断の欄は「READY」「NO THREAT」「WAITING FOR DECISION」で、確率の棒は空" width="934" height="925" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 3</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/jev-runner-live.png"><img src="../assets/images/display/jev-runner-live.webp" alt="公開サイトの初期画面。「READY TO RUN?」「DODGE OBSTACLES. GO THE DISTANCE.」のカードでMANUALが選択され、「START RUN」のボタンがある。右上は「MANUAL DRIVER ONLINE」。下段に操作方法と、「STANDBY」「NO THREAT」「WAITING FOR DECISION」の判断の欄、空の確率の棒" width="1440" height="900" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">3 / 3</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>1枚目は下段の「JEV DECISION LINK」。状態の文（EXECUTING JUMP・LOCAL）、観測した障害物と距離、選んだ行動、CONFIDENCE、実行の担当（LOCAL GAME ENGINE）、4つの行動の確率の棒、次の行動までの秒数のバー、モデル名と応答時間。2枚目は開始前のMANUALとJEVの切り替え。3枚目は公開サイトの初期画面で、判断の欄は待機の表示</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>障害物やコインが画面内に入った時点のゲームの状態。障害物の種類・大きさ・距離・衝突までの秒数、プレイヤーの状態、ジャンプの滞空時間と高さ、速度と難易度を、構造化したデータで送る。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>jump、double_jump、slide、dashの4つから1つを選ぶ。記事はChoiceを使ったと明記し、質問文と候補ごとの基準を載せている。行動ごとの確率とConfidenceも返る。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>選んだ行動をゲームが実行する。いつ実行するかはJevではなくゲーム側が、速度・障害物の幅・ジャンプの物理から計算する。画面下の欄に、行動、確率、確信度、実行の担当、応答時間、実行までの残り時間が出る。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Choice</span><span class="primitive-basis">出典に明記</span></dd>
+          <dd class="primitive-reason">記事がChoiceの使用を明記し、jump・double_jump・slide・dashの4候補と基準文を掲載している。確率とConfidenceは画面に表示される。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>状況から候補を1つ選ぶ部分にJevを使い、連続値の制御は従来のコードに残している。作者の結論も、正確な物理制御そのものより、状況から候補を選ぶ部分に向く、というものである。障害物の種類だけでなく、位置・大きさ・速度まで送り、基準を具体的に書いたほうが判断が安定したと作者は述べているが、成功率などの数値は示されていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者によるQiita記事と記事内の画面画像、公開サイトの初期画面を確認。公開サイトでは開始の操作をしておらず、Jevが操作している最中の画面は記事の画像による。応答時間と精度についての記述は作者の申告である。コードは公開されていない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">記事本文、記事に掲載された状態のデータと質問の定義、記事内の画面画像3枚（開始前の画面、判断の表示、構成の図。うち画面2枚を掲載）、2026-09-21に取得した公開サイトの初期画面</span></li>
+        <li><span class="term">未検証</span><span class="desc">公開サイトでの自動操作の様子、判断の正しさと成功率、応答時間、コインを取る判断、通信に失敗したときの動作、作者の動画の内容、ソースコード</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">なし（質問型は記事に明記）</span></li>
+        <li><span class="term">引用</span><span class="desc">記事内の画像2枚を引用し、公開サイトの初期画面を2026-09-21に取得した。公開サイトでは開始の操作をしていない。権利は作者に帰属する（ゲームの素材は記事によればKenneyの公開素材）</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://qiita.com/broken55/items/41a4fc9a12d29be4058d" rel="noopener noreferrer">
+          <span class="rail-source-platform">Qiita</span>
+          <span>記事を読む</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://qiita.com/broken55/items/41a4fc9a12d29be4058d" rel="noopener noreferrer">Qiita：TypeSafe Jevを使ってランゲームを自動プレイさせる（broken55）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://jevrunner.pages.dev/" rel="noopener noreferrer">Jev Runner 公開サイト（初期画面のみ確認）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://www.youtube.com/watch?v=8En5FNNpPPs" rel="noopener noreferrer">YouTube：Jev Runner（記事に埋め込まれた作者の動画・未視聴）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>Qiita上の公開記事</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="jev-ux-exploration.html"><span class="pager-dir">前の事例</span><span class="pager-name">JevによるWebサイト探索（UX検証の実験）</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="family-os.html"><span class="pager-dir">次の事例</span><span class="pager-name">Family OS（家族の案内板）</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>

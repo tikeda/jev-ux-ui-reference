@@ -6,7 +6,7 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="referrer" content="no-referrer">
   <title>Jev UX/UI Reference — 判断するAIのUX事例</title>
-  <meta name="description" content="Jevを判断の部品としてUIへ組み込んだ公開事例80件と、アプリケーションデザイナー向けの設計入門。">
+  <meta name="description" content="Jevを判断の部品としてUIへ組み込んだ公開事例91件と、アプリケーションデザイナー向けの設計入門。">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="assets/base.css">
   <link rel="stylesheet" href="jev.css">
@@ -76,26 +76,224 @@
     <div class="filter-group" role="group" aria-labelledby="filter-primitive-label">
       <span class="filter-label" id="filter-primitive-label">判断型</span>
       <div class="filter-options">
-        <button type="button" class="filter-btn" data-filter="primitive" data-value="all" aria-pressed="true">すべて<span class="num filter-count">80</span></button>
-        <button type="button" class="filter-btn" data-filter="primitive" data-value="choice" aria-pressed="false">Choice<span class="num filter-count">35</span></button>
-        <button type="button" class="filter-btn" data-filter="primitive" data-value="score" aria-pressed="false">Score<span class="num filter-count">10</span></button>
-        <button type="button" class="filter-btn" data-filter="primitive" data-value="noul" aria-pressed="false">Noul<span class="num filter-count">7</span></button>
+        <button type="button" class="filter-btn" data-filter="primitive" data-value="all" aria-pressed="true">すべて<span class="num filter-count">91</span></button>
+        <button type="button" class="filter-btn" data-filter="primitive" data-value="choice" aria-pressed="false">Choice<span class="num filter-count">43</span></button>
+        <button type="button" class="filter-btn" data-filter="primitive" data-value="score" aria-pressed="false">Score<span class="num filter-count">14</span></button>
+        <button type="button" class="filter-btn" data-filter="primitive" data-value="noul" aria-pressed="false">Noul<span class="num filter-count">10</span></button>
         <button type="button" class="filter-btn" data-filter="primitive" data-value="composite" aria-pressed="false">複合<span class="num filter-count">15</span></button>
-        <button type="button" class="filter-btn" data-filter="primitive" data-value="unclear" aria-pressed="false">不明<span class="num filter-count">18</span></button>
+        <button type="button" class="filter-btn" data-filter="primitive" data-value="unclear" aria-pressed="false">不明<span class="num filter-count">19</span></button>
       </div>
     </div>
     <div class="filter-group" role="group" aria-labelledby="filter-evidence-label">
       <span class="filter-label" id="filter-evidence-label">根拠</span>
       <div class="filter-options">
-        <button type="button" class="filter-btn" data-filter="evidence" data-value="all" aria-pressed="true">すべて<span class="num filter-count">80</span></button>
+        <button type="button" class="filter-btn" data-filter="evidence" data-value="all" aria-pressed="true">すべて<span class="num filter-count">91</span></button>
         <button type="button" class="filter-btn" data-filter="evidence" data-value="repo" aria-pressed="false">リポジトリ確認<span class="num filter-count">15</span></button>
-        <button type="button" class="filter-btn" data-filter="evidence" data-value="post" aria-pressed="false">公開投稿のみ<span class="num filter-count">65</span></button>
+        <button type="button" class="filter-btn" data-filter="evidence" data-value="post" aria-pressed="false">公開投稿のみ<span class="num filter-count">76</span></button>
       </div>
     </div>
       <p class="filter-result" id="filter-result" hidden><button type="button" class="filter-reset" id="filter-reset">絞り込みを解除</button></p>
     </div>
 
     <ul class="case-grid" id="case-grid">
+      <li class="case-card" data-primitives="choice" data-evidence="post">
+        <a class="case-thumb" href="cases/classroom-opinion-cluster.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/classroom-opinion-cluster-3.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">教育／意見のリアルタイム分類</p>
+          <h3 class="case-name">クラスタ β（教室の意見分類ボード）</h3>
+          <p class="case-summary">児童生徒の意見を先生が決めた分け先へその場で振り分け、不適切と検知した投稿は先生だけが確認して戻せる電子黒板ボード</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/classroom-opinion-cluster.html">詳細を見る<span class="vh">：クラスタ β（教室の意見分類ボード）</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="choice" data-evidence="post">
+        <a class="case-thumb" href="cases/jev-ux-exploration.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/jev-ux-exploration-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">ブラウザ操作／正解手順なしの導線探索</p>
+          <h3 class="case-name">JevによるWebサイト探索（UX検証の実験）</h3>
+          <p class="case-summary">目的だけを渡してJevに次の操作を選ばせ、分かりにくい導線で止まった場所とそのときの確率をレポートで読む実験</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/jev-ux-exploration.html">詳細を見る<span class="vh">：JevによるWebサイト探索（UX検証の実験）</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="choice" data-evidence="post">
+        <a class="case-thumb" href="cases/jev-runner.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/jev-runner-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">ゲーム／自動操作と行動確率の表示</p>
+          <h3 class="case-name">Jev Runner</h3>
+          <p class="case-summary">手動とJevの自動操作を切り替えられるランゲームで、選んだ行動、行動ごとの確率、確信度、実行までの残り時間を画面下に出す</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/jev-runner.html">詳細を見る<span class="vh">：Jev Runner</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="choice" data-evidence="post">
+        <a class="case-thumb" href="cases/family-os.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/family-os-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">家庭／発話の意図分類と親の承認</p>
+          <h3 class="case-name">Family OS（家族の案内板）</h3>
+          <p class="case-summary">子どもの発話を持ち物や予定に仕分け、確信度が低ければ聞き返し、登録は親の確認箱を通す家族の案内板</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/family-os.html">詳細を見る<span class="vh">：Family OS（家族の案内板）</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="noul score choice" data-evidence="post">
+        <a class="case-thumb" href="cases/jev-requirements-reviewer.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/jev-requirements-reviewer-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">文書レビュー／19観点の並列評価と人間確認の閾値</p>
+          <h3 class="case-name">Jev Requirements Reviewer</h3>
+          <p class="case-summary">要件定義書を貼り付けると19の観点で一括評価し、準備度のレーダーと、確信度の低い項目を人間確認へ回す一覧を出すStreamlitアプリ</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Noul / Score / Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/jev-requirements-reviewer.html">詳細を見る<span class="vh">：Jev Requirements Reviewer</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="choice" data-evidence="post">
+        <a class="case-thumb" href="cases/jev-janken.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/jev-janken-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">ゲーム／相手の次の手の予測とフォールバック表示</p>
+          <h3 class="case-name">じゃんけんトレーニング</h3>
+          <p class="case-summary">対戦履歴から人間の次の手をJevに予測させ、使えないときはルールベースへ戻って、どちらで動いたかを画面に出すじゃんけん</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/jev-janken.html">詳細を見る<span class="vh">：じゃんけんトレーニング</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="score noul" data-evidence="post">
+        <a class="case-thumb" href="cases/riddle-scoring-npc.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/riddle-scoring-npc-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">ゲーム／固定フォームの投稿を即時採点するNPC</p>
+          <h3 class="case-name">柄井川柳（江戸オンラインの謎かけ採点NPC）</h3>
+          <p class="case-summary">ゲーム内SNSに投じた謎かけを、点者のNPCが引用リポストで採点して返す仕組み</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Score / Noul</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/riddle-scoring-npc.html">詳細を見る<span class="vh">：柄井川柳（江戸オンラインの謎かけ採点NPC）</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="score" data-evidence="post">
+        <a class="case-thumb" href="cases/designer-bookshelf-search.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/designer-bookshelf-search-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">検索・推薦／本棚のメタファーで見せる採点</p>
+          <h3 class="case-name">読み解くデザイン（意図検索とFor Youの試作）</h3>
+          <p class="case-summary">やりたいことを文章で入れると、本棚の本がJevの採点に応じて手前の「選書棚」へ移ってくる書籍サイトのローカル試作</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Score</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/designer-bookshelf-search.html">詳細を見る<span class="vh">：読み解くデザイン（意図検索とFor Youの試作）</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="choice score noul" data-evidence="post">
+        <a class="case-thumb" href="cases/jev-requirements-extractor.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/jev-requirements-extractor-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">文書分類／確率の割れを人の確認へ回す</p>
+          <h3 class="case-name">MTG文字起こし 要求・要件整理</h3>
+          <p class="case-summary">打ち合わせの文字起こしから要求と要件を起こし、Jevの確率が割れた箇所を「確認が必要」として人へ回す画面</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice / Score / Noul<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/jev-requirements-extractor.html">詳細を見る<span class="vh">：MTG文字起こし 要求・要件整理</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="unclear" data-evidence="post">
+        <a class="case-thumb" href="cases/lateral-thinking-quiz.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/lateral-thinking-quiz-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">ゲーム／はい・いいえの判定を返す会話UI</p>
+          <h3 class="case-name">水平思考クイズ（ウミガメのスープ）</h3>
+          <p class="case-summary">自由に書いた質問へ出題者の「はい／いいえ」を返し、真相の回答も判定する水平思考クイズのWebアプリ</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/lateral-thinking-quiz.html">詳細を見る<span class="vh">：水平思考クイズ（ウミガメのスープ）</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="choice" data-evidence="post">
+        <a class="case-thumb" href="cases/lolipop-ai-gateway-router.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/lolipop-ai-gateway-router-1.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+
+        </a>
+        <div class="case-body">
+          <p class="case-kind">ルーティング／管理画面で絞った候補からのモデル選択</p>
+          <h3 class="case-name">ロリポップ！AIゲートウェイでのモデル振り分け</h3>
+          <p class="case-summary">管理画面のルールで使えるモデルを絞り、その一覧を候補としてJevに渡して、タスクごとに問い合わせ先のLLMを選ばせる構成</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/lolipop-ai-gateway-router.html">詳細を見る<span class="vh">：ロリポップ！AIゲートウェイでのモデル振り分け</span></a>
+          </p>
+        </div>
+      </li>
       <li class="case-card" data-primitives="choice" data-evidence="post">
         <a class="case-thumb" href="cases/odyssey-lunar-flight.html" tabindex="-1" aria-hidden="true">
           <img src="assets/images/thumbs/odyssey-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
@@ -294,60 +492,6 @@
           </p>
         </div>
       </li>
-      <li class="case-card" data-primitives="choice" data-evidence="post">
-        <a class="case-thumb case-thumb--placeholder" href="cases/genui-order-support.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/images/thumbs/genui-order-support-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
-          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
-        </a>
-        <div class="case-body">
-          <p class="case-kind">Generative UI／注文サポート</p>
-          <h3 class="case-name">Flutter/GenUI order-support prototype</h3>
-          <p class="case-summary">注文の追跡や返品を言葉で頼むと、必要な画面部品とフォームがその場で組み立てられるサポートアプリの試作</p>
-          <div class="case-tags">
-        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
-        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
-          </div>
-          <p class="case-links">
-            <a class="case-more" href="cases/genui-order-support.html">詳細を見る<span class="vh">：Flutter/GenUI order-support prototype</span></a>
-          </p>
-        </div>
-      </li>
-      <li class="case-card" data-primitives="choice" data-evidence="post">
-        <a class="case-thumb case-thumb--placeholder" href="cases/jev-realtime-avatars.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/images/thumbs/jev-realtime-avatars-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
-          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
-        </a>
-        <div class="case-body">
-          <p class="case-kind">アバター／非言語表現の選択</p>
-          <h3 class="case-name">Jev Realtime Avatars</h3>
-          <p class="case-summary">会話の進行に合わせて、2体の3Dアバターの視線・姿勢・身ぶりが切り替わる試作</p>
-          <div class="case-tags">
-        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
-        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
-          </div>
-          <p class="case-links">
-            <a class="case-more" href="cases/jev-realtime-avatars.html">詳細を見る<span class="vh">：Jev Realtime Avatars</span></a>
-          </p>
-        </div>
-      </li>
-      <li class="case-card" data-primitives="unclear" data-evidence="post">
-        <a class="case-thumb case-thumb--placeholder" href="cases/hopp-auto-zoom.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/images/thumbs/hopp-auto-zoom-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
-          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
-        </a>
-        <div class="case-body">
-          <p class="case-kind">画面共有／自動フレーミング</p>
-          <h3 class="case-name">Hopp auto-zoom</h3>
-          <p class="case-summary">横長の画面共有で、いま使っているアプリに合わせて、見る側の表示が自動で寄ったり引いたりする試作</p>
-          <div class="case-tags">
-        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
-        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
-          </div>
-          <p class="case-links">
-            <a class="case-more" href="cases/hopp-auto-zoom.html">詳細を見る<span class="vh">：Hopp auto-zoom</span></a>
-          </p>
-        </div>
-      </li>
       <li class="case-card" data-primitives="unclear" data-evidence="post">
         <a class="case-thumb" href="cases/generative-dashboard.html" tabindex="-1" aria-hidden="true">
           <img src="assets/images/thumbs/generative-dashboard-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
@@ -417,42 +561,6 @@
           </div>
           <p class="case-links">
             <a class="case-more" href="cases/duckdb-row-classification.html">詳細を見る<span class="vh">：DuckDB row-classification extension</span></a>
-          </p>
-        </div>
-      </li>
-      <li class="case-card" data-primitives="unclear" data-evidence="post">
-        <a class="case-thumb case-thumb--placeholder" href="cases/approval-grant-routing.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/images/thumbs/approval-grant-routing-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
-          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
-        </a>
-        <div class="case-body">
-          <p class="case-kind">権限設計／曖昧時のREAD_ONLY</p>
-          <h3 class="case-name">Approval/Grant Routing</h3>
-          <p class="case-summary">「承認しようかなー」のような曖昧な返事を編集の許可として扱わず、読み取り専用のまま利用者に聞き返す判定の試み</p>
-          <div class="case-tags">
-        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
-        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
-          </div>
-          <p class="case-links">
-            <a class="case-more" href="cases/approval-grant-routing.html">詳細を見る<span class="vh">：Approval/Grant Routing</span></a>
-          </p>
-        </div>
-      </li>
-      <li class="case-card" data-primitives="unclear" data-evidence="post">
-        <a class="case-thumb case-thumb--placeholder" href="cases/mouse-gesture-magic.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/images/thumbs/mouse-gesture-magic-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
-          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
-        </a>
-        <div class="case-body">
-          <p class="case-kind">ジェスチャー入力／魔法認識</p>
-          <h3 class="case-name">Mouse-gesture magic recognition</h3>
-          <p class="case-summary">マウスで描いた軌跡を、円・剣・盾のどの形かに判定して魔法を発動させる、イベントでのデモ</p>
-          <div class="case-tags">
-        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
-        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
-          </div>
-          <p class="case-links">
-            <a class="case-more" href="cases/mouse-gesture-magic.html">詳細を見る<span class="vh">：Mouse-gesture magic recognition</span></a>
           </p>
         </div>
       </li>
@@ -528,24 +636,6 @@
           </p>
         </div>
       </li>
-      <li class="case-card" data-primitives="unclear" data-evidence="post">
-        <a class="case-thumb case-thumb--placeholder" href="cases/ai-resume-evaluator.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/images/thumbs/ai-resume-evaluator-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
-          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
-        </a>
-        <div class="case-body">
-          <p class="case-kind">採用支援／履歴書評価</p>
-          <h3 class="case-name">AI Resume Evaluator with JEV</h3>
-          <p class="case-summary">履歴書を読み込ませて、総合の評価や強み・懸念などの観点ごとの結果を返すという、チュートリアルのデモアプリ</p>
-          <div class="case-tags">
-        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
-        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
-          </div>
-          <p class="case-links">
-            <a class="case-more" href="cases/ai-resume-evaluator.html">詳細を見る<span class="vh">：AI Resume Evaluator with JEV</span></a>
-          </p>
-        </div>
-      </li>
       <li class="case-card" data-primitives="composite" data-evidence="post">
         <a class="case-thumb" href="cases/docket.html" tabindex="-1" aria-hidden="true">
           <img src="assets/images/thumbs/docket-live.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
@@ -579,24 +669,6 @@
           </div>
           <p class="case-links">
             <a class="case-more" href="cases/flappy-jev.html">詳細を見る<span class="vh">：Flappy Jev</span></a>
-          </p>
-        </div>
-      </li>
-      <li class="case-card" data-primitives="choice" data-evidence="post">
-        <a class="case-thumb case-thumb--placeholder" href="cases/cubox-archive-validation.html" tabindex="-1" aria-hidden="true">
-          <img src="assets/images/thumbs/cubox-archive-validation-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
-          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
-        </a>
-        <div class="case-body">
-          <p class="case-kind">バッチ処理／カテゴリ検証</p>
-          <h3 class="case-name">Cubox archive validation</h3>
-          <p class="case-summary">「あとで読む」に溜めた約3万件の分類を一括で点検し、そのまま・移す・置く・見直す、の4つに振り分けた処理の再生表示</p>
-          <div class="case-tags">
-        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
-        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
-          </div>
-          <p class="case-links">
-            <a class="case-more" href="cases/cubox-archive-validation.html">詳細を見る<span class="vh">：Cubox archive validation</span></a>
           </p>
         </div>
       </li>
@@ -1536,14 +1608,140 @@
           </p>
         </div>
       </li>
+      <li class="case-card" data-primitives="choice" data-evidence="post">
+        <a class="case-thumb case-thumb--placeholder" href="cases/genui-order-support.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/genui-order-support-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
+        </a>
+        <div class="case-body">
+          <p class="case-kind">Generative UI／注文サポート</p>
+          <h3 class="case-name">Flutter/GenUI order-support prototype</h3>
+          <p class="case-summary">注文の追跡や返品を言葉で頼むと、必要な画面部品とフォームがその場で組み立てられるサポートアプリの試作</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/genui-order-support.html">詳細を見る<span class="vh">：Flutter/GenUI order-support prototype</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="choice" data-evidence="post">
+        <a class="case-thumb case-thumb--placeholder" href="cases/jev-realtime-avatars.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/jev-realtime-avatars-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
+        </a>
+        <div class="case-body">
+          <p class="case-kind">アバター／非言語表現の選択</p>
+          <h3 class="case-name">Jev Realtime Avatars</h3>
+          <p class="case-summary">会話の進行に合わせて、2体の3Dアバターの視線・姿勢・身ぶりが切り替わる試作</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/jev-realtime-avatars.html">詳細を見る<span class="vh">：Jev Realtime Avatars</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="unclear" data-evidence="post">
+        <a class="case-thumb case-thumb--placeholder" href="cases/hopp-auto-zoom.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/hopp-auto-zoom-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
+        </a>
+        <div class="case-body">
+          <p class="case-kind">画面共有／自動フレーミング</p>
+          <h3 class="case-name">Hopp auto-zoom</h3>
+          <p class="case-summary">横長の画面共有で、いま使っているアプリに合わせて、見る側の表示が自動で寄ったり引いたりする試作</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/hopp-auto-zoom.html">詳細を見る<span class="vh">：Hopp auto-zoom</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="unclear" data-evidence="post">
+        <a class="case-thumb case-thumb--placeholder" href="cases/approval-grant-routing.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/approval-grant-routing-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
+        </a>
+        <div class="case-body">
+          <p class="case-kind">権限設計／曖昧時のREAD_ONLY</p>
+          <h3 class="case-name">Approval/Grant Routing</h3>
+          <p class="case-summary">「承認しようかなー」のような曖昧な返事を編集の許可として扱わず、読み取り専用のまま利用者に聞き返す判定の試み</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/approval-grant-routing.html">詳細を見る<span class="vh">：Approval/Grant Routing</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="unclear" data-evidence="post">
+        <a class="case-thumb case-thumb--placeholder" href="cases/mouse-gesture-magic.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/mouse-gesture-magic-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
+        </a>
+        <div class="case-body">
+          <p class="case-kind">ジェスチャー入力／魔法認識</p>
+          <h3 class="case-name">Mouse-gesture magic recognition</h3>
+          <p class="case-summary">マウスで描いた軌跡を、円・剣・盾のどの形かに判定して魔法を発動させる、イベントでのデモ</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/mouse-gesture-magic.html">詳細を見る<span class="vh">：Mouse-gesture magic recognition</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="unclear" data-evidence="post">
+        <a class="case-thumb case-thumb--placeholder" href="cases/ai-resume-evaluator.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/ai-resume-evaluator-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
+        </a>
+        <div class="case-body">
+          <p class="case-kind">採用支援／履歴書評価</p>
+          <h3 class="case-name">AI Resume Evaluator with JEV</h3>
+          <p class="case-summary">履歴書を読み込ませて、総合の評価や強み・懸念などの観点ごとの結果を返すという、チュートリアルのデモアプリ</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>不明</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/ai-resume-evaluator.html">詳細を見る<span class="vh">：AI Resume Evaluator with JEV</span></a>
+          </p>
+        </div>
+      </li>
+      <li class="case-card" data-primitives="choice" data-evidence="post">
+        <a class="case-thumb case-thumb--placeholder" href="cases/cubox-archive-validation.html" tabindex="-1" aria-hidden="true">
+          <img src="assets/images/thumbs/cubox-archive-validation-nocapture.webp" alt="" width="800" height="500" loading="lazy" decoding="async">
+          <span class="no-image-label"><strong>NO IMAGE</strong><span>画面キャプチャなし</span></span>
+        </a>
+        <div class="case-body">
+          <p class="case-kind">バッチ処理／カテゴリ検証</p>
+          <h3 class="case-name">Cubox archive validation</h3>
+          <p class="case-summary">「あとで読む」に溜めた約3万件の分類を一括で点検し、そのまま・移す・置く・見直す、の4つに振り分けた処理の再生表示</p>
+          <div class="case-tags">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Choice<span class="tag-note">推定</span></span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+          </div>
+          <p class="case-links">
+            <a class="case-more" href="cases/cubox-archive-validation.html">詳細を見る<span class="vh">：Cubox archive validation</span></a>
+          </p>
+        </div>
+      </li>
     </ul>
     <p class="empty-state" id="empty-state" hidden>この組み合わせに当てはまる事例はない。条件をひとつ外すと表示される。</p>
   </section>
 
   <section class="catalog-cta" aria-labelledby="catalog-cta-title">
     <div>
-      <h2 id="catalog-cta-title">調査した全<span class="num">466</span>件を見る</h2>
-      <p>上の80件以外も、名称、判断型の一次分類、UX/UI関連度、根拠種別、外部リンクから検索できる。検証済み製品の一覧ではなく、今後詳しく見るための候補カタログである。</p>
+      <h2 id="catalog-cta-title">調査した全<span class="num">477</span>件を見る</h2>
+      <p>上の91件以外も、名称、判断型の一次分類、UX/UI関連度、根拠種別、外部リンクから検索できる。検証済み製品の一覧ではなく、今後詳しく見るための候補カタログである。</p>
     </div>
     <a class="btn btn--primary" href="catalog.html">全候補カタログを開く</a>
   </section>

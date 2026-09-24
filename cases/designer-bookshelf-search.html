@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="referrer" content="no-referrer">
+  <title>読み解くデザイン（意図検索とFor Youの試作） — Jev UX/UI Reference</title>
+  <meta name="description" content="やりたいことを文章で入れると、本棚の本がJevの採点に応じて手前の「選書棚」へ移ってくる書籍サイトのローカル試作。検索・推薦／本棚のメタファーで見せる採点。">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../jev.css">
+</head>
+<body>
+<a class="skip-link" href="#main">本文へ移動</a>
+<header class="site-header">
+  <a href="../index.html" class="site-title">Jev UX/UI Reference</a>
+  <nav aria-label="セクション">
+    <a href="../index.html">事例解説</a>
+    <a href="../catalog.html">全候補カタログ</a>
+    <a href="../basics.html">設計入門</a>
+  </nav>
+  
+</header>
+
+<main id="main" class="case-page">
+  <header class="entry-head case-head">
+    <p class="case-breadcrumb"><a href="../index.html#cases">事例解説</a></p>
+    <p class="case-kind">検索・推薦／本棚のメタファーで見せる採点</p>
+    <h1>読み解くデザイン（意図検索とFor Youの試作）</h1>
+    <p class="case-title">やりたいことを文章で入れると、本棚の本がJevの採点に応じて手前の「選書棚」へ移ってくる書籍サイトのローカル試作</p>
+    <div class="entry-meta">
+        <span class="tag tag--primitive"><span class="tag-key">判断型</span>Score</span>
+        <span class="tag"><span class="tag-key">根拠</span>公開投稿のみ</span>
+    </div>
+  </header>
+
+  <div class="case-layout">
+    <article>
+      <section class="summary" aria-labelledby="sec-what">
+        <h2 id="sec-what">体験</h2>
+        <p>採点の結果を、一覧の並び替えではなく、本が棚から出てくる動きとして見せている。サイトがもともと持つ分野別の本棚の表現を、そのまま検索結果の表現に使っている。</p>
+<ul>
+<li>評価の途中経過を隠していない。1枚目では、32冊ずつの組に分けて送り、「22組・32問の回答を受信」「704冊回答・推薦候補 47冊」と、どこまで進んだかが数で出る。点数0〜3ごとの冊数も棒で示される。</li>
+<li>「評価中の推薦候補です。回答に応じて更新されます。」という注記があり、選書棚の中身がまだ確定していないことを伝えている。「前回の候補から外れた本」も折りたたんで残し、結果が入れ替わったことを追えるようにしている。</li>
+<li>STATE・QUESTIONS・ANSWERのパネルは、Jevに何を渡し、何を尋ね、何が返ったかを、利用者向けの画面の上にそのまま重ねている。試作の検証用の表示と思われ、公開時にどこまで見せるかは記事では触れていない。</li>
+<li>For Youは、推薦の根拠を「最近見た『…』をもとに選びました」と一文で示す。棚の名前が、採点の観点をそのまま利用者の言葉に直したものになっている。同じ本が複数の棚に重なって出ている点は、画面から読み取れる。</li>
+<li>対象はインタラクションデザインの235冊に絞った実験で、関心の手がかりは「詳細ページを開いたこと」だけだと作者は書いている。</li>
+</ul>
+      </section>
+
+      <section aria-labelledby="sec-captures">
+        <h2 id="sec-captures">キャプチャ</h2>
+        <div class="shots">
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/designer-bookshelf-search-1.jpg"><img src="../assets/images/display/designer-bookshelf-search-1.webp" alt="「読み解くデザイン」の意図検索の試作画面。背景に分野別の本棚。上部の帯に「Jevが評価中・16組を同時評価中　704 / 1,366冊」。STATE・判断材料（検索文「小さな実験で事業の需要を確かめたい」と書名・紹介文など）、QUESTIONS・採点（「入力された関心・課題に役立つ内容は？」と、32問ずつの組の一覧、「送信済み・回答待ち」）、ANSWER・結果（「704冊回答・推薦候補 47冊」と、0〜3点ごとの冊数の棒）の3つのパネル。その下に入力欄と例文、さらに下に「選書棚 47冊」、「評価中の推薦候補です。回答に応じて更新されます。」、「前回の候補から外れた本・5冊」、書籍の表紙の並び" width="1600" height="1259" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">1 / 2</span></figcaption>
+      </figure>
+      <figure class="shot">
+        <a class="shot-link" href="../assets/images/designer-bookshelf-search-2.jpg"><img src="../assets/images/display/designer-bookshelf-search-2.webp" alt="「あなたにおすすめの本」の試作画面。「最近見た『AIインターフェースデザイン』、『融けるデザイン』、『魅力的なインタフェースをデザインする』をもとに選びました。」の一文。「理解を深める」「実践に進む」「別の視点から見る」の3つの棚に、それぞれ5冊の表紙と書名。下端に「ローカル実験・インタラクションデザイン 235冊」" width="1600" height="1258" loading="lazy" decoding="async"><span class="vh">（原寸の画像を開く）</span></a>
+        <figcaption><span class="num">2 / 2</span></figcaption>
+      </figure>
+        </div>
+        <p class="look-at"><span class="look-at-label">見る箇所</span>1枚目は上部の進行の帯「Jevが評価中・16組を同時評価中　704 / 1,366冊」、STATE・QUESTIONS・ANSWERの3つのパネル、点数ごとの冊数の分布、背景の分野別の本棚、入力欄と例文、下の「選書棚 47冊」と「前回の候補から外れた本・5冊」。2枚目は「あなたにおすすめの本」の根拠の一文と、3つの棚（理解を深める、実践に進む、別の視点から見る）</p>
+      </section>
+
+      <section aria-labelledby="sec-flow">
+        <h2 id="sec-flow">入力から画面の変化まで</h2>
+        <ol class="decision-flow">
+          <li>
+            <h3>判断への入力</h3>
+            <p>検索では、やりたいことや悩みの文（画面の例は「小さな実験で事業の需要を確かめたい」）と、登録された1,366冊の書名・紹介文など。For Youでは、直前に詳細ページを開いた本とその順番、候補の本の情報。</p>
+          </li>
+          <li class="decision-flow-jev">
+            <h3>Jevの判断</h3>
+            <p>検索では「その相談に役立つ説明・方法・事例があるか」を1冊ごとに0〜3点で採点する。For Youでは「基礎や背景を補えるか」「試す手順や事例があるか」「別の方法で考えられるか」の3つを、それぞれ0〜3点で採点する。</p>
+          </li>
+          <li>
+            <h3>結果がUIをどう変えるか</h3>
+            <p>検索では、点の高い本が本棚から手前の「選書棚」へ移ってくる。記事の図では2点以上を表示する。For Youでは、観点ごとの棚に点数順で最大5冊が並び、もとにした閲覧履歴が一文で示される。</p>
+          </li>
+        </ol>
+        <dl class="primitive-note">
+          <dt>判断型の見立て</dt>
+          <dd><span class="primitive-value">Score</span><span class="primitive-basis">出典に明記</span></dd>
+          <dd class="primitive-reason">記事の図が「0〜3点で評価」と返り値の「score」を示し、画面のパネルも「QUESTIONS・採点」としている。For Youは3つの問いをそれぞれ0〜3点で採点する。</dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="sec-fit">
+        <h2 id="sec-fit">Jevとの適合</h2>
+        <p>1冊ごとに同じ基準で点を付ける作業は、Scoreの型と並列の評価に合う。一方で作者は、同じ体験は一般的なLLMや既存の技術でも作れそうで、精度・速度・費用の比較はできていないと明記している。渡す情報の粒度や一度に評価する冊数が適切かも分からない、としている。Jevでなければならない理由は、この事例からは示されていない。</p>
+      </section>
+
+      <section aria-labelledby="sec-evidence">
+        <h2 id="sec-evidence">確認範囲と未確認事項</h2>
+        <p class="evidence-statement">日本語の作者（デザイナー）によるnote記事と、記事内の画面画像を確認。作者が運営する書籍紹介サイトを実験台にした、ローカル環境だけの試作で、公開されていない。作者は投稿で「このまま公開するのは難しい」と述べ、記事でも、Jevである必然性と使い方の適切さはまだ分からないと書いている。作者の投稿動画は、この作業では確認していない。</p>
+        <ul class="term-list scope-list">
+        <li><span class="term">確認済み</span><span class="desc">記事本文、記事内の画面画像2枚（意図検索の評価中の画面、For Youの画面）、仕組みを説明する図2枚（掲載はしていない）</span></li>
+        <li><span class="term">未検証</span><span class="desc">本が移動する演出の動き（作者の投稿動画は未確認）、採点の妥当性、評価にかかる時間の実測、試作のコード。公開サイトにはこの機能は入っていない</span></li>
+        <li><span class="term">推定扱い</span><span class="desc">なし（0〜3点の採点であることは記事の図と画面に明記）。1枚目の「2.9秒で到着」が何の時間を指すかは画面からは確定できない</span></li>
+        <li><span class="term">引用</span><span class="desc">記事内の画像を引用。映っているのは書籍の表紙と書誌情報で、個人の情報は含まない。権利は作者と各書籍の権利者に帰属する</span></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="case-rail">
+      <section aria-labelledby="rail-source">
+        <h2 id="rail-source">出典</h2>
+        <a class="rail-source-link" href="https://note.com/bakko_club/n/n479f8f83b89c" rel="noopener noreferrer">
+          <span class="rail-source-platform">note</span>
+          <span>記事を読む</span>
+          <svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <ul>
+<li><a class="ext" href="https://note.com/bakko_club/n/n479f8f83b89c" rel="noopener noreferrer">note：デザイナーが「Jev」で何ができるか試してみた（ばっこ）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://x.com/bakko178/status/2101603743829807489" rel="noopener noreferrer">X 公開投稿：意図による検索の試作（@bakko178・動画は未確認）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+<li><a class="ext" href="https://x.com/bakko178/status/2101634581174902849" rel="noopener noreferrer">X 公開投稿：For Youページの試作（@bakko178・動画は未確認）<svg class="ext-icon" viewBox="0 0 12 12" width="11" height="11" aria-hidden="true" focusable="false"><path d="M4.5 2H2v8h8V7.5M7 2h3v3M10 2 5.5 6.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="vh">（外部サイト）</span></a></li>
+</ul>
+        <dl class="rail-meta">
+          <div><dt>種別</dt><dd>note上の公開記事</dd></div>
+          <div><dt>取得日</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
+          <div><dt>根拠</dt><dd>公開投稿・動画のみ確認</dd></div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="rail-rights">
+        <h2 id="rail-rights">キャプチャについて</h2>
+        <p>UXリサーチのための引用。権利は出典の作者・プロジェクトに帰属する。</p>
+      </section>
+    </aside>
+  </div>
+
+  <nav class="case-pager" aria-label="前後の事例">
+    <a class="pager-prev" href="riddle-scoring-npc.html"><span class="pager-dir">前の事例</span><span class="pager-name">柄井川柳（江戸オンラインの謎かけ採点NPC）</span></a>
+    <a class="pager-index" href="../index.html#cases">事例解説へ</a>
+    <a class="pager-next" href="jev-requirements-extractor.html"><span class="pager-dir">次の事例</span><span class="pager-name">MTG文字起こし 要求・要件整理</span></a>
+  </nav>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <p class="footer-process">掲載しているキャプチャは、UXリサーチのための引用です。権利は各作者・各プロジェクトに帰属し、出典は事例ページごとに示しています。公開元で削除された場合は、こちらでも掲載を取り下げます。</p>
+    <p class="footer-credit">公開情報にもとづく暫定的な調査メモ。Obsidian Markdown を原本に、静的HTMLとして生成しています。</p>
+  </div>
+</footer>
+</body>
+</html>
